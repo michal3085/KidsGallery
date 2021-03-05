@@ -18,6 +18,9 @@ class CreatePicturesTable extends Migration
             $table->string('name');
             $table->string('user');
             $table->string('file_path');
+            $table->integer('accept');
+            $table->integer('visible');
+            $table->string('album');
             $table->timestamps();
         });
     }

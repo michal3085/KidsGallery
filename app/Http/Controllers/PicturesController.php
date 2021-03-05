@@ -57,6 +57,9 @@ class PicturesController extends Controller
             $picture->user = $request->user;
             $picture->name = $request->name;
             $picture->file_path = $path;
+            $picture->accept = 1;
+            $picture->visible = 1;
+            $picture->album = 'nowy';
 
             $picture->save();
             return redirect()->route('pictures.create')->with('message', 'Poprawnie zapisano zdjęcie');

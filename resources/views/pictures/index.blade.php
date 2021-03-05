@@ -2,15 +2,17 @@
 
 @section('content')
     @foreach($pictures as $picture)
-        <div class="container">
+        @if (  $picture->accept == 1  )
+        <div class="album py-5 bg-light">
             <div class="row section-box">
-                <div class="col-sm-4 text-center description-text">
+                <div class="col-sm-xl text-center description-text">
                     <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
                     <b>{{ $picture->user }}</b> | {{ $picture->name }}
+                    <br>
+                    Dodane: {{ $picture->created_at }}
                 </div>
             </div>
         </div>
-
-
+        @endif
     @endforeach
 @endsection
