@@ -19,5 +19,8 @@ Route::get('/', function () {
     return view('index');
 });
 
+// Routes for pictures
 Route::resource('pictures', PicturesController::class);
+
+// Routes for Users
 Route::resource('user', UsersController::class);
