@@ -15,6 +15,7 @@ class CreatePicturesTable extends Migration
     {
         Schema::create('pictures', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable(); // temporary.
             $table->string('name');
             $table->string('user');
             $table->string('file_path');
@@ -22,6 +23,7 @@ class CreatePicturesTable extends Migration
             $table->integer('visible');
             $table->string('album');
             $table->string('comment')->nullable();
+            $table->bigInteger('likes')->nullable();
             $table->timestamps();
         });
     }

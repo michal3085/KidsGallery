@@ -39,7 +39,7 @@
             <input type="file" class="form-control-file" name="file" id="file">
         </div>
         <div class="form-group">
-            <label for="exampleFormControlTextarea1">Krótki opis</label>
+            <label for="exampleFormControlTextarea1">Krótki opis:<small> (pole niewymagane)</small></label>
             <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
         </div>
         Wybierz dostępność twojej pracy dla innych:
