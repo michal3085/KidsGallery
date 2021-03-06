@@ -14,7 +14,7 @@ class PicturesController extends Controller
      */
     public function index()
     {
-        $pictures = Picture::all();
+        $pictures = Picture::all()->sortByDesc('created_at');
         //dd($pictures);
         return view('pictures.index', compact('pictures'));
     }
@@ -47,7 +47,7 @@ class PicturesController extends Controller
         if ($request->hasFile('file')) {
 
             $request->validate([
-                'image' => 'mimes:jpeg,bmp,png'
+                'file' => 'mimes:jpeg,bmp,png,jpg'
             ]);
 
             $path =  $request->file('file')->store('gallery', 'public');
@@ -63,6 +63,8 @@ class PicturesController extends Controller
 
             $picture->save();
             return redirect()->route('pictures.create')->with('message', 'Poprawnie zapisano zdjęcie');
+        } else {
+            return redirect()->route('pictures.create')->with('message2', 'Nie wybrano pliku');
         }
     }
 
