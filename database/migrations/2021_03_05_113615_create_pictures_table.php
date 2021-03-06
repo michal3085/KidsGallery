@@ -21,6 +21,7 @@ class CreatePicturesTable extends Migration
             $table->integer('accept');
             $table->integer('visible');
             $table->string('album');
+            $table->string('comment');
             $table->timestamps();
         });
     }

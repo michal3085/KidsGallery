@@ -38,6 +38,10 @@
         <div class="form-group">
             <input type="file" class="form-control-file" name="file" id="file">
         </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Krótki opis</label>
+            <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+        </div>
         Wybierz dostępność twojej pracy dla innych:
         <select name="visible" class="custom-select" id="inputGroupSelect01">
                 <option value="1">Publiczny</option>
@@ -45,7 +49,7 @@
         </select>
         <br>
         <br>
-        <button type="submit" class="btn btn-success btn-lg">Wyślij</button>
+        <button type="submit" class="btn btn-success btn-lg">Opublikuj</button>
     </form>
         </section>
     </div>

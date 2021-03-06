@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PicturesController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,4 @@ Route::get('/', function () {
 });
 
 Route::resource('pictures', PicturesController::class);
+Route::resource('user', UsersController::class);

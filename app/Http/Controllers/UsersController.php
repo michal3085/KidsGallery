@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Picture;
 use Illuminate\Http\Request;
 
-class PicturesController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +13,7 @@ class PicturesController extends Controller
      */
     public function index()
     {
-        // get data with newest date
-        $pictures = Picture::all()->sortByDesc('created_at');
-        //dd($pictures);
-        return view('pictures.index', compact('pictures'));
+        //
     }
 
     /**
@@ -27,7 +23,7 @@ class PicturesController extends Controller
      */
     public function create()
     {
-        return view('pictures.create');
+        //
     }
 
     /**
@@ -38,37 +34,7 @@ class PicturesController extends Controller
      */
     public function store(Request $request)
     {
-
-        // Validate the inputs
-        $request->validate([
-            'name' => 'required',
-            'user' => 'required'
-        ]);
-
-        // ensure the request has a file before we attempt anything else.
-        if ($request->hasFile('file')) {
-
-            $request->validate([
-                'file' => 'mimes:jpeg,bmp,png,jpg'
-            ]);
-
-            $path =  $request->file('file')->store('gallery', 'public');
-
-            $picture = new Picture();
-
-            $picture->user = $request->user;
-            $picture->name = $request->name;
-            $picture->file_path = $path;
-            $picture->accept = 1;
-            $picture->visible = $request->visible;
-            $picture->comment = $request->comment;
-            $picture->album = 'nowy';
-
-            $picture->save();
-            return redirect()->route('pictures.create')->with('message', 'Poprawnie zapisano zdjęcie');
-        } else {
-            return redirect()->route('pictures.create')->with('message2', 'Nie wybrano pliku');
-        }
+        //
     }
 
     /**
