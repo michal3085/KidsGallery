@@ -44,8 +44,8 @@
         </div>
         Wybierz dostępność twojej pracy dla innych:
         <select name="visible" class="custom-select" id="inputGroupSelect01">
-                <option value="1">Publiczny</option>
-                <option value="0">Prywatny</option>
+                <option value="1">Publiczna</option>
+                <option value="0">Prywatna</option>
         </select>
         <br>
         <br>

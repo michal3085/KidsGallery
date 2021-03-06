@@ -6,7 +6,9 @@
         <div class="album py-5 bg-light">
             <div class="row section-box">
                 <div class="col-sm-xl text-center description-text">
-                    <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
+                    <a href="{{ route('pictures.show', ['picture' => $picture->id]) }}">
+                        <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
+                    </a>
                     <br>
                     <b>{{ $picture->user }}</b> | {{ $picture->name }}
                     <br>
