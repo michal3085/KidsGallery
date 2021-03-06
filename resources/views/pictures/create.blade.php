@@ -38,10 +38,12 @@
         <div class="form-group">
             <input type="file" class="form-control-file" name="file" id="file">
         </div>
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Publiczny</label>
-        </div>
+        Wybierz dostępność twojej pracy dla innych:
+        <select name="visible" class="custom-select" id="inputGroupSelect01">
+                <option value="1">Publiczny</option>
+                <option value="0">Prywatny</option>
+        </select>
+        <br>
         <br>
         <button type="submit" class="btn btn-success btn-lg">Wyślij</button>
     </form>

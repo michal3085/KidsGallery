@@ -59,7 +59,7 @@ class PicturesController extends Controller
             $picture->name = $request->name;
             $picture->file_path = $path;
             $picture->accept = 1;
-            $picture->visible = 1;
+            $picture->visible = $request->visible;
             $picture->album = 'nowy';
 
             $picture->save();
