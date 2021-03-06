@@ -14,6 +14,7 @@ class PicturesController extends Controller
      */
     public function index()
     {
+        // get data with newest date
         $pictures = Picture::all()->sortByDesc('created_at');
         //dd($pictures);
         return view('pictures.index', compact('pictures'));
