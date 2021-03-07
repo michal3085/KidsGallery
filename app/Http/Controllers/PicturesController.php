@@ -62,6 +62,7 @@ class PicturesController extends Controller
             $picture->accept = 1;
             $picture->visible = $request->visible;
             $picture->comment = $request->comment;
+            $picture->likes = 0;
             $picture->album = 'nowy';
 
             $picture->save();
@@ -103,6 +104,18 @@ class PicturesController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function like($id)
+    {
+       // dd($id);
+        $like = Picture::find($id);
+        $pictures = Picture::all();
+
+        $like->likes = $like->likes + 1;
+        $like->save();
+
+        return redirect()->route('pictures.index', compact('pictures'));
     }
 
     /**

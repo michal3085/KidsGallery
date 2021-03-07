@@ -21,6 +21,9 @@ Route::get('/', function () {
 
 // Routes for pictures
 Route::resource('pictures', PicturesController::class);
+Route::post('/pictures/newlike/{id?}', [PicturesController::class, 'like'])->name('pictures.newlike');
 
 // Routes for Users
 Route::resource('user', UsersController::class);
+
+
