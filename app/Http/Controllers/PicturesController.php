@@ -110,12 +110,11 @@ class PicturesController extends Controller
     {
        // dd($id);
         $like = Picture::find($id);
-        $pictures = Picture::all();
 
         $like->likes = $like->likes + 1;
         $like->save();
 
-        return redirect()->route('pictures.index', compact('pictures'));
+        return redirect()->route('pictures.index');
     }
 
     /**
