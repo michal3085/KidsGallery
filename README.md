@@ -1,7 +1,7 @@
 
 ## About Kid's Gallery
 
-Kid's Gallery is a web application where your kid can share a their hand made pictures with other kid arround the world!
+Kid's Gallery is a web application where young artists can share they pictures, graphics or photos and share with other kid arround the world!
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
 - [Powerful dependency injection container](https://laravel.com/docs/container).
 - Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
