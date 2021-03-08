@@ -9,7 +9,6 @@
             @foreach($pictures as $picture)
                 @if (  $picture->visible == 1  )
                     <p class="lead mb-5">
-{{--                    <div class="album py-5 bg-light">--}}
                         <div class="row section-box">
                             <div class="col-sm-xl text-center description-text">
                                 <a href="{{ route('pictures.show', ['picture' => $picture->id]) }}">
@@ -20,12 +19,12 @@
                                     <br>
                                 Dodane: {{ $picture->created_at }}
                             </div>
-                            <form action="{{ route('pictures.newlike', ['id' => $picture->id]) }}" method="post">
-                                @csrf
-                            <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes }}</button>
-                            </form>
+
                         </div>
-{{--                    </div>--}}
+                    <form action="{{ route('pictures.newlike', ['id' => $picture->id]) }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes }}</button>
+                    </form>
                     </p>
                     @endif
                     @endforeach
