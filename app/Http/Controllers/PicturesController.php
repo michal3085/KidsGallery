@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Picture;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PicturesController extends Controller
 {
@@ -27,7 +28,11 @@ class PicturesController extends Controller
      */
     public function create()
     {
-        return view('pictures.create');
+        if (Auth::check()) {
+            return view('pictures.create');
+        } else {
+            return redirect()->route('pictures.index');
+        }
     }
 
     /**

@@ -31,7 +31,7 @@
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{route('pictures.index')}}">Główna Galeria</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Twoja Galeria</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">Ustawienia</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">Wyloguj</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('logout') }}">Wyloguj</a></li>
         </ul>
     </div>
 </nav>
