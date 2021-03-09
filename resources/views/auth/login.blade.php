@@ -1,6 +1,8 @@
 @extends('layout.index')
 
 @section('content')
+<div class="container-fluid p-0">
+<section class="resume-section" id="about">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -69,5 +71,7 @@
             </div>
         </div>
     </div>
+</div>
+</section>
 </div>
 @endsection
