@@ -27,3 +27,7 @@ Route::post('/pictures/newlike/{id?}', [PicturesController::class, 'like'])->nam
 Route::resource('user', UsersController::class);
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

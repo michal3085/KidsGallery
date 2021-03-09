@@ -18,16 +18,15 @@
                                     <b>{{ $picture->user }}</b> | {{ $picture->name }}
                                     <br>
                                 Dodane: {{ $picture->created_at }}
-                            </div>
-
-                        </div>
-                    <form action="{{ route('pictures.newlike', ['id' => $picture->id]) }}" method="post">
+                                </div>
+                             </div>
+                        <form action="{{ route('pictures.newlike', ['id' => $picture->id]) }}" method="post">
                         @csrf
                         <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes }}</button>
                     </form>
                     </p>
-                    @endif
-                    @endforeach
+                @endif
+            @endforeach
         </div>
     </section>
 

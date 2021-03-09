@@ -28,29 +28,35 @@
         {{ csrf_field() }}
         <h2>WSTAW NOWE DZIEŁO:</h2>
         <br><br>
-        <div class="form-group">
+            <div class="form-group">
+                <br>
+                <input type="text" class="form-control" name="user" id="user" placeholder="Nazwa użykownika">
+            </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Nazwa obrazu">
+                </div>
+                    <div class="form-group">
+                        <input type="file" class="form-control-file" name="file" id="file">
+                    </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Krótki opis:<small> (pole niewymagane)</small></label>
+                            <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                        </div>
+                            Wybierz dostępność twojej pracy dla innych:
+                            <select name="visible" class="custom-select" id="inputGroupSelect01">
+                                    <option value="1">Publiczna</option>
+                                    <option value="0">Prywatna</option>
+                            </select>
+                            <br>
+                        Wybierz album do którego chcesz dodać obraz:
+                        <select name="album" class="custom-select" id="inputGroupSelect01">
+                            <option value="1">Główny</option>
+                            <option value="0">...</option>
+                        </select>
+                        <br>
             <br>
-            <input type="text" class="form-control" name="user" id="user" placeholder="Nazwa użykownika">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" name="name" id="name" placeholder="Nazwa obrazu">
-        </div>
-        <div class="form-group">
-            <input type="file" class="form-control-file" name="file" id="file">
-        </div>
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Krótki opis:<small> (pole niewymagane)</small></label>
-            <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
-        </div>
-        Wybierz dostępność twojej pracy dla innych:
-        <select name="visible" class="custom-select" id="inputGroupSelect01">
-                <option value="1">Publiczna</option>
-                <option value="0">Prywatna</option>
-        </select>
-        <br>
-        <br>
-        <button type="submit" class="btn btn-success btn-lg">Opublikuj</button>
-    </form>
+            <button type="submit" class="btn btn-success btn-lg">Opublikuj</button>
+        </form>
         </section>
     </div>
 @endsection
