@@ -28,10 +28,6 @@
         {{ csrf_field() }}
         <h2>WSTAW NOWE DZIEŁO:</h2>
         <br><br>
-            <div class="form-group">
-                <br>
-                <input type="text" class="form-control" name="user" id="user" placeholder="Nazwa użykownika">
-            </div>
                 <div class="form-group">
                     <input type="text" class="form-control" name="name" id="name" placeholder="Nazwa obrazu">
                 </div>

@@ -18,6 +18,11 @@ class PicturesController extends Controller
         // get data with newest date
         $pictures = Picture::all()->sortByDesc('created_at');
         //dd($pictures);
+
+        if (!Auth::check()) {
+            return view('unloged.gallery', compact('pictures'));
+        }
+
         return view('pictures.index', compact('pictures'));
     }
 
@@ -31,7 +36,7 @@ class PicturesController extends Controller
         if (Auth::check()) {
             return view('pictures.create');
         } else {
-            return redirect()->route('pictures.index');
+            return redirect()->route('login');
         }
     }
 
@@ -46,8 +51,7 @@ class PicturesController extends Controller
 
         // Validate the inputs
         $request->validate([
-            'name' => 'required',
-            'user' => 'required'
+            'name' => 'required'
         ]);
 
         // ensure the request has a file before we attempt anything else.
@@ -61,7 +65,7 @@ class PicturesController extends Controller
 
             $picture = new Picture();
 
-            $picture->user = $request->user;
+            $picture->user = Auth::user()->name;
             $picture->name = $request->name;
             $picture->file_path = $path;
             $picture->accept = 1;

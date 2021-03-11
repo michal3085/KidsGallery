@@ -1,4 +1,4 @@
-@extends('layout.index')
+@extends('unloged.index')
 
 @section('content')
 <div class="container-fluid p-0">

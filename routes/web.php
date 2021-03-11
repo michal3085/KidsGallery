@@ -15,18 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [PicturesController::class, 'index']);
 
 // Routes for pictures
 Route::resource('pictures', PicturesController::class);
-Route::post('/pictures/newlike/{id?}', [PicturesController::class, 'like'])->name('pictures.newlike');
+Route::post('/pictures/newlike/{id?}', [PicturesController::class, 'like'])->name('pictures.newlike')->middleware('auth');
 
 // Routes for Users
 Route::resource('user', UsersController::class);
-
-
 
 Auth::routes();
 
