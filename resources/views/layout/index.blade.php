@@ -30,8 +30,8 @@
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('pictures.create') }}">Wstaw obraz</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{route('pictures.index')}}">Główna Galeria</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Twoja Galeria</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">Ustawienia</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ url('/login') }}" >Zaloguj się</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Top 100</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">Ustawienia</a></li>            
         </ul>
     </div>
     <form method="post" action="{{ route('logout') }}">
