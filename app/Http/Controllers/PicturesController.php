@@ -89,7 +89,9 @@ class PicturesController extends Controller
      */
     public function show($id)
     {
-        dd($id);
+        $pictures = Picture::find($id);
+
+        return view('pictures.show', compact('pictures'));
     }
 
     /**
