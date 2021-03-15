@@ -22,7 +22,7 @@ class CreatePicturesTable extends Migration
             $table->integer('accept');
             $table->integer('visible');
             $table->string('album');
-            $table->string('comment')->nullable();
+            $table->longText('comment')->nullable();
             $table->bigInteger('likes')->nullable();
             $table->timestamps();
         });

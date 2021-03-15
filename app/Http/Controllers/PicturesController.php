@@ -22,7 +22,6 @@ class PicturesController extends Controller
         if (!Auth::check()) {
             return view('unloged.gallery', compact('pictures'));
         }
-
         return view('pictures.index', compact('pictures'));
     }
 
