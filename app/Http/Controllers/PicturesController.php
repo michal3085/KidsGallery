@@ -127,6 +127,11 @@ class PicturesController extends Controller
         return redirect()->back();
     }
 
+    public function report($id)
+    {
+        //...
+    }
+
     /**
      * Remove the specified resource from storage.
      *

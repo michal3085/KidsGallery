@@ -22,7 +22,7 @@
                     </form>
                     <br>
 
-
+                    @if (Auth::check())
                     @if (Auth::user()->name == $pictures->user)
                         <form method="POST" action="{{ route('pictures.destroy', ['picture' => $pictures->id]) }}">
                             @csrf
@@ -33,8 +33,18 @@
                         <a href="{{ route('pictures.edit', ['picture' => $pictures->id]) }}">
                             <button type="submit" class="btn btn-outline-warning float-left">Edytuj</button>
                         </a>
+                    @else
+
+                    <a href="{{ route('pictures.report', ['id' => $pictures->id]) }}">
+                        <button type="submit" class="btn btn-outline-danger float-right">Zgłoś</button>
+                    </a>
 
                     @endif
+
+                    @else
+
+                    @endif
+
 
                     </p>
                     <br>

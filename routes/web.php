@@ -19,7 +19,8 @@ Route::get('/', [PicturesController::class, 'index']);
 
 // Routes for pictures
 Route::resource('pictures', PicturesController::class);
-Route::post('/pictures/newlike/{id?}', [PicturesController::class, 'like'])->name('pictures.newlike')->middleware('auth');
+Route::post('/pictures/newlike/{id}', [PicturesController::class, 'like'])->name('pictures.newlike')->middleware('auth');
+Route::get('/pictures/{id}/report', [PicturesController::class, 'report'])->name('pictures.report');
 
 // Routes for Users
 Route::resource('user', UsersController::class);
