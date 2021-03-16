@@ -20,6 +20,7 @@
                         @csrf
                         <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes }}</button>
                     </form>
+                    <br>
 
 
                     @if (Auth::user()->name == $pictures->user)
@@ -30,7 +31,7 @@
                         </form>
 
                         <a href="{{ route('pictures.edit', ['picture' => $pictures->id]) }}">
-                            <button type="submit" class="btn btn-outline-warning float-right">Edytuj</button>
+                            <button type="submit" class="btn btn-outline-warning float-left">Edytuj</button>
                         </a>
 
                     @endif
