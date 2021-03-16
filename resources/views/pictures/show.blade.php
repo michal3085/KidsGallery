@@ -9,20 +9,35 @@
             </h1>
                     <p class="lead mb-5">
                     <div class="row section-box">
-                        <div class="col-sm-xl text-center description-text">
-                            <a href="{{ route('pictures.show', ['picture' => $pictures->id]) }}">
-                                <img src="{{ asset('/storage') . '/' . $pictures->file_path }}" class="img-thumbnail">
-                            </a>
-                            <br>
-                            Dodane: {{ $pictures->created_at }}
-                            | Edytowane : {{ $pictures->updated_at }}
-                        </div>
+                            <div class="col-sm-xl text-center description-text">
+                                    <img src="{{ asset('/storage') . '/' . $pictures->file_path }}" class="img-thumbnail">
+                                <br>
+                                Dodane: {{ $pictures->created_at }}
+                                | Edytowane : {{ $pictures->updated_at }}
+                            </div>
                     </div>
                     <form action="{{ route('pictures.newlike', ['id' => $pictures->id]) }}" method="post">
                         @csrf
                         <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes }}</button>
                     </form>
+
+
+                    @if (Auth::user()->name == $pictures->user)
+                        <form method="POST" action="{{ route('pictures.destroy', ['picture' => $pictures->id]) }}">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-outline-danger float-right">Usuń</button>
+                        </form>
+
+                        <a href="{{ route('pictures.edit', ['picture' => $pictures->id]) }}">
+                            <button type="submit" class="btn btn-outline-warning float-right">Edytuj</button>
+                        </a>
+
+                    @endif
+
                     </p>
+                    <br>
+                    <hr>
             {{ $pictures->comment }}
         </div>
     </section>

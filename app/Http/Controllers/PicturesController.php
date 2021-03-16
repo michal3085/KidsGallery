@@ -124,7 +124,7 @@ class PicturesController extends Controller
         $like->likes = $like->likes + 1;
         $like->save();
 
-        return redirect()->route('pictures.index');
+        return redirect()->back();
     }
 
     /**
@@ -135,6 +135,8 @@ class PicturesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Picture::destroy($id);
+
+        return redirect()->route('pictures.index')->with('message', 'Praca została usunięta.');
     }
 }
