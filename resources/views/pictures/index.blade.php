@@ -8,6 +8,12 @@
 </div>
 @endif
 
+@if (session()->has('message2'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{ session()->get('message2') }}</strong>
+</div>
+@endif
+
     <section class="resume-section" id="about">
         <div class="resume-section-content">
             <h1 class="mb-0">

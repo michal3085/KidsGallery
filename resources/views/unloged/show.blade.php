@@ -1,4 +1,4 @@
-@extends('layout.index')
+@extends('unloged.index')
 
 @section('content')
     <section class="resume-section" id="about">
@@ -21,25 +21,10 @@
                         <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes }}</button>
                     </form>
                     <br>
-
-                    @if (Auth::check())
-                        @if (Auth::user()->name == $pictures->user)
-                            <form method="POST" action="{{ route('pictures.destroy', ['picture' => $pictures->id]) }}">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="btn btn-outline-danger float-right" onclick="return confirm('Na pewno chcesz usunąć swoja prace?')">Usuń</button>
-                            </form>
-
-                            <a href="{{ route('pictures.edit', ['picture' => $pictures->id]) }}">
-                                <button type="submit" class="btn btn-outline-success float-left">Edytuj</button>
-                            </a>
-                        @else
-
                         <a href="{{ route('pictures.report', ['id' => $pictures->id]) }}">
                             <button type="submit" class="btn btn-outline-danger float-right">Zgłoś</button>
                         </a>
-                        @endif
-                    @endif
+
                     </p>
                 <br>
             <hr>

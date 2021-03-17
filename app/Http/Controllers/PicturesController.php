@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Picture;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PicturesController extends Controller
 {
@@ -90,7 +91,11 @@ class PicturesController extends Controller
     {
         $pictures = Picture::find($id);
 
-        return view('pictures.show', compact('pictures'));
+        if (Auth::check()){
+            return view('pictures.show', compact('pictures'));
+        } else {
+            return view('unloged.show', compact('pictures'));
+        }
     }
 
     /**
@@ -140,8 +145,14 @@ class PicturesController extends Controller
      */
     public function destroy($id)
     {
-        Picture::destroy($id);
+        $picture = Picture::find($id);
 
-        return redirect()->route('pictures.index')->with('message', 'Praca została usunięta.');
+        if (Storage::disk('public')->delete($picture->file_path))
+        {
+            Picture::destroy($id);
+            return redirect()->route('pictures.index')->with('message', 'Praca ' . $picture->name . ' została usunięta.');
+        } else {
+            return redirect()->route('pictures.index')->with('message2', 'Praca nie została usunięta.');
+        }
     }
 }
