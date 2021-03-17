@@ -106,7 +106,17 @@ class PicturesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pictures = Picture::find($id);
+
+        if (Auth::user()->name == $pictures->user){
+            if (Auth::check()){
+                return view('pictures.edit', compact('pictures'));
+            } else {
+                return view('pictures.index');
+            }
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
