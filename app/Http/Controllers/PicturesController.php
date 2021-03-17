@@ -147,8 +147,7 @@ class PicturesController extends Controller
     {
         $picture = Picture::find($id);
 
-        if (Storage::disk('public')->delete($picture->file_path))
-        {
+        if ( Storage::disk('public')->delete($picture->file_path) ){
             Picture::destroy($id);
             return redirect()->route('pictures.index')->with('message', 'Praca ' . $picture->name . ' została usunięta.');
         } else {

@@ -9,7 +9,7 @@
             </h1>
                     <p class="lead mb-5">
                     <div class="row section-box">
-                            <div class="col-sm-xl text-center description-text">
+                            <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
                                     <img src="{{ asset('/storage') . '/' . $pictures->file_path }}" class="img-thumbnail">
                                 <br>
                                 Dodane: {{ $pictures->created_at }}
