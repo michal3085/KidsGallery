@@ -1,6 +1,13 @@
 @extends('layout.index')
 
 @section('content')
+
+    @if (session()->has('message'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('message') }}</strong>
+        </div>
+    @endif
+
     <section class="resume-section" id="about">
         <div class="resume-section-content">
           <h2>{{ $pictures->user }}: </h2>

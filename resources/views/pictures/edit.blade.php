@@ -24,8 +24,9 @@
 
     <div class="container-fluid p-0">
         <section class="resume-section" id="about">
-    <form action="{{ route('pictures.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('pictures.update', ['picture' => $pictures->id]) }}" method="POST">
         {{ csrf_field() }}
+        @method('PUT')
         <h2>Edycja pracy {{ $pictures->name }}:</h2>
         <br><br>
                 <div class="form-group">
@@ -33,7 +34,7 @@
                 </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Krótki opis:<small> (pole niewymagane)</small></label>
-                            <textarea class="form-control" id="comment" name="comment" rows="3" value="{{ $pictures->comment }}">{{ $pictures->comment }}</textarea>
+                            <textarea class="form-control" id="comment" name="comment" rows="3">{{ $pictures->comment }}</textarea>
                         </div>
                             Wybierz dostępność twojej pracy dla innych:
                             <select name="visible" class="custom-select" id="inputGroupSelect01">
@@ -53,7 +54,7 @@
                         </select>
                         <br>
             <br>
-            <button type="submit" class="btn btn-success btn-lg">Opublikuj</button>
+            <button type="submit" class="btn btn-success btn-lg">Zapisz zmiany</button>
         </form>
         </section>
     </div>

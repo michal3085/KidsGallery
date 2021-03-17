@@ -128,7 +128,16 @@ class PicturesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $pictures = Picture::find($id);
+
+        $pictures->name = $request->name;
+        $pictures->comment = $request->comment;
+        $pictures->visible = $request->visible;
+
+        $pictures->save();
+
+        return view('pictures.show', compact('pictures'))->with('message', 'Poprawnie zapisano zmiany');
+
     }
 
     public function like($id)
