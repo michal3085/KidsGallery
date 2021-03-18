@@ -50,7 +50,7 @@
                     </p>
                 <br>
             <hr>
-            {{ $pictures->comment }}
+                {{ $pictures->comment }}
         </div>
     </section>
 @endsection

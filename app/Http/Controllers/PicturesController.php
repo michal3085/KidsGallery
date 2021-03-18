@@ -136,13 +136,11 @@ class PicturesController extends Controller
 
         $pictures->save();
 
-        return view('pictures.show', compact('pictures'))->with('message', 'Poprawnie zapisano zmiany');
-
+        return redirect()->route('pictures.show', ['picture' => $pictures->id])->with('message', 'Poprawnie zapisano zmiany');
     }
 
     public function like($id)
     {
-       // dd($id);
         $like = Picture::find($id);
 
         $like->likes = $like->likes + 1;
@@ -152,6 +150,16 @@ class PicturesController extends Controller
     }
 
     public function report($id)
+    {
+        $pictures = Picture::find($id);
+        if (Auth::check()){
+            return view('pictures.report', compact('pictures'));
+        } else {
+            return view('unloged.report', compact('pictures'));
+        }
+    }
+
+    public function SendRaport($id)
     {
         //...
     }
