@@ -91,10 +91,14 @@ class PicturesController extends Controller
     {
         $pictures = Picture::find($id);
 
-        if (Auth::check()){
-            return view('pictures.show', compact('pictures'));
+        if ($pictures->visible == 1) {
+            if (Auth::check()) {
+                return view('pictures.show', compact('pictures'));
+            } else {
+                return view('unloged.show', compact('pictures'));
+            }
         } else {
-            return view('unloged.show', compact('pictures'));
+            return redirect()->back();
         }
     }
 
@@ -142,7 +146,6 @@ class PicturesController extends Controller
     public function like($id)
     {
         $like = Picture::find($id);
-
         $like->likes = $like->likes + 1;
         $like->save();
 

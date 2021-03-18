@@ -27,7 +27,7 @@
     <form action="{{ route('pictures.update', ['picture' => $pictures->id]) }}" method="POST">
         {{ csrf_field() }}
         @method('PUT')
-        <h2>Edycja pracy {{ $pictures->name }}:</h2>
+        <h2>Edycja pracy "{{ $pictures->name }}":</h2>
         <br><br>
                 <div class="form-group">
                     <input type="text" class="form-control" name="name" id="name" value="{{ $pictures->name }}">
