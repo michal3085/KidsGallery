@@ -91,14 +91,20 @@ class PicturesController extends Controller
     {
         $pictures = Picture::find($id);
 
-        if ($pictures->visible == 1) {
-            if (Auth::check()) {
+        if (Auth::check()){
+            if ($pictures->visible == 1){
+                return view('pictures.show', compact('pictures'));
+            } elseif ($pictures->visible == 0 && $pictures->user == Auth::user()->name){
                 return view('pictures.show', compact('pictures'));
             } else {
-                return view('unloged.show', compact('pictures'));
+                return redirect()->back();
             }
         } else {
-            return redirect()->back();
+            if ($pictures->visible == 1){
+                return view('unloged.show', compact('pictures'));
+            } else {
+                return redirect()->back();
+            }
         }
     }
 
