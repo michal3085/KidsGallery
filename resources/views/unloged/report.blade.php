@@ -24,7 +24,7 @@
 
     <div class="container-fluid p-0">
         <section class="resume-section" id="about">
-    <form action="{{ route('pictures.report', ['picture' => $pictures->id]) }}" method="POST">
+    <form action="{{ route('pictures.report', ['id' => $pictures->id]) }}" method="POST">
         {{ csrf_field() }}
         @method('PUT')
         <h2>Zgłoszenie pracy {{ $pictures->name }}:</h2>

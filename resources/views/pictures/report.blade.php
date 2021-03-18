@@ -1,7 +1,6 @@
 @extends('layout.index')
 
 @section('content')
-
     @if (session()->has('message'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>{{ session()->get('message') }}</strong>
@@ -24,7 +23,7 @@
 
     <div class="container-fluid p-0">
         <section class="resume-section" id="about">
-    <form action="{{ route('pictures.update', ['picture' => $pictures->id]) }}" method="POST">
+    <form action="{{ route('pictures.report', ['id' => $pictures->id]) }}" method="POST">
         {{ csrf_field() }}
         @method('PUT')
         <h2>Zgłoszenie pracy {{ $pictures->name }}:</h2>
