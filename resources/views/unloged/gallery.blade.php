@@ -7,7 +7,7 @@
                 Galeria Główna
             </h1>
             @foreach($pictures as $picture)
-                @if (  $picture->visible == 1  )
+                @if (  $picture->visible == 1 && $picture->accept == 1  )
                     <p class="lead mb-5">
                     <div class="row section-box">
                         <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
