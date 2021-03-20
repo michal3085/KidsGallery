@@ -168,6 +168,13 @@ class PicturesController extends Controller
         }
     }
 
+    public function top()
+    {
+        $pictures = Picture::where('accept', 1)->orderByDesc('likes')->take(10)->get();
+
+        return view('pictures.top10', compact('pictures'));
+    }
+
     public function SendRaport($id)
     {
         //...

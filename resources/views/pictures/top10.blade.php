@@ -1,0 +1,28 @@
+@extends('layout.index')
+
+@section('content')
+
+
+    @foreach($pictures as $picture)
+
+        <p class="lead mb-5">
+        <div class="row section-box">
+            <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
+                <a href="{{ route('pictures.show', ['picture' => $picture->id]) }}">
+                    <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
+                </a>
+                <br>
+                <b>{{ $picture->user }}</b> | {{ $picture->name }}
+                <br>
+                Dodane: {{ $picture->created_at }}
+            </div>
+        </div>
+        <form action="{{ route('pictures.newlike', ['id' => $picture->id]) }}" method="post">
+            @csrf
+            <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes }}</button>
+        </form>
+        </p>
+
+@endforeach
+
+@endsection

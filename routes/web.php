@@ -18,9 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PicturesController::class, 'index']);
 
 // Routes for pictures
-Route::resource('pictures', PicturesController::class);
+Route::get('/pictures/top10', [PicturesController::class, 'top'])->name('top10');
 Route::post('/pictures/newlike/{id}', [PicturesController::class, 'like'])->name('pictures.newlike')->middleware('auth');
 Route::get('/pictures/{id}/report', [PicturesController::class, 'report'])->name('pictures.report');
+Route::resource('pictures', PicturesController::class);
 
 // Routes for Users
 Route::resource('user', UsersController::class);
