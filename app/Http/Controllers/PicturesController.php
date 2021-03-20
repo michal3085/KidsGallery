@@ -172,7 +172,11 @@ class PicturesController extends Controller
     {
         $pictures = Picture::where('accept', 1)->orderByDesc('likes')->take(10)->get();
 
-        return view('pictures.top10', compact('pictures'));
+        if (Auth::check()) {
+            return view('pictures.top10', compact('pictures'));
+        } else {
+            return view('unloged.top10', compact('pictures'));
+        }
     }
 
     public function SendRaport($id)

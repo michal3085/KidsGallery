@@ -1,4 +1,4 @@
-@extends('layout.index')
+@extends('unloged.index')
 
 @section('content')
 
