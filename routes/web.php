@@ -21,7 +21,7 @@ Route::get('/', [PicturesController::class, 'index']);
 Route::get('/pictures/top10', [PicturesController::class, 'top'])->name('top10');
 Route::post('/pictures/newlike/{id}', [PicturesController::class, 'like'])->name('pictures.newlike')->middleware('auth');
 Route::get('/pictures/{id}/report', [PicturesController::class, 'report'])->name('pictures.report');
-Route::put('/pictures/{id}/send/report', [PicturesController::class, 'SendRaport'])->name('pictures.sendreport');
+Route::put('/pictures/{id}/send/report', [PicturesController::class, 'SendReport'])->name('pictures.sendreport');
 Route::resource('pictures', PicturesController::class);
 
 // Routes for Users

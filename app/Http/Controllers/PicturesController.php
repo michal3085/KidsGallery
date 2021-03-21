@@ -188,7 +188,7 @@ class PicturesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function SendRaport(Request $request, $id)
+    public function SendReport(Request $request, $id)
     {
         $report = new PicturesReport();
         $pictures = Picture::find($id);
