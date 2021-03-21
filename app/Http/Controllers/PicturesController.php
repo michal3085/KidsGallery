@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Picture;
+use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -73,6 +74,7 @@ class PicturesController extends Controller
             $picture->comment = $request->comment;
             $picture->likes = 0;
             $picture->album = 'nowy';
+            $picture->ip = $request->ip();
 
             $picture->save();
             return redirect()->route('pictures.create')->with('message', 'Poprawnie zapisano zdjęcie');
@@ -179,9 +181,35 @@ class PicturesController extends Controller
         }
     }
 
-    public function SendRaport($id)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function SendRaport(Request $request, $id)
     {
-        //...
+        $report = new Report();
+        $pictures = Picture::find($id);
+
+        if (Auth::check()){
+            $report->user_id = Auth::id();
+            $report->ip_address = $request->ip();
+            $report->picture_id = $id;
+            $report->reason = $request->reason;
+
+            $report->save();
+            return redirect()->route('pictures.show', ['picture' => $pictures->id])->with('message', 'Praca został zgłoszona do moderatorów.');
+
+        } else {
+            $report->ip_address = $request->ip();
+            $report->picture_id = $id;
+            $report->reason = $request->reason;
+
+            $report->save();
+            return view('unloged.show', compact('pictures'));
+        }
     }
 
     /**

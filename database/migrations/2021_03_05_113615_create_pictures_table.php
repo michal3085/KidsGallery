@@ -24,6 +24,7 @@ class CreatePicturesTable extends Migration
             $table->string('album');
             $table->longText('comment')->nullable();
             $table->bigInteger('likes')->nullable();
+            $table->string('ip');
             $table->timestamps();
         });
     }

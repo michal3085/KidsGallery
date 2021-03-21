@@ -1,7 +1,6 @@
 @extends('unloged.index')
 
 @section('content')
-
     @if (session()->has('message'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>{{ session()->get('message') }}</strong>
@@ -24,19 +23,20 @@
 
     <div class="container-fluid p-0">
         <section class="resume-section" id="about">
-    <form action="{{ route('pictures.report', ['id' => $pictures->id]) }}" method="POST">
-        {{ csrf_field() }}
-        @method('PUT')
-        <h2>Zgłoszenie pracy "{{ $pictures->name }}":</h2>
-        <br><br>
-             <div class="form-group">
-                 <label for="exampleFormControlTextarea1">Powód zgłoszenia:<small> (pole niewymagane)</small></label>
-                <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
-             </div>
+            <form action="{{ route('pictures.sendreport', ['id' => $pictures->id]) }}" method="POST">
+                {{ csrf_field() }}
+                @method('PUT')
+                <h2>Zgłoszenie pracy "{{ $pictures->name }}":</h2>
+                <br><br>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Powód zgłoszenia:<small> (pole niewymagane)</small></label>
+                    <textarea class="form-control" id="reason" name="reason" rows="3"></textarea>
+                </div>
 
-            <br>
-            <button type="submit" class="btn btn-success btn-lg">Zgłoś</button>
-        </form>
+                <br>
+                <button type="submit" class="btn btn-success btn-lg">Zgłoś</button>
+            </form>
         </section>
     </div>
 @endsection
+
