@@ -2,9 +2,9 @@
 
 @section('content')
 
-    @if (!empty('success'))
+    @if ($pictures->error == 1)
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{ $success }}</strong>
+            <strong>Przekazano do moderacji</strong>
         </div>
     @endif
 

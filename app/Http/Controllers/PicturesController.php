@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Picture;
-use App\Models\Report;
+use App\Models\PicturesReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -190,7 +190,7 @@ class PicturesController extends Controller
      */
     public function SendRaport(Request $request, $id)
     {
-        $report = new Report();
+        $report = new PicturesReport();
         $pictures = Picture::find($id);
 
         if (Auth::check()){
@@ -200,15 +200,16 @@ class PicturesController extends Controller
             $report->reason = $request->reason;
 
             $report->save();
-            return redirect()->route('pictures.show', ['picture' => $pictures->id])->with('message', 'Praca został zgłoszona do moderatorów.');
+            return redirect()->route('pictures.show', ['picture' => $pictures->id])->with('message', 'Praca została zgłoszona do moderatorów.');
 
         } else {
             $report->ip_address = $request->ip();
             $report->picture_id = $id;
             $report->reason = $request->reason;
+            $pictures->error = 1;
 
             $report->save();
-            return view('unloged.show', compact('pictures'))->withSuccess('Praca został zgłoszona do moderatorów.');
+            return view('unloged.show', compact('pictures'));
         }
     }
 
