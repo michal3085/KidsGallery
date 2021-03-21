@@ -1,6 +1,13 @@
 @extends('unloged.index')
 
 @section('content')
+
+    @if (!empty('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ $success }}</strong>
+        </div>
+    @endif
+
     <section class="resume-section" id="about">
         <div class="resume-section-content">
           <h2>{{ $pictures->user }}: </h2>

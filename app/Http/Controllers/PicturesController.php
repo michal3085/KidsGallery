@@ -208,7 +208,7 @@ class PicturesController extends Controller
             $report->reason = $request->reason;
 
             $report->save();
-            return view('unloged.show', compact('pictures'));
+            return view('unloged.show', compact('pictures'))->withSuccess('Praca został zgłoszona do moderatorów.');
         }
     }
 
