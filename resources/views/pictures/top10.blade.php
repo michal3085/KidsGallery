@@ -33,14 +33,29 @@
                             Dodane: {{ $picture->created_at }}
                         </div>
                     </div>
-                    <form action="{{ route('pictures.newlike', ['id' => $picture->id]) }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes }}</button>
-                    </form>
+                        <button type="submit" class="btn btn-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes }}</button>
                     </p>
                 @endif
             @endforeach
         </div>
     </section>
+
+@endsection
+@section('javascript')
+    $(function() {
+        $('.like').click( function () {
+                $.ajax({
+                    method: "POST",
+                    url: "/pictures/newlike/" + $(this).data("id")
+                    // data: { name: "John", location: "Boston" }
+                })
+            .done(function( response ) {
+                window.location.reload();
+            })
+            .fail(function( response ) {
+                alert( "Juz polubione" );
+            });
+        });
+    });
 
 @endsection

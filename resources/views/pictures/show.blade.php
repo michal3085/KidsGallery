@@ -23,11 +23,9 @@
                                 | Edytowane : {{ $pictures->updated_at }}
                             </div>
                     </div>
-                    <form action="{{ route('pictures.newlike', ['id' => $pictures->id]) }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes }}</button>
-                    </form>
+                        <button type="submit" class="btn btn-success px-3 like" data-id="{{ $pictures->id }}><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes }}</button>
                     <br>
+                <br>
 
                     @if (Auth::check())
                         @if (Auth::user()->name == $pictures->user)
@@ -53,4 +51,22 @@
                 {{ $pictures->comment }}
         </div>
     </section>
+@endsection
+@section('javascript')
+    $(function() {
+            $('.like').click( function () {
+                $.ajax({
+                method: "POST",
+                url: "/pictures/newlike/" + $(this).data("id")
+                // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+                window.location.reload();
+            })
+            .fail(function( response ) {
+                alert( "Juz polubione" );
+            });
+        });
+    });
+
 @endsection

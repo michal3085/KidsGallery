@@ -156,7 +156,8 @@ class PicturesController extends Controller
         $like->likes = $like->likes + 1;
         $like->save();
 
-        return redirect()->back();
+        return response('OK');
+        // return redirect()->back();
     }
 
     public function report($id)
