@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @if ($pictures->error == 1)
+    @if ($pictures->message == 1)
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>Przekazano do moderacji</strong>
         </div>

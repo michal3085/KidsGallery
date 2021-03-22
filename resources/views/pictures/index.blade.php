@@ -40,6 +40,9 @@
                     </p>
                 @endif
             @endforeach
+            <div class="pagination justify-content-center">
+                {{ $pictures->links() }}
+            </div>
         </div>
     </section>
 

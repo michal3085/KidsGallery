@@ -18,8 +18,7 @@ class PicturesController extends Controller
     public function index()
     {
         // get data with newest date
-        $pictures = Picture::all()->sortByDesc('created_at');
-        //dd($pictures);
+        $pictures = Picture::where('accept', 1)->latest()->paginate(3);
 
         if (!Auth::check()) {
             return view('unloged.gallery', compact('pictures'));
@@ -206,7 +205,7 @@ class PicturesController extends Controller
             $report->ip_address = $request->ip();
             $report->picture_id = $id;
             $report->reason = $request->reason;
-            $pictures->error = 1;
+            $pictures->message = 1;
 
             $report->save();
             return view('unloged.show', compact('pictures'));
