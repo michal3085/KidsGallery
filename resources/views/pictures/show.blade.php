@@ -23,7 +23,7 @@
                                 | Edytowane : {{ $pictures->updated_at }}
                             </div>
                     </div>
-                        <button type="submit" class="btn btn-success px-3 like" data-id="{{ $pictures->id }}><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes }}</button>
+                          <button type="submit" class="btn btn-success px-3 like" data-id="{{ $pictures->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes }}</button>
                     <br>
                 <br>
 
