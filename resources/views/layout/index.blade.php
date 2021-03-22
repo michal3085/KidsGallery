@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Kid's Gallery</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
     <!-- Font Awesome icons (free version)-->
@@ -49,5 +50,14 @@
 <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js') }}"></script>
 <!-- Core theme JS-->
 <script src="{{ asset('js/scripts.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        @yield('javascript')
+    </script>
 </body>
 </html>
