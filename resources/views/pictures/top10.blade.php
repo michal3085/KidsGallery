@@ -46,7 +46,7 @@
         $('.like').click( function () {
                 $.ajax({
                     method: "POST",
-                    url: "/pictures/newlike/" + $(this).data("id")
+                    url: "/newlike/" + $(this).data("id")
                     // data: { name: "John", location: "Boston" }
                 })
             .done(function( response ) {

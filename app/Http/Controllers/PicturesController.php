@@ -152,33 +152,6 @@ class PicturesController extends Controller
         return redirect()->route('pictures.show', ['picture' => $pictures->id])->with('message', 'Poprawnie zapisano zmiany');
     }
 
-    public function like($id)
-    {
-        $pictures = Picture::find($id);
-        $like = new like();
-
-        $count = $pictures->likes()->where('picture_id', $id)->where('user_id', Auth::id())->count();
-
-        if ($count == 0){
-            $like->user_id = Auth::id();
-            $like->picture_id = $id;
-            $like->liked = 1;
-
-            $like->save();
-            return response('OK');
-
-        } else {
-            return response('Juz polubione');
-        }
-
-    }
-
-    public function likesCount($id)
-    {
-        $likes = like::where('picture_id', $id)->count();
-        return $likes;
-    }
-
     public function report($id)
     {
         $pictures = Picture::find($id);
