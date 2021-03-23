@@ -25,7 +25,7 @@
                     </div>
                     <form action="{{ route('pictures.newlike', ['id' => $pictures->id]) }}" method="post">
                         @csrf
-                        <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes }}</button>
+                        <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes()->where('picture_id', $pictures->id)->count() }}</button>
                     </form>
                     <br>
                         <a href="{{ route('pictures.report', ['id' => $pictures->id]) }}">
