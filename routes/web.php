@@ -25,7 +25,7 @@ Route::put('/pictures/{id}/send/report', [PicturesController::class, 'SendReport
 Route::resource('pictures', PicturesController::class);
 
 // Routes for Users
-Route::resource('user', UsersController::class);
+Route::resource('users', UsersController::class);
 
 Auth::routes();
 

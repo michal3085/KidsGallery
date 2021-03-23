@@ -65,6 +65,7 @@ class PicturesController extends Controller
 
             $picture = new Picture();
 
+            $picture->user_id = Auth::id();
             $picture->user = Auth::user()->name;
             $picture->name = $request->name;
             $picture->file_path = $path;

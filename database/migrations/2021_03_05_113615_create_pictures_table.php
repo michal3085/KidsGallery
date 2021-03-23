@@ -15,7 +15,7 @@ class CreatePicturesTable extends Migration
     {
         Schema::create('pictures', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable(); // temporary.
+            $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('user');
             $table->string('file_path');
@@ -26,6 +26,9 @@ class CreatePicturesTable extends Migration
             $table->bigInteger('likes')->nullable();
             $table->string('ip');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            //$table->foreign('user')->references('name')->on('users');
         });
     }
 
@@ -36,6 +39,8 @@ class CreatePicturesTable extends Migration
      */
     public function down()
     {
+        //Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('pictures');
+        //Schema::enableForeignKeyConstraints();
     }
 }
