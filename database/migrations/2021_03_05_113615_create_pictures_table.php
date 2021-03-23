@@ -29,7 +29,7 @@ class CreatePicturesTable extends Migration
         });
 
         Schema::table('pictures', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

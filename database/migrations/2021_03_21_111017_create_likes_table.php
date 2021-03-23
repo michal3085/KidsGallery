@@ -22,7 +22,7 @@ class CreateLikesTable extends Migration
         });
 
         Schema::table('likes', function (Blueprint $table) {
-            $table->foreign('picture_id')->references('id')->on('pictures');
+            $table->foreign('picture_id')->references('id')->on('pictures')->onDelete('cascade');
         });
     }
 
