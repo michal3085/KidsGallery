@@ -20,6 +20,10 @@ class CreateLikesTable extends Migration
             $table->integer('liked');
             $table->timestamps();
         });
+
+        Schema::table('likes', function (Blueprint $table) {
+            $table->foreign('picture_id')->references('id')->on('pictures');
+        });
     }
 
     /**
@@ -29,6 +33,8 @@ class CreateLikesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('likes');
+        Schema::table('likes', function (Blueprint $table) {
+            $table->dropForeign(['picture_id']);
+        });
     }
 }

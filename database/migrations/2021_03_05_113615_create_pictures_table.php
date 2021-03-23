@@ -26,9 +26,10 @@ class CreatePicturesTable extends Migration
             $table->bigInteger('likes')->nullable();
             $table->string('ip');
             $table->timestamps();
+        });
 
+        Schema::table('pictures', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
-            //$table->foreign('user')->references('name')->on('users');
         });
     }
 
@@ -39,8 +40,8 @@ class CreatePicturesTable extends Migration
      */
     public function down()
     {
-        //Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('pictures');
-        //Schema::enableForeignKeyConstraints();
+        Schema::table('pictures', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
     }
 }

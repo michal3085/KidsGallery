@@ -15,4 +15,9 @@ class Picture extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function likes()
+    {
+        return $this->hasMany('App\Models\like');
+    }
 }

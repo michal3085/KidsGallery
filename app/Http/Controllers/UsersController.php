@@ -16,9 +16,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-//        $pictures = Picture::where('user_id', Auth::id())->paginate(5);
         $user  = User::find(Auth::id());
-        $pictures = $user->pictures()->where('accept', 1)->paginate(10);
+        $pictures = $user->pictures()->where('accept', 1)->latest()->paginate(10);
 
         return view('users.index', compact('pictures'));
     }
