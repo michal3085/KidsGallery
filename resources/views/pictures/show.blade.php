@@ -23,9 +23,13 @@
                                 | Edytowane : {{ $pictures->updated_at }}
                             </div>
                     </div>
-                          <button type="submit" class="btn btn-success px-3 like" data-id="{{ $pictures->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes()->where('picture_id', $pictures->id)->count() }}</button>
-                    <br>
-                <br>
+                    @if ($pictures->likes()->where('picture_id', $pictures->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                        <button type="submit" class="btn btn-outline-success px-3 like" data-id="{{ $pictures->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes()->where('picture_id', $pictures->id)->count() }}</button>
+                    @else
+                        <button type="submit" class="btn btn-success px-3 like" data-id="{{ $pictures->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes()->where('picture_id', $pictures->id)->count() }}</button>
+                    @endif
+                            <br>
+                        <br>
 
                     @if (Auth::check())
                         @if (Auth::user()->name == $pictures->user)
