@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class like extends Model
 {
     use HasFactory;
+
+    public function pictures()
+    {
+        return $this->belongsTo('App\Models\Pictures');
+    }
 }

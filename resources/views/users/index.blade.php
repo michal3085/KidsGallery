@@ -17,10 +17,10 @@
     <section class="resume-section" id="about">
         <div class="resume-section-content">
             <h1 class="mb-0">
-                TOP 10
+                {{ \Illuminate\Support\Facades\Auth::user()->name }}
             </h1>
             @foreach($pictures as $picture)
-                @if (  $picture->visible == 1 && $picture->accept == 1 )
+                @if (  $picture->visible == 1 )
                     <p class="lead mb-5">
                     <div class="row section-box">
                         <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
@@ -33,29 +33,32 @@
                             Dodane: {{ $picture->created_at }}
                         </div>
                     </div>
-                        <button type="submit" class="btn btn-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
+                    <button type="submit" class="btn btn-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
                     </p>
                 @endif
             @endforeach
+            {{--            <div class="pagination pagination-lg justify-content-center">--}}
+            <div class="pagination justify-content-center">
+                {{ $pictures->links() }}
+            </div>
         </div>
     </section>
-
 @endsection
 @section('javascript')
     $(function() {
-        $('.like').click( function () {
-                $.ajax({
-                    method: "POST",
-                    url: "/newlike/" + $(this).data("id")
-                    // data: { name: "John", location: "Boston" }
-                })
-            .done(function( response ) {
-                window.location.reload();
-            })
-            .fail(function( response ) {
-                alert( "Juz polubione" );
-            });
-        });
+    $('.like').click( function () {
+    $.ajax({
+    method: "POST",
+    url: "/pictures/newlike/" + $(this).data("id")
+    // data: { name: "John", location: "Boston" }
+    })
+    .done(function( response ) {
+    window.location.reload();
+    })
+    .fail(function( response ) {
+    alert( "Juz polubione" );
+    });
+    });
     });
 
 @endsection

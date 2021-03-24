@@ -15,7 +15,7 @@ class CreatePicturesTable extends Migration
     {
         Schema::create('pictures', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable(); // temporary.
+            $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('user');
             $table->string('file_path');
@@ -27,6 +27,10 @@ class CreatePicturesTable extends Migration
             $table->string('ip');
             $table->timestamps();
         });
+
+        Schema::table('pictures', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**
@@ -36,6 +40,8 @@ class CreatePicturesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pictures');
+        Schema::table('pictures', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
     }
 }

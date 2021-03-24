@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\like;
 use App\Models\Picture;
 use App\Models\PicturesReport;
 use Illuminate\Http\Request;
@@ -65,6 +66,7 @@ class PicturesController extends Controller
 
             $picture = new Picture();
 
+            $picture->user_id = Auth::id();
             $picture->user = Auth::user()->name;
             $picture->name = $request->name;
             $picture->file_path = $path;
@@ -148,16 +150,6 @@ class PicturesController extends Controller
         $pictures->save();
 
         return redirect()->route('pictures.show', ['picture' => $pictures->id])->with('message', 'Poprawnie zapisano zmiany');
-    }
-
-    public function like($id)
-    {
-        $like = Picture::find($id);
-        $like->likes = $like->likes + 1;
-        $like->save();
-
-        return response('OK');
-        // return redirect()->back();
     }
 
     public function report($id)

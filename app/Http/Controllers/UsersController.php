@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Picture;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -13,7 +16,10 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $user  = User::find(Auth::id());
+        $pictures = $user->pictures()->where('accept', 1)->latest()->paginate(10);
+
+        return view('users.index', compact('pictures'));
     }
 
     /**

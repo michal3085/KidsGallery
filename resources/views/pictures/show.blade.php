@@ -23,7 +23,7 @@
                                 | Edytowane : {{ $pictures->updated_at }}
                             </div>
                     </div>
-                          <button type="submit" class="btn btn-success px-3 like" data-id="{{ $pictures->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes }}</button>
+                          <button type="submit" class="btn btn-success px-3 like" data-id="{{ $pictures->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes()->where('picture_id', $pictures->id)->count() }}</button>
                     <br>
                 <br>
 
@@ -57,7 +57,7 @@
             $('.like').click( function () {
                 $.ajax({
                 method: "POST",
-                url: "/pictures/newlike/" + $(this).data("id")
+                url: "/newlike/" + $(this).data("id")
                 // data: { name: "John", location: "Boston" }
             })
             .done(function( response ) {
