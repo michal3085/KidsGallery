@@ -214,9 +214,11 @@ class PicturesController extends Controller
     public function destroy($id)
     {
         $picture = Picture::find($id);
+        //$likes = $picture->likes()->where('picture_id', $id);
 
         if ( Storage::disk('public')->delete($picture->file_path) ){
             Picture::destroy($id);
+            like::where('picture_id', $id)->delete();
             return redirect()->route('pictures.index')->with('message', 'Praca ' . $picture->name . ' została usunięta.');
         } else {
             return redirect()->route('pictures.index')->with('message2', 'Praca nie została usunięta.');
