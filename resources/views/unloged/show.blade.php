@@ -19,8 +19,8 @@
                             <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
                                     <img src="{{ asset('/storage') . '/' . $pictures->file_path }}" class="img-thumbnail">
                                 <br>
-                                Dodane: {{ $pictures->created_at }}
-                                | Edytowane : {{ $pictures->updated_at }}
+                                {{ __('Added.') }}: {{ $pictures->created_at }}
+                                |  {{ __('Edited') }}: {{ $pictures->updated_at }}
                             </div>
                     </div>
                     <form action="{{ route('like.new', ['id' => $pictures->id]) }}" method="post">
@@ -29,7 +29,7 @@
                     </form>
                     <br>
                         <a href="{{ route('pictures.report', ['id' => $pictures->id]) }}">
-                            <button type="submit" class="btn btn-outline-danger float-right">Zgłoś</button>
+                            <button type="submit" class="btn btn-outline-danger float-right">{{ __('Report') }}</button>
                         </a>
 
                     </p>

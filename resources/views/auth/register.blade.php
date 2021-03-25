@@ -15,7 +15,7 @@
                                     @csrf
 
                                     <div class="form-group row">
-                                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nick') }}</label>
 
                                         <div class="col-md-6">
                                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -63,9 +63,21 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row mb-0">
-                                        <div class="col-md-6 offset-md-4">
-                                            <button type="submit" class="btn btn-primary">
+                                            <div class="form-group row">
+                                                <div class="col-md-6 offset-md-4">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="terms" id="terms" {{ old('terms') ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="remember">
+                                                            {{ __('Terms accept') }}
+                                                        </label>
+                                                    </div>
+                                                    @error('terms')
+                                                    <p class="text-danger">{{ __('Terms accept allert') }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary float-right">
                                                 {{ __('Register') }}
                                             </button>
                                         </div>

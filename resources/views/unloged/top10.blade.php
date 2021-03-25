@@ -30,7 +30,7 @@
                             <br>
                             <b>{{ $picture->user }}</b> | {{ $picture->name }}
                             <br>
-                            Dodane: {{ $picture->created_at }}
+                            {{ __('Added.') }}: {{ $picture->created_at }}
                         </div>
                     </div>
                     <form action="{{ route('like.new', ['id' => $picture->id]) }}" method="post">

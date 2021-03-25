@@ -26,32 +26,32 @@
         <section class="resume-section" id="about">
     <form action="{{ route('pictures.store') }}" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
-        <h2>WSTAW NOWE DZIEŁO:</h2>
+        <h2>{{ __('Insert new image') }}:</h2>
         <br><br>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Nazwa obrazu">
+                    <input type="text" class="form-control" name="name" id="name" placeholder="{{ __('Picture name') }}">
                 </div>
                     <div class="form-group">
                         <input type="file" class="form-control-file" name="file" id="file">
                     </div>
                         <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Krótki opis:<small> (pole niewymagane)</small></label>
+                            <label for="exampleFormControlTextarea1">{{ __('Short Description') }}:<small> ({{ __('Field not required') }})</small></label>
                             <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
                         </div>
-                            Wybierz dostępność twojej pracy dla innych:
+        {{ __('Choose to make your work accessible to others') }}:
                             <select name="visible" class="custom-select" id="inputGroupSelect01">
-                                    <option value="1">Publiczna</option>
-                                    <option value="0">Prywatna</option>
+                                    <option value="1">{{ __('Public') }}</option>
+                                    <option value="0">{{ __('Private') }}</option>
                             </select>
                             <br>
-                        Wybierz album do którego chcesz dodać obraz:
+        {{ __('Select album') }}:
                         <select name="album" class="custom-select" id="inputGroupSelect01">
-                            <option value="1">Główny</option>
+                            <option value="1">{{ __('Main') }}</option>
                             <option value="0">...</option>
                         </select>
                         <br>
             <br>
-            <button type="submit" class="btn btn-success btn-lg">Opublikuj</button>
+            <button type="submit" class="btn btn-success btn-lg">{{ __('Add') }}</button>
         </form>
         </section>
     </div>

@@ -26,15 +26,15 @@
     <form action="{{ route('pictures.sendreport', ['id' => $pictures->id]) }}" method="POST">
         {{ csrf_field() }}
         @method('PUT')
-        <h2>Zgłoszenie pracy "{{ $pictures->name }}":</h2>
+        <h2>{{ __('Image Submission') }} "{{ $pictures->name }}":</h2>
         <br><br>
              <div class="form-group">
-                 <label for="exampleFormControlTextarea1">Powód zgłoszenia:<small> (pole niewymagane)</small></label>
+                 <label for="exampleFormControlTextarea1">{{ __('Reason for submission') }}:<small> ({{ __('Field not required') }})</small></label>
                 <textarea class="form-control" id="reason" name="reason" rows="3"></textarea>
              </div>
 
             <br>
-            <button type="submit" class="btn btn-success btn-lg">Zgłoś</button>
+            <button type="submit" class="btn btn-success btn-lg">{{ __('Report') }}</button>
         </form>
         </section>
     </div>

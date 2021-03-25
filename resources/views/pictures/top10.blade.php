@@ -30,7 +30,7 @@
                             <br>
                             <b>{{ $picture->user }}</b> | {{ $picture->name }}
                             <br>
-                            Dodane: {{ $picture->created_at }}
+                            {{ __('Added.') }}: {{ $picture->created_at }}
                         </div>
                     </div>
                     @if ($picture->likes()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)

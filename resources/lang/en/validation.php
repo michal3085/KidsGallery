@@ -134,6 +134,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'terms' => [
+            'require' => 'You need to accept the terms to create an account'
+        ]
     ],
 
     /*

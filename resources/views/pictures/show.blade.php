@@ -19,8 +19,8 @@
                             <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
                                     <img src="{{ asset('/storage') . '/' . $pictures->file_path }}" class="img-thumbnail">
                                 <br>
-                                Dodane: {{ $pictures->created_at }}
-                                | Edytowane : {{ $pictures->updated_at }}
+                                {{ __('Added.') }}: {{ $pictures->created_at }}
+                                | {{ __('Edited') }} : {{ $pictures->updated_at }}
                             </div>
                     </div>
                     @if ($pictures->likes()->where('picture_id', $pictures->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
@@ -36,16 +36,17 @@
                             <form method="POST" action="{{ route('pictures.destroy', ['picture' => $pictures->id]) }}">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-outline-danger float-right" onclick="return confirm('Na pewno chcesz usunąć swoja prace?')">Usuń</button>
+                                <button type="submit" class="btn btn-outline-danger float-right" onclick="return confirm('Na pewno chcesz usunąć swoja prace?')">
+                                    {{ __('Delete') }}</button>
                             </form>
 
                             <a href="{{ route('pictures.edit', ['picture' => $pictures->id]) }}">
-                                <button type="submit" class="btn btn-outline-success float-left">Edytuj</button>
+                                <button type="submit" class="btn btn-outline-success float-left">{{ __('Edit') }}</button>
                             </a>
                         @else
 
                         <a href="{{ route('pictures.report', ['id' => $pictures->id]) }}">
-                            <button type="submit" class="btn btn-outline-danger float-right">Zgłoś</button>
+                            <button type="submit" class="btn btn-outline-danger float-right">{{ __('Report') }}</button>
                         </a>
                         @endif
                     @endif
