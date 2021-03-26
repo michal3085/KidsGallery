@@ -259,6 +259,7 @@
     "Insert picture": "Wstaw obraz",
     "Image Submission": "Zgłoszenie pracy",
     "Image has been submitted for moderation": "Praca zgłoszona do moderacji",
+    "Image has been removed": "Praca została usunięta",
     "Iran, Islamic Republic Of": "Iran",
     "Iraq": "Iraq",
     "Ireland": "Ireland",
@@ -359,6 +360,7 @@
     "No additional information...": "No additional information...",
     "No Current Data": "No Current Data",
     "No Data": "No Data",
+    "No, do not delete": "Nie, nie usuwaj",
     "no file selected": "no file selected",
     "No Increase": "No Increase",
     "No Prior Data": "No Prior Data",
@@ -636,6 +638,8 @@
     "You may not leave a team that you created.": "Nie możesz opuścić zespołu, które stworzyłeś",
     "Your Gallery": "Twoja Galeria",
     "Your email address is not verified.": "Twój adres email nie jest zweryfikowany.",
+    "You definitely want to delete this image": "Na pewno chesz usunąć swoją pracę?",
+    "Yes, delete the picture": "Tak, usuń moją pracę",
     "Zambia": "Zambia",
     "Zimbabwe": "Zimbabwe"
 }

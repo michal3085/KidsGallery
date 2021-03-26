@@ -226,7 +226,10 @@ class PicturesController extends Controller
             ]);
             // return redirect()->route('pictures.index')->with('message', 'Praca ' . $picture->name . ' została usunięta.');
         } else {
-            return redirect()->route('pictures.index')->with('message2', 'Praca nie została usunięta.');
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Wystąpił błąd'
+            ])->setStatusCode();
         }
     }
 }

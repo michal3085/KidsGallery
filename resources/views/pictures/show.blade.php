@@ -74,11 +74,11 @@
     $( function()  {
     $('.delete').click( function () {
         Swal.fire({
-            title: 'Na pewno chcesz usunąć tą pracę?',
+            title: '{{ __('You definitely want to delete this image') }}',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Tak, usuń pracę',
-            cancelButtonText: 'Nie, pozostaw pracę'
+            confirmButtonText: '{{ __('Yes, delete the picture') }}',
+            cancelButtonText: '{{ __('No, do not delete') }}'
         }).then((result) => {
             if (result.value) {
                     $.ajax({
@@ -88,7 +88,7 @@
                     })
                     .done(function( response ) {
                         Swal.fire({
-                            title: 'Praca została usunięta',
+                            title: '{{ __('Image has been removed') }}',
                             icon: 'success',
                             showCancelButtonText: false,
                             confirmButtonText: 'OK'
@@ -98,7 +98,7 @@
 
                     })
                     .fail(function( response ) {
-                        // window.location.href = "/pictures";
+                        Swal.fire('Ups', '{{ __('Something went wrong') }}', 'error');
                     });
             }
         })
