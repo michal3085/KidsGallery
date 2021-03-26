@@ -33,12 +33,9 @@
 
                     @if (Auth::check())
                         @if (Auth::user()->name == $pictures->user)
-                            <form method="POST" action="{{ route('pictures.destroy', ['picture' => $pictures->id]) }}">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="btn btn-outline-danger float-right" onclick="return confirm('Na pewno chcesz usunąć swoja prace?')">
+                                <button type="submit" class="btn btn-outline-danger float-right delete" data-id="{{ $pictures->id }}" aria-hidden="true">
                                     {{ __('Delete') }}</button>
-                            </form>
+
 
                             <a href="{{ route('pictures.edit', ['picture' => $pictures->id]) }}">
                                 <button type="submit" class="btn btn-outline-success float-left">{{ __('Edit') }}</button>
@@ -59,19 +56,53 @@
 @endsection
 @section('javascript')
     $(function() {
-            $('.like').click( function () {
-                $.ajax({
-                method: "POST",
-                url: "/newlike/" + $(this).data("id")
-                // data: { name: "John", location: "Boston" }
-            })
-            .done(function( response ) {
-                window.location.reload();
-            })
-            .fail(function( response ) {
-                alert( "Juz polubione" );
-            });
+        $('.like').click( function () {
+            $.ajax({
+            method: "POST",
+            url: "/newlike/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+        })
+        .done(function( response ) {
+            window.location.reload();
+        })
+        .fail(function( response ) {
+            alert( "Error:0001" );
         });
+     });
+    });
+
+    $( function()  {
+    $('.delete').click( function () {
+        Swal.fire({
+            title: 'Na pewno chcesz usunąć tą pracę?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Tak, usuń pracę',
+            cancelButtonText: 'Nie, pozostaw pracę'
+        }).then((result) => {
+            if (result.value) {
+                    $.ajax({
+                        method: "DELETE",
+                        url: "/pictures/" + $(this).data("id")
+                        // data: { name: "John", location: "Boston" }
+                    })
+                    .done(function( response ) {
+                        Swal.fire({
+                            title: 'Praca została usunięta',
+                            icon: 'success',
+                            showCancelButtonText: false,
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            window.location.href = "/pictures";
+                        })
+
+                    })
+                    .fail(function( response ) {
+                        // window.location.href = "/pictures";
+                    });
+            }
+        })
+    });
     });
 
 @endsection

@@ -192,7 +192,8 @@ class PicturesController extends Controller
             $report->reason = $request->reason;
 
             $report->save();
-            return redirect()->route('pictures.show', ['picture' => $pictures->id])->with('message', 'Praca została zgłoszona do moderatorów.');
+            return redirect()->route('pictures.show', ['picture' => $pictures->id])
+                ->with('message', __('Image has been submitted for moderation'));
 
         } else {
             $report->ip_address = $request->ip();
@@ -201,7 +202,8 @@ class PicturesController extends Controller
             $pictures->message = 1;
 
             $report->save();
-            return view('unloged.show', compact('pictures'));
+            return view('unloged.show', compact('pictures'))
+                ->with('message', __('Image has been submitted for moderation'));
         }
     }
 
@@ -219,7 +221,10 @@ class PicturesController extends Controller
         if ( Storage::disk('public')->delete($picture->file_path) ){
             Picture::destroy($id);
             like::where('picture_id', $id)->delete();
-            return redirect()->route('pictures.index')->with('message', 'Praca ' . $picture->name . ' została usunięta.');
+            return response()->json([
+               'status' => 'success'
+            ]);
+            // return redirect()->route('pictures.index')->with('message', 'Praca ' . $picture->name . ' została usunięta.');
         } else {
             return redirect()->route('pictures.index')->with('message2', 'Praca nie została usunięta.');
         }

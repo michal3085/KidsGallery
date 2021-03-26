@@ -38,13 +38,13 @@
                             <label for="exampleFormControlTextarea1">{{ __('Short Description') }}:<small> ({{ __('Field not required') }})</small></label>
                             <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
                         </div>
-        {{ __('Choose to make your work accessible to others') }}:
+                            {{ __('Choose to make your work accessible to others') }}:
                             <select name="visible" class="custom-select" id="inputGroupSelect01">
                                     <option value="1">{{ __('Public') }}</option>
                                     <option value="0">{{ __('Private') }}</option>
                             </select>
                             <br>
-        {{ __('Select album') }}:
+                            {{ __('Select album') }}:
                         <select name="album" class="custom-select" id="inputGroupSelect01">
                             <option value="1">{{ __('Main') }}</option>
                             <option value="0">...</option>
