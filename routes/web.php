@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\LikesController;
 use App\Http\Controllers\PicturesController;
 use App\Http\Controllers\UsersController;
@@ -25,6 +26,10 @@ Route::put('/pictures/{id}/send/report', [PicturesController::class, 'SendReport
 Route::resource('pictures', PicturesController::class);
 
 Route::post('/newlike/{id}', [LikesController::class, 'getLike'])->name('like.new')->middleware('auth');
+
+// Routes for comments
+Route::post('/pictures/{id}/comment', [CommentsController::class, 'store'])->name('commnents.add')
+    ->middleware('auth');
 
 // Routes for Users
 Route::resource('users', UsersController::class);

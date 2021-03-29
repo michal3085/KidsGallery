@@ -211,24 +211,21 @@ class PicturesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|object
      */
     public function destroy($id)
     {
         $picture = Picture::find($id);
-        //$likes = $picture->likes()->where('picture_id', $id);
 
-        if ( Storage::disk('public')->delete($picture->file_path) ){
+        if ( Storage::disk('public')->delete($picture->file_path) ) {
             Picture::destroy($id);
             like::where('picture_id', $id)->delete();
             return response()->json([
                'status' => 'success'
             ]);
-            // return redirect()->route('pictures.index')->with('message', 'Praca ' . $picture->name . ' została usunięta.');
         } else {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Wystąpił błąd'
             ])->setStatusCode();
         }
     }

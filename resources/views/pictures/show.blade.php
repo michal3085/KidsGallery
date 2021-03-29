@@ -51,6 +51,23 @@
                 <br>
             <hr>
                 {{ $pictures->comment }}
+                <br>
+                <hr>
+                <form action="{{ route('commnents.add', ['id' => $pictures->id]) }}" method="POST">
+                    <div class="coment-bottom bg-white p-2 px-4">
+                        <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                            <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('assets/img/antos.png') }}" width="38">
+                            <input type="text" class="form-control mr-3" name="comment" placeholder="{{ __('Add comment...') }}">
+                            <button class="btn btn-primary" type="button">{{ __('Comment') }}</button></div>
+                </form>
+                        <div class="commented-section mt-2">
+                            <div class="d-flex flex-row align-items-center commented-user">
+                                <h5 class="mr-2">Corey oates</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">4 hours ago</span>
+                            </div>
+                            <div class="comment-text-sm"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></div>
+                        </div>
+
+                    </div>
         </div>
     </section>
 @endsection
