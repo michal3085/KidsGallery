@@ -54,11 +54,12 @@
                 <br>
                 <hr>
                 <form action="{{ route('commnents.add', ['id' => $pictures->id]) }}" method="POST">
+                    @csrf
                     <div class="coment-bottom bg-white p-2 px-4">
                         <div class="d-flex flex-row add-comment-section mt-4 mb-4">
                             <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('assets/img/antos.png') }}" width="38">
                             <input type="text" class="form-control mr-3" name="comment" placeholder="{{ __('Add comment...') }}">
-                            <button class="btn btn-primary" type="button">{{ __('Comment') }}</button></div>
+                            <button class="btn btn-primary" type="submit">{{ __('Comment') }}</button></div>
                 </form>
                         <div class="commented-section mt-2">
                             <div class="d-flex flex-row align-items-center commented-user">

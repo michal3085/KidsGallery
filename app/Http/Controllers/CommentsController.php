@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\Picture;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
-    public function store($id)
+    public function store(Request $request, $id)
     {
-        // ...
+        $comments = new Comment();
+
+        $comments->picture_id = $id;
+        $comments->comment = $request->comment;
+        $comments->user_name = Auth::user()->name;
+
+        $comments->save();
+        return redirect()->back();
     }
 }
