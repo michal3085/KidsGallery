@@ -62,11 +62,13 @@
                             <button class="btn btn-primary" type="submit">{{ __('Comment') }}</button></div>
                 </form>
                     @foreach($comments as $comment)
-                        <div class="commented-section mt-2">
-                            <div class="d-flex flex-row align-items-center commented-user">
-                                <h5 class="mr-2">{{  $comment->user_name  }}</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">{{ $comment->created_at }}</span>
+                        <div class="d-flex flex-row comment-row">
+                            <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('assets/img/antos.png') }}" alt="user" width="50"></span></div>
+                            <div class="comment-text w-100">
+                                <h5>{{ $comment->user_name }}</h5>
+                                <div class="comment-footer"> <span class="date">{{ $comment->created_at }}</span></div>
+                                <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
                             </div>
-                            <div class="comment-text-sm"><span>{{ $comment->comment }}</span></div>
                         </div>
                     @endforeach
                     <div class="pagination justify-content-center">
