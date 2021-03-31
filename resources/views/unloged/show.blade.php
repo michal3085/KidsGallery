@@ -36,6 +36,21 @@
                 <br>
             <hr>
             {{ $pictures->comment }}
+            <br>
+            @foreach($comments as $comment)
+                <div class="commented-section mt-2">
+                    <div class="d-flex flex-row align-items-center commented-user">
+                        <h5 class="mr-2">{{  $comment->user_name  }}</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">{{ $comment->created_at }}</span>
+                    </div>
+                    <div class="comment-text-sm"><span>{{ $comment->comment }}</span></div>
+                </div>
+            @endforeach
+            <br>
+            <div class="pagination justify-content-center">
+                {{ $comments->links() }}
+            </div>
+        </div>
+
         </div>
     </section>
 @endsection

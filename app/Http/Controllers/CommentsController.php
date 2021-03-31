@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
-    public function store(Request $request, $id)
+    public function store(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $comments = new Comment();
 
