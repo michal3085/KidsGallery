@@ -58,7 +58,7 @@
                     <div class="coment-bottom bg-white p-2 px-4">
                         <div class="d-flex flex-row add-comment-section mt-4 mb-4">
                             <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('assets/img/antos.png') }}" width="38">
-                            <input type="text" class="form-control mr-3" name="comment" placeholder="{{ __('Add comment...') }}">
+                            <input type="text" class="form-control mr-3" name="comment" placeholder="{{ __('Add comment...') }}" required>
                             <button class="btn btn-primary" type="submit">{{ __('Comment') }}</button></div>
                 </form>
                 @foreach($comments as $comment)
