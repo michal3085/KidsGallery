@@ -39,7 +39,7 @@
             <br>
             @foreach($comments as $comment)
                 <div class="d-flex flex-row comment-row">
-                    <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('assets/img/antos.png') }}" alt="user" width="50"></span></div>
+                    <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('assets/img/avatar.png') }}" alt="user" width="50"></span></div>
                     <div class="comment-text w-100">
                         <h5>{{ $comment->user_name }}</h5>
                         <div class="comment-footer"> <span class="date">{{ $comment->created_at }}</span></div>
