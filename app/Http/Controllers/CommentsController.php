@@ -24,7 +24,6 @@ class CommentsController extends Controller
     public function report($id)
     {
         if (CommentsReport::where('comment_id', $id)->where('user_id', Auth::id())->count() == 0) {
-
             $report = new CommentsReport();
 
             $report->user_id = Auth::id();
@@ -38,8 +37,7 @@ class CommentsController extends Controller
         } else {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Juz zes to reportowal'
-            ]);
+            ], 400);
         }
     }
 

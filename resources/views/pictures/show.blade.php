@@ -199,6 +199,7 @@
              Swal.fire('Ups', '{{ __('Something went wrong') }}', 'error');
             });
             }
+
         })
         });
     });
