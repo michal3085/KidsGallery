@@ -60,6 +60,7 @@
                             <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage') . '/' . $user->avatar }}" width="38">
                             <input type="text" class="form-control mr-3" name="comment" placeholder="{{ __('Add comment...') }}" required>
                             <button class="btn btn-primary" type="submit">{{ __('Comment') }}</button></div>
+                    </div>
                 </form>
                     @foreach($comments as $comment)
                         <div class="d-flex flex-row comment-row">
