@@ -66,7 +66,13 @@
                             <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('assets/img/avatar.png') }}" alt="user" width="50"></span></div>
                             <div class="comment-text w-100">
                                 <h5>{{ $comment->user_name }}</h5>
-                                <div class="comment-footer"> <span class="date">{{ $comment->created_at }}</span></div>
+                                <div class="comment-footer"> <span class="date">{{ $comment->created_at }}
+                                    @if ( $comment->user_name == \Illuminate\Support\Facades\Auth::user()->name)
+                                        </span><span class="action-icons"><i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}"></i> </span>
+                                    @else
+                                        </span><span class="action-icons"><a href="#" data-abc="true"><i class="fas fa-exclamation""></i></a> </span>
+                                    @endif
+                                </div>
                                 <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
                             </div>
                         </div>
@@ -128,6 +134,40 @@
             }
         })
     });
+    });
+
+
+    $( function()  {
+        $('.comment_delete').click( function () {
+            Swal.fire({
+            title: '{{ __('You definitely want to delete this comment?') }}',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '{{ __('Yes, delete that comment') }}',
+            cancelButtonText: '{{ __('No, do not delete') }}'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                method: "DELETE",
+                url: "/comments/delete/" + $(this).data("id")
+            })
+            .done(function( response ) {
+                Swal.fire({
+                title: '{{ __('Comment has been removed') }}',
+                icon: 'success',
+                showCancelButtonText: true,
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                window.location.reload();
+            })
+
+            })
+            .fail(function( response ) {
+                Swal.fire('Ups', '{{ __('Something went wrong') }}', 'error');
+            });
+            }
+            })
+        });
     });
 
 @endsection

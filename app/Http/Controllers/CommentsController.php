@@ -19,4 +19,17 @@ class CommentsController extends Controller
         $comments->save();
         return redirect()->back();
     }
+
+    public function destroy($id)
+    {
+        if ( Comment::destroy($id) ){
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error'
+            ]);
+        }
+    }
 }
