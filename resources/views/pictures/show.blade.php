@@ -51,6 +51,37 @@
                 <br>
             <hr>
                 {{ $pictures->comment }}
+                <br>
+                <hr>
+                <form action="{{ route('commnents.add', ['id' => $pictures->id]) }}" method="POST">
+                    @csrf
+                    <div class="coment-bottom bg-white p-2 px-4">
+                        <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                            <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('assets/img/antos.png') }}" width="38">
+                            <input type="text" class="form-control mr-3" name="comment" placeholder="{{ __('Add comment...') }}" required>
+                            <button class="btn btn-primary" type="submit">{{ __('Comment') }}</button></div>
+                </form>
+                    @foreach($comments as $comment)
+                        <div class="d-flex flex-row comment-row">
+                            <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('assets/img/avatar.png') }}" alt="user" width="50"></span></div>
+                            <div class="comment-text w-100">
+                                <h5>{{ $comment->user_name }}</h5>
+                                <div class="comment-footer"> <span class="date">{{ $comment->created_at }}
+                                    @if ( $comment->user_name == \Illuminate\Support\Facades\Auth::user()->name)
+                                        </span><span class="action-icons"><i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}"></i> </span>
+                                    @else
+                                        </span><span class="action-icons"><a href="#" data-abc="true"><i class="fas fa-exclamation""></i></a> </span>
+                                    @endif
+                                </div>
+                                <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                    <div class="pagination justify-content-center">
+                        {{ $comments->links() }}
+                    </div>
+                    </div>
+
         </div>
     </section>
 @endsection
@@ -103,6 +134,40 @@
             }
         })
     });
+    });
+
+
+    $( function()  {
+        $('.comment_delete').click( function () {
+            Swal.fire({
+            title: '{{ __('You definitely want to delete this comment?') }}',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '{{ __('Yes, delete that comment') }}',
+            cancelButtonText: '{{ __('No, do not delete') }}'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                method: "DELETE",
+                url: "/comments/delete/" + $(this).data("id")
+            })
+            .done(function( response ) {
+                Swal.fire({
+                title: '{{ __('Comment has been removed') }}',
+                icon: 'success',
+                showCancelButtonText: true,
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                window.location.reload();
+            })
+
+            })
+            .fail(function( response ) {
+                Swal.fire('Ups', '{{ __('Something went wrong') }}', 'error');
+            });
+            }
+            })
+        });
     });
 
 @endsection

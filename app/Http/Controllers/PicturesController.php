@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\like;
 use App\Models\Picture;
 use App\Models\PicturesReport;
@@ -93,18 +94,21 @@ class PicturesController extends Controller
     public function show($id)
     {
         $pictures = Picture::find($id);
+        $comments = $pictures->comments()->where('picture_id', $id)->latest()->paginate(20);
+
 
         if (Auth::check()){
             if ($pictures->visible == 1 && $pictures->accept == 1){
-                return view('pictures.show', compact('pictures'));
+                //return view('pictures.show')->with(['comments' => $comments, 'pictures' => $pictures ]);
+                return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments]);
             } elseif ($pictures->visible == 0 && $pictures->user == Auth::user()->name){
-                return view('pictures.show', compact('pictures'));
+                return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments]);
             } else {
                 return redirect()->back();
             }
         } else {
             if ($pictures->visible == 1 && $pictures->accept == 1){
-                return view('unloged.show', compact('pictures'));
+                return view('unloged.show')->with(['pictures' => $pictures, 'comments' => $comments]);
             } else {
                 return redirect()->back();
             }
@@ -211,24 +215,21 @@ class PicturesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|object
      */
     public function destroy($id)
     {
         $picture = Picture::find($id);
-        //$likes = $picture->likes()->where('picture_id', $id);
 
-        if ( Storage::disk('public')->delete($picture->file_path) ){
+        if ( Storage::disk('public')->delete($picture->file_path) ) {
             Picture::destroy($id);
             like::where('picture_id', $id)->delete();
             return response()->json([
                'status' => 'success'
             ]);
-            // return redirect()->route('pictures.index')->with('message', 'Praca ' . $picture->name . ' została usunięta.');
         } else {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Wystąpił błąd'
             ])->setStatusCode();
         }
     }

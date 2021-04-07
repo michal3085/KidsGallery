@@ -20,4 +20,14 @@ class Picture extends Model
     {
         return $this->hasMany('App\Models\like');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
+
+    public function commentsreports()
+    {
+        return $this->hasMany('App\Models\CommentReport');
+    }
 }

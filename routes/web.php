@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\LikesController;
 use App\Http\Controllers\PicturesController;
 use App\Http\Controllers\UsersController;
@@ -17,6 +18,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PicturesController::class, 'index']);
+
+
+// Routes for comments
+Route::post('/pictures/{id}/comment', [CommentsController::class, 'store'])->name('commnents.add')
+    ->middleware('auth');
+Route::delete('comments/delete/{id}', [CommentsController::class, 'destroy'])->middleware('auth');
+
 
 // Routes for pictures
 Route::get('/pictures/top10', [PicturesController::class, 'top'])->name('top10');

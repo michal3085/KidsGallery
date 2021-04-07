@@ -66,7 +66,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-6 offset-md-4">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="terms" id="terms" {{ old('terms') ? 'checked' : '' }}>
+                                                        <input class="form-check-input" type="checkbox" name="terms" id="terms" {{ old('terms') ? 'checked' : '' }} >
                                                         <label class="form-check-label" for="remember">
                                                             {{ __('Terms accept') }}
                                                         </label>
