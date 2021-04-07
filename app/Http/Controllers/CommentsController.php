@@ -33,7 +33,6 @@ class CommentsController extends Controller
             return response()->json([
                 'status' => 'success'
             ]);
-
         } else {
             return response()->json([
                 'status' => 'error',

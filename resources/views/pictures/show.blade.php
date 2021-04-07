@@ -57,13 +57,13 @@
                     @csrf
                     <div class="coment-bottom bg-white p-2 px-4">
                         <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-                            <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('assets/img/antos.png') }}" width="38">
+                            <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage') . '/' . $user->avatar }}" width="38">
                             <input type="text" class="form-control mr-3" name="comment" placeholder="{{ __('Add comment...') }}" required>
                             <button class="btn btn-primary" type="submit">{{ __('Comment') }}</button></div>
                 </form>
                     @foreach($comments as $comment)
                         <div class="d-flex flex-row comment-row">
-                            <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('assets/img/avatar.png') }}" alt="user" width="50"></span></div>
+                            <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage/avatar/avatar.png') }}" alt="user" width="50"></span></div>
                             <div class="comment-text w-100">
                                 <h5>{{ $comment->user_name }}</h5>
                                 <div class="comment-footer"> <span class="date">{{ $comment->created_at }}
@@ -173,11 +173,11 @@
     $( function()  {
         $('.comment_report').click( function () {
             Swal.fire({
-            title: '{{ __('You want to report this comment?') }}',
+            title: '{{ __('Are you sure you want to submit this comment?') }}',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: '{{ __('Yes, report that comment') }}',
-            cancelButtonText: '{{ __('No, do not report') }}'
+            confirmButtonText: '{{ __('Yes, submit a comment') }}',
+            cancelButtonText: '{{ __('No, dont report') }}'
         }).then((result) => {
             if (result.value) {
             $.ajax({
@@ -196,7 +196,7 @@
 
         })
             .fail(function( response ) {
-             Swal.fire('Ups', '{{ __('Something went wrong') }}', 'error');
+             Swal.fire('{{ __('Something went wrong.') }}', '{{ __('You probably report this comment before') }}', 'error');
             });
             }
 

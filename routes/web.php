@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PicturesController::class, 'index']);
+Route::get('/', [PicturesController::class, 'index'])->name('index');
 
 
 // Routes for comments
