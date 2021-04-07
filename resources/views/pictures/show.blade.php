@@ -70,7 +70,7 @@
                                     @if ( $comment->user_name == \Illuminate\Support\Facades\Auth::user()->name)
                                         </span><span class="action-icons"><i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}"></i> </span>
                                     @else
-                                        </span><span class="action-icons"><a href="#" data-abc="true"><i class="fas fa-exclamation""></i></a> </span>
+                                        </span><span class="action-icons"><i class="fas fa-exclamation comment_report" data-id="{{ $comment->id }}"></i></span>
                                     @endif
                                 </div>
                                 <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
@@ -169,5 +169,39 @@
             })
         });
     });
+
+    $( function()  {
+        $('.comment_report').click( function () {
+            Swal.fire({
+            title: '{{ __('You want to report this comment?') }}',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '{{ __('Yes, report that comment') }}',
+            cancelButtonText: '{{ __('No, do not report') }}'
+        }).then((result) => {
+            if (result.value) {
+            $.ajax({
+            method: "GET",
+            url: "/comments/report/" + $(this).data("id")
+        })
+            .done(function( response ) {
+            Swal.fire({
+                title: '{{ __('Comment has been reported') }}',
+                icon: 'success',
+                showCancelButtonText: true,
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                window.location.reload();
+            })
+
+        })
+            .fail(function( response ) {
+             Swal.fire('Ups', '{{ __('Something went wrong') }}', 'error');
+            });
+            }
+        })
+        });
+    });
+
 
 @endsection

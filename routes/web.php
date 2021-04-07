@@ -23,7 +23,8 @@ Route::get('/', [PicturesController::class, 'index']);
 // Routes for comments
 Route::post('/pictures/{id}/comment', [CommentsController::class, 'store'])->name('commnents.add')
     ->middleware('auth');
-Route::delete('comments/delete/{id}', [CommentsController::class, 'destroy'])->middleware('auth');
+Route::delete('/comments/delete/{id}', [CommentsController::class, 'destroy'])->middleware('auth');
+Route::get('/comments/report/{id}', [CommentsController::class, 'report'])->middleware('auth');
 
 
 // Routes for pictures
