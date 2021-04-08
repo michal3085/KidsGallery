@@ -62,7 +62,11 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        if ( Auth::id() == $id ){
+            return view('users.setup');
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -74,7 +78,20 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->hasFile('file')) {
+
+            $request->validate([
+                'file' => 'mimes:jpeg,bmp,png,jpg'
+            ]);
+            $path = $request->file('file')->store('avatar', 'public');
+
+            $user = User::find($id);
+
+            $user->avatar = $path;
+            $user->save();
+
+            return redirect()->back();
+        }
     }
 
     /**

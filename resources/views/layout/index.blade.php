@@ -30,7 +30,7 @@
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('pictures.index') }}">{{ __('Main Gallery') }}</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('users.index') }}">{{ __('Your Gallery') }}</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('top10') }}">Top 10</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">{{ __('Settings') }}</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('users.edit', ['user' => $user->id]) }}">{{ __('Settings') }}</a></li>
         </ul>
     </div>
     <form method="post" action="{{ route('logout') }}">
