@@ -55,12 +55,12 @@
                 <hr>
                 <form action="{{ route('commnents.add', ['id' => $pictures->id]) }}" method="POST">
                     @csrf
-                    <div class="coment-bottom bg-white p-2 px-4">
+{{--                    <div class="coment-bottom bg-white p-2 px-4">--}}
                         <div class="d-flex flex-row add-comment-section mt-4 mb-4">
                             <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage') . '/' . $user->avatar }}" width="38">
                             <input type="text" class="form-control mr-3" name="comment" placeholder="{{ __('Add comment...') }}" required>
-                            <button class="btn btn-primary" type="submit">{{ __('Comment') }}</button></div>
-                    </div>
+                            <button class="btn btn-outline-primary" type="submit"><i class="fas fa-paper-plane"></i></button></div>
+{{--                    </div>--}}
                 </form>
                     @foreach($comments as $comment)
                         <div class="d-flex flex-row comment-row">
@@ -142,7 +142,7 @@
         $('.comment_delete').click( function () {
             Swal.fire({
             title: '{{ __('You definitely want to delete this comment?') }}',
-            icon: 'warning',
+            icon: 'question',
             showCancelButton: true,
             confirmButtonText: '{{ __('Yes, delete that comment') }}',
             cancelButtonText: '{{ __('No, do not delete') }}'
@@ -175,7 +175,7 @@
         $('.comment_report').click( function () {
             Swal.fire({
             title: '{{ __('Are you sure you want to submit this comment?') }}',
-            icon: 'warning',
+            icon: 'question',
             showCancelButton: true,
             confirmButtonText: '{{ __('Yes, submit a comment') }}',
             cancelButtonText: '{{ __('No, dont report') }}'

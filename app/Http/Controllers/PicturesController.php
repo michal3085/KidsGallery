@@ -224,6 +224,7 @@ class PicturesController extends Controller
         if ( Storage::disk('public')->delete($picture->file_path) ) {
             Picture::destroy($id);
             like::where('picture_id', $id)->delete();
+            Comment::where('picture_id', $id)->delete();
             return response()->json([
                'status' => 'success'
             ]);
