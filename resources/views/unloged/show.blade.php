@@ -19,8 +19,8 @@
                             <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
                                     <img src="{{ asset('/storage') . '/' . $pictures->file_path }}" class="img-thumbnail">
                                 <br>
-                                {{ __('Added.') }}: {{ $pictures->created_at }}
-                                |  {{ __('Edited') }}: {{ $pictures->updated_at }}
+                                <i class="fas fa-calendar-week"></i>: {{ $pictures->created_at }}
+                                | <i class="far fa-eye"></i> {{ $pictures->views }}
                             </div>
                     </div>
                     <form action="{{ route('like.new', ['id' => $pictures->id]) }}" method="post">
@@ -38,6 +38,7 @@
             {{ $pictures->comment }}
             <br>
             <hr>
+          @if ($pictures->allow_comments == 1)
             @foreach($comments as $comment)
                 <div class="d-flex flex-row comment-row">
                     <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
@@ -53,6 +54,13 @@
                 {{ $comments->links() }}
             </div>
         </div>
+        @elseif ( $pictures->allow_comments == 0)
+            <div class="d-flex flex-row comment-row">
+                <div class="comment-text w-100">
+                    <h6 class="text-center"><i class="fas fa-comment-slash"></i> Użytkownik nie wyraził zgody na komentarze</h6>
+                </div>
+            </div>
+            @endif
 
         </div>
     </section>
