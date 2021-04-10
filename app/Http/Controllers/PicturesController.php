@@ -9,6 +9,8 @@ use App\Models\PicturesReport;
 use App\Models\PicturesView;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 class PicturesController extends Controller
@@ -96,20 +98,20 @@ class PicturesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $pictures = Picture::find($id);
         $comments = $pictures->comments()->where('picture_id', $id)->latest()->paginate(20);
 
+        if(!$request->session()->has('visit' . $id)) {
+            $request->session()->put('visit' . $id, 1);
+            $pictures->increment('views');
+        }
 
         if (Auth::check()){
             if ($pictures->visible == 1 && $pictures->accept == 1){
-
-                $pictures->increment('views');
                 return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments]);
-
             } elseif ($pictures->visible == 0 && $pictures->user == Auth::user()->name){
-                $pictures->increment('views');
                 return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments]);
 
             } else {
@@ -117,10 +119,8 @@ class PicturesController extends Controller
             }
         } else {
             if ($pictures->visible == 1 && $pictures->accept == 1){
-                $pictures->increment('views');
                 return view('unloged.show')->with(['pictures' => $pictures, 'comments' => $comments]);
             } else {
-                $pictures->increment('views');
                 return redirect()->back();
             }
         }
