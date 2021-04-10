@@ -86,7 +86,7 @@
             @elseif ( $pictures->allow_comments == 0)
             <div class="d-flex flex-row comment-row">
                 <div class="comment-text w-100">
-                    <h6 class="text-center"><i class="fas fa-comment-slash"></i> Użytkownik nie wyraził zgody na komentarze</h6>
+                    <h6 class="text-center"><i class="fas fa-comment-slash"></i> {{ __('User has not agreed to comments') }}</h6>
                 </div>
             </div>
             @endif
