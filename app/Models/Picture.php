@@ -30,4 +30,9 @@ class Picture extends Model
     {
         return $this->hasMany('App\Models\CommentReport');
     }
+
+    public function pictureViews()
+    {
+        return $this->hasOne('App\Models\PictureView');
+    }
 }

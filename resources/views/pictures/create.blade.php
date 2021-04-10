@@ -44,10 +44,10 @@
                                     <option value="0">{{ __('Private') }}</option>
                             </select>
                             <br>
-                            {{ __('Select album') }}:
-                        <select name="album" class="custom-select" id="inputGroupSelect01">
-                            <option value="1">{{ __('Main') }}</option>
-                            <option value="0">...</option>
+                            {{ __('Allow comments') }}:
+                        <select name="allowcomments" class="custom-select" id="inputGroupSelect01">
+                            <option value="1">{{ __('Yes') }}</option>
+                            <option value="0">{{ __('No') }}</option>
                         </select>
                         <br>
             <br>

@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\like;
 use App\Models\Picture;
 use App\Models\PicturesReport;
+use App\Models\PicturesView;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -75,10 +76,14 @@ class PicturesController extends Controller
             $picture->visible = $request->visible;
             $picture->comment = $request->comment;
             $picture->likes = 0;
-            $picture->album = 'nowy';
+            $picture->views = 0;
+            $picture->allow_comments = $request->allowcomments;
+            $picture->album = "main";
             $picture->ip = $request->ip();
 
-            $picture->save();
+           $picture->save();
+
+
             return redirect()->route('pictures.create')->with('message', 'Poprawnie zapisano zdjęcie');
         } else {
             return redirect()->route('pictures.create')->with('message2', 'Nie wybrano pliku');
@@ -99,17 +104,23 @@ class PicturesController extends Controller
 
         if (Auth::check()){
             if ($pictures->visible == 1 && $pictures->accept == 1){
-                //return view('pictures.show')->with(['comments' => $comments, 'pictures' => $pictures ]);
+
+                $pictures->increment('views');
                 return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments]);
+
             } elseif ($pictures->visible == 0 && $pictures->user == Auth::user()->name){
+                $pictures->increment('views');
                 return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments]);
+
             } else {
                 return redirect()->back();
             }
         } else {
             if ($pictures->visible == 1 && $pictures->accept == 1){
+                $pictures->increment('views');
                 return view('unloged.show')->with(['pictures' => $pictures, 'comments' => $comments]);
             } else {
+                $pictures->increment('views');
                 return redirect()->back();
             }
         }
@@ -150,6 +161,7 @@ class PicturesController extends Controller
         $pictures->name = $request->name;
         $pictures->comment = $request->comment;
         $pictures->visible = $request->visible;
+        $pictures->allow_comments = $request->allowcomments;
 
         $pictures->save();
 

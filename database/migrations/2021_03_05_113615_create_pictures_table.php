@@ -20,7 +20,9 @@ class CreatePicturesTable extends Migration
             $table->string('user');
             $table->string('file_path');
             $table->integer('accept');
+            $table->integer('allow_comments');
             $table->integer('visible');
+            $table->unsignedBigInteger('views');
             $table->string('album');
             $table->longText('comment')->nullable();
             $table->bigInteger('likes')->nullable();

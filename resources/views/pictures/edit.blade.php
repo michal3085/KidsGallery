@@ -47,10 +47,16 @@
                                 @endif
                             </select>
                             <br>
-                        {{ __('Select album') }}:
-                        <select name="album" class="custom-select" id="inputGroupSelect01">
-                            <option value="1">{{ __('Main') }}</option>
-                            <option value="0">...</option>
+                        {{ __('Allow comments') }}:
+                        <select name="allowcomments" class="custom-select" id="inputGroupSelect01">
+                            @if ($pictures->allow_comments == 1)
+                                <option value="1" selected>{{ __('Yes') }}</option>
+                                <option value="0">{{ __('No') }}</option>
+                            @else
+                                <option value="1">{{ __('Yes') }}</option>
+                                <option value="0" selected>{{ __('No') }}</option>
+                            @endif
+
                         </select>
                         <br>
             <br>

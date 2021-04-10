@@ -19,8 +19,8 @@
                             <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
                                     <img src="{{ asset('/storage') . '/' . $pictures->file_path }}" class="img-thumbnail">
                                 <br>
-                                {{ __('Added.') }}: {{ $pictures->created_at }}
-                                | {{ __('Edited') }} : {{ $pictures->updated_at }}
+                                <i class="fas fa-calendar-week"></i>: {{ $pictures->created_at }}
+                                | <i class="far fa-eye"></i> {{ $pictures->views }}
                             </div>
                     </div>
                     @if ($pictures->likes()->where('picture_id', $pictures->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
@@ -53,6 +53,7 @@
                 {{ $pictures->comment }}
                 <br>
                 <hr>
+            @if ($pictures->allow_comments == 1)
                 <form action="{{ route('commnents.add', ['id' => $pictures->id]) }}" method="POST">
                     @csrf
 {{--                    <div class="coment-bottom bg-white p-2 px-4">--}}
@@ -82,6 +83,13 @@
                         {{ $comments->links() }}
                     </div>
                     </div>
+            @elseif ( $pictures->allow_comments == 0)
+            <div class="d-flex flex-row comment-row">
+                <div class="comment-text w-100">
+                    <h6 class="text-center"><i class="fas fa-comment-slash"></i> Użytkownik nie wyraził zgody na komentarze</h6>
+                </div>
+            </div>
+            @endif
 
         </div>
     </section>
