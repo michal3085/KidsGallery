@@ -14,6 +14,7 @@
                     <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
                         <a href="{{ route('set.avatar', ['id' => $user->id, 'x' => 1]) }}"> <img class="rounded float-left" style="width: 200px; height: 200px;" src="{{ asset('/storage/avatar/avatar.png') }}" alt="" /></a>
                         <a href="{{ route('set.avatar', ['id' => $user->id, 'x' => 2]) }}"> <img class="rounded float-left" style="width: 200px; height: 200px;" src="{{ asset('/storage/avatar/avatar2.png') }}" alt="" /></a>
+                        <a href="{{ route('set.avatar', ['id' => $user->id, 'x' => 3]) }}"> <img class="rounded float-left" style="width: 200px; height: 200px;" src="{{ asset('/storage/avatar/avatar3.png') }}" alt="" /></a>
                     </div>
                 </div>
 

@@ -109,20 +109,28 @@ class UsersController extends Controller
     public function defaultAvatar(Request $request, $id, $x)
     {
 
-            $user = User::find($id);
-            $oldfilename = $user->avatar;
+        $user = User::find($id);
+        $oldfilename = $user->avatar;
 
-            if ($oldfilename != 'avatar/avatar.png' and  $oldfilename != 'avatar/avatar2.png'){
-                Storage::disk('public')->delete($user->avatar);
-            }
-            if ($x == 1) {
-                $user->avatar = 'avatar/avatar.png';
-            } elseif ($x == 2){
-                $user->avatar = 'avatar/avatar2.png';
-            }
-             $user->save();
+        $avatars = [
+            '1' => 'avatar/avatar.png',
+            '2' => 'avatar/avatar2.png',
+            '3' => 'avatar/avatar3.png'
+        ];
 
-            return redirect()->back();
+        if ( !in_array($oldfilename, $avatars) ){
+            Storage::disk('public')->delete($user->avatar);
+        }
+
+        if ($x == 1){
+            $user->avatar = 'avatar/avatar.png';
+        } else {
+            $user->avatar = 'avatar/avatar' . $x . '.png';
+        }
+
+        $user->save();
+
+        return redirect()->back();
 
     }
 
