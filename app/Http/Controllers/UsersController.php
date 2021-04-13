@@ -6,6 +6,7 @@ use App\Models\Picture;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -78,14 +79,19 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->hasFile('file')) {
+        if ($request->hasFile('avatar')) {
 
             $request->validate([
-                'file' => 'mimes:jpeg,bmp,png,jpg'
+                'avatar' => 'mimes:jpeg,bmp,png,jpg'
             ]);
-            $path = $request->file('file')->store('avatar', 'public');
+            $path = $request->file('avatar')->store('avatar', 'public');
 
             $user = User::find($id);
+            $oldfilename = $user->avatar;
+
+            if ($oldfilename != 'avatar/avatar.png'){
+                Storage::disk('public')->delete($user->avatar);
+            }
             $user->avatar = $path;
             $user->save();
 

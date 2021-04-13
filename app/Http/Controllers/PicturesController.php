@@ -6,11 +6,8 @@ use App\Models\Comment;
 use App\Models\like;
 use App\Models\Picture;
 use App\Models\PicturesReport;
-use App\Models\PicturesView;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 class PicturesController extends Controller

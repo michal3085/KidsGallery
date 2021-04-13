@@ -16,7 +16,7 @@
                 </div>
                    <h5>{{ __('Choose Your avatar') }}:</h5>
                         <div class="form-group">
-                            <input type="file" class="form-control-file" name="file" id="file">
+                            <input type="file" class="form-control-file" name="avatar" id="avatar">
                         </div>
                         <br>
                    <br>
