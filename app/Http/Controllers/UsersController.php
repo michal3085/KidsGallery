@@ -89,9 +89,17 @@ class UsersController extends Controller
             $user = User::find($id);
             $oldfilename = $user->avatar;
 
-            if ($oldfilename != 'avatar/avatar.png' and  $oldfilename != 'avatar/avatar2.png'){
+            $avatars = [
+                '1' => 'avatar/avatar1.png',
+                '2' => 'avatar/avatar2.png',
+                '3' => 'avatar/avatar3.png',
+                '4' => 'avatar/avatar4.png'
+            ];
+
+            if ( !in_array($oldfilename, $avatars) ){
                 Storage::disk('public')->delete($user->avatar);
             }
+
             $user->avatar = $path;
             $user->save();
 
@@ -113,20 +121,17 @@ class UsersController extends Controller
         $oldfilename = $user->avatar;
 
         $avatars = [
-            '1' => 'avatar/avatar.png',
+            '1' => 'avatar/avatar1.png',
             '2' => 'avatar/avatar2.png',
-            '3' => 'avatar/avatar3.png'
+            '3' => 'avatar/avatar3.png',
+            '4' => 'avatar/avatar4.png'
         ];
 
         if ( !in_array($oldfilename, $avatars) ){
             Storage::disk('public')->delete($user->avatar);
         }
+        $user->avatar = 'avatar/avatar' . $x . '.png';
 
-        if ($x == 1){
-            $user->avatar = 'avatar/avatar.png';
-        } else {
-            $user->avatar = 'avatar/avatar' . $x . '.png';
-        }
 
         $user->save();
 
