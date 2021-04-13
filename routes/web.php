@@ -37,6 +37,7 @@ Route::post('/newlike/{id}', [LikesController::class, 'getLike'])->name('like.ne
 
 // Routes for Users
 Route::resource('users', UsersController::class);
+Route::get('users/{id}/setavatar/{x}', [UsersController::class, 'defaultAvatar'])->name('set.avatar');
 
 Auth::routes();
 

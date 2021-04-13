@@ -89,7 +89,7 @@ class UsersController extends Controller
             $user = User::find($id);
             $oldfilename = $user->avatar;
 
-            if ($oldfilename != 'avatar/avatar.png'){
+            if ($oldfilename != 'avatar/avatar.png' and  $oldfilename != 'avatar/avatar2.png'){
                 Storage::disk('public')->delete($user->avatar);
             }
             $user->avatar = $path;
@@ -97,6 +97,33 @@ class UsersController extends Controller
 
             return redirect()->back();
         }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function defaultAvatar(Request $request, $id, $x)
+    {
+
+            $user = User::find($id);
+            $oldfilename = $user->avatar;
+
+            if ($oldfilename != 'avatar/avatar.png' and  $oldfilename != 'avatar/avatar2.png'){
+                Storage::disk('public')->delete($user->avatar);
+            }
+            if ($x == 1) {
+                $user->avatar = 'avatar/avatar.png';
+            } elseif ($x == 2){
+                $user->avatar = 'avatar/avatar2.png';
+            }
+             $user->save();
+
+            return redirect()->back();
+
     }
 
     /**
