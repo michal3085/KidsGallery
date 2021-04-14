@@ -37,7 +37,7 @@ Route::resource('pictures', PicturesController::class);
 Route::post('/newlike/{id}', [LikesController::class, 'getLike'])->name('like.new')->middleware('auth');
 
 // Profiles routes
-Route::get('/profile/{name}', [ProfilesController::class, 'index'])->name('profiles.index');
+Route::get('/profile/{name}/gallery', [ProfilesController::class, 'index'])->name('profiles.index');
 Route::get('/profile/{name}/comments', [ProfilesController::class, 'comments'])->name('profiles.comments');
 
 // Routes for Users

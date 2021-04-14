@@ -5,7 +5,10 @@
         <br>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.index', ['name' => $other_user[0]->name]) }}">Profil</a>
+                <a class="nav-link" href="#">Info</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('profiles.index', ['name' => $other_user[0]->name]) }}">Galeria</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="{{ route('profiles.comments', ['name' => $user->name]) }}">Komentarze</a>
