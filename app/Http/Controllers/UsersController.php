@@ -132,7 +132,6 @@ class UsersController extends Controller
         }
         $user->avatar = 'avatar/avatar' . $x . '.png';
 
-
         $user->save();
 
         return redirect()->back();

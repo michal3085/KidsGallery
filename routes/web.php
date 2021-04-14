@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\LikesController;
 use App\Http\Controllers\PicturesController;
+use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,10 @@ Route::put('/pictures/{id}/send/report', [PicturesController::class, 'SendReport
 Route::resource('pictures', PicturesController::class);
 
 Route::post('/newlike/{id}', [LikesController::class, 'getLike'])->name('like.new')->middleware('auth');
+
+// Profiles routes
+Route::get('/profile/{name}', [ProfilesController::class, 'index'])->name('profiles.index');
+Route::get('/profile/{name}/comments', [ProfilesController::class, 'comments'])->name('profiles.comments');
 
 // Routes for Users
 Route::resource('users', UsersController::class);
