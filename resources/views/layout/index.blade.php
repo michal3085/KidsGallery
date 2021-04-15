@@ -19,7 +19,7 @@
 <body id="page-top">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow p-3 mb-5 rounded" id="sideNav">
-    <a href="{{ route('profiles.index', ['name' => $user->name]) }}" class="navbar-brand js-scroll-trigger">
+    <a href="{{ route('profiles.gallery', ['name' => $user->name]) }}" class="navbar-brand js-scroll-trigger">
         <span class="d-block d-lg-none">SmallGallery</span>
         <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{{ asset('/storage') . '/' . $user->avatar }}" alt="" /></span>
      </a>

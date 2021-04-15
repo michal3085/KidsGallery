@@ -8,10 +8,10 @@
                 <a class="nav-link active" href="{{ route('profiles.info', ['name' => $other_user[0]->name]) }}">Info</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.index', ['name' => $other_user[0]->name]) }}">Galeria</a>
+                <a class="nav-link" href="{{ route('profiles.gallery', ['name' => $other_user[0]->name]) }}">Galeria</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.comments', ['name' => $user->name]) }}">Komentarze</a>
+                <a class="nav-link" href="{{ route('profiles.comments', ['name' => $other_user[0]->name]) }}">Komentarze</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Polubione</a>
@@ -49,6 +49,4 @@
                 </div>
             </div>
         </section>
-
-
 @endsection
