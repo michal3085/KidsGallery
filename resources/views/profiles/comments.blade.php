@@ -5,7 +5,7 @@
         <br>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="#">Info</a>
+                <a class="nav-link" href="{{ route('profiles.info', ['name' => $other_user[0]->name]) }}">Info</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('profiles.index', ['name' => $other_user[0]->name]) }}">Galeria</a>

@@ -18,6 +18,13 @@ class ProfilesController extends Controller
         return view('profiles.index')->with(['pictures' => $pictures, 'other_user' => $user]);
     }
 
+    public function info($name)
+    {
+        $user = User::where('name', $name)->get();
+
+        return view('profiles.info')->with(['other_user' => $user]);
+    }
+
     public function comments($name)
     {
         $comments = Comment::where('user_name', $name)->latest()->paginate(20);
