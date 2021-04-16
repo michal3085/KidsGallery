@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Follower;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +26,15 @@ class FollowersController extends Controller
 
     public function deleteFollower($id)
     {
-        // ...
+       if ( Follower::where('user_id', Auth::id())->where('follower_id', $id)->delete() ) {
+           return response()->json([
+               'status' => 'success'
+           ]);
+       } else {
+           return response()->json([
+               'status' => 'error',
+           ])->setStatusCode();
+       }
+
     }
 }

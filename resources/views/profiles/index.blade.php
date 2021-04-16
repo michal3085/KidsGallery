@@ -8,7 +8,7 @@
                 <a class="nav-link" href="{{ route('profiles.info', ['name' => $other_user->name]) }}">Info</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#">Galeria</a>
+                <a class="nav-link active" href="{{ route('profiles.gallery', ['name' => $other_user->name]) }}">Galeria</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('profiles.comments', ['name' => $other_user->name]) }}">Komentarze</a>
@@ -17,10 +17,10 @@
                 <a class="nav-link" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">Polubione</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwowani</a>
+                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwowani ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwuja</a>
+                <a class="nav-link" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwują ({{ \App\Models\Follower::where('follower_id', $other_user->id)->count() }})</a>
             </li>
         </ul>
 

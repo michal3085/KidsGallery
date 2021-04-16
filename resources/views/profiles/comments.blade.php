@@ -17,10 +17,10 @@
                 <a class="nav-link" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">Polubione</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwowani</a>
+                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwowani ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwuja</a>
+                <a class="nav-link" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwują ({{ \App\Models\Follower::where('follower_id', $other_user->id)->count() }})</a>
             </li>
         </ul>
 
@@ -54,6 +54,76 @@
             </div>
         </div>
     </section>
+
+
+@endsection
+        @section('javascript')
+        $( function()  {
+        $('.comment_delete').click( function () {
+        Swal.fire({
+        title: '{{ __('You definitely want to delete this comment?') }}',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: '{{ __('Yes, delete that comment') }}',
+        cancelButtonText: '{{ __('No, do not delete') }}'
+        }).then((result) => {
+        if (result.value) {
+        $.ajax({
+        method: "DELETE",
+        url: "/comments/delete/" + $(this).data("id")
+        })
+        .done(function( response ) {
+        Swal.fire({
+        title: '{{ __('Comment has been removed') }}',
+        icon: 'success',
+        showCancelButtonText: true,
+        confirmButtonText: 'OK'
+        }).then((result) => {
+        window.location.reload();
+        })
+
+        })
+        .fail(function( response ) {
+        Swal.fire('Ups', '{{ __('Something went wrong') }}', 'error');
+        });
+        }
+        })
+        });
+        });
+
+        $( function()  {
+        $('.comment_report').click( function () {
+        Swal.fire({
+        title: '{{ __('Are you sure you want to submit this comment?') }}',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: '{{ __('Yes, submit a comment') }}',
+        cancelButtonText: '{{ __('No, dont report') }}'
+        }).then((result) => {
+        if (result.value) {
+        $.ajax({
+        method: "GET",
+        url: "/comments/report/" + $(this).data("id")
+        })
+        .done(function( response ) {
+        Swal.fire({
+        title: '{{ __('Comment has been reported') }}',
+        icon: 'success',
+        showCancelButtonText: true,
+        confirmButtonText: 'OK'
+        }).then((result) => {
+        window.location.reload();
+        })
+
+        })
+        .fail(function( response ) {
+        Swal.fire('{{ __('Something went wrong.') }}', '{{ __('You probably report this comment before') }}', 'error');
+        });
+        }
+
+        })
+        });
+        });
 
 
 @endsection

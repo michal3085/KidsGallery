@@ -8,7 +8,7 @@
                 <a class="nav-link" href="{{ route('profiles.info', ['name' => $other_user->name]) }}">Info</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Galeria</a>
+                <a class="nav-link" href="{{ route('profiles.gallery', ['name' => $other_user->name]) }}">Galeria</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('profiles.comments', ['name' => $other_user->name]) }}">Komentarze</a>
@@ -17,24 +17,51 @@
                 <a class="nav-link" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">Polubione</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwowani</a>
+                <a class="nav-link active" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwowani ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwuja</a>
+                <a class="nav-link" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwują ({{ \App\Models\Follower::where('follower_id', $other_user->id)->count() }})</a>
             </li>
         </ul>
 
-        <main role="main">
-
-            <div class="album py-5 bg-light">
-                <div class="container">
-                @foreach($followers as $follower)
-                    {{ $follower->name }} <br>
-                @endforeach
+        <section class="resume-section" id="about">
+            <div class="resume-section-content">
+                <div class="d-flex flex-row add-comment-section mt-4 mb-4"></div>
+                @foreach($followers as $follow)
+                    <div class="d-flex flex-row comment-row">
+                        <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $follow->name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
+                        <div class="comment-text w-100">
+                            <a href="{{ route('profiles.info', ['name' => $follow->name ]) }}"><h5>{{ $follow->name }}</h5></a>
+                            <div class="comment-footer"> <span class="date">
+                                <p class="m-b-5 m-t-10"></p>
+                            </div>
+                        </div>
+                                <button type="submit" class="btn btn-danger delete" data-id="{{ $follow->id }}"><i class="fas fa-heart"></i> Usuń</button>
                     </div>
+                    <hr>
+                @endforeach
+                <div class="pagination justify-content-center">
+                    {{ $followers->links() }}
                 </div>
             </div>
+        </section>
 
-        </main>
-
+@endsection
+        @section('javascript')
+            $(function() {
+            $('.delete').click( function () {
+            $.ajax({
+            method: "DELETE",
+            contentType: "application/json; charset=utf-8",
+            url: "/followers/delete/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
 @endsection
