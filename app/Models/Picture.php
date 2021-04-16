@@ -35,4 +35,9 @@ class Picture extends Model
     {
         return $this->hasOne('App\Models\PictureView');
     }
+// to delete
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
 }

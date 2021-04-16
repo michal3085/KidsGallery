@@ -18,8 +18,11 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $user  = User::find(Auth::id());
-        $pictures = $user->pictures()->where('accept', 1)->latest()->paginate(10);
+        $user = User::where('id', Auth::id())->first();
+        $usersIds = $user->followers()->pluck('follower_id')->all();
+        //$usersIds[] = $user->id;
+        $pictures = Picture::whereIn('user_id', $usersIds)->latest()->paginate(30);
+
 
         return view('users.index', compact('pictures'));
     }
