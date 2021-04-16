@@ -48,8 +48,22 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Picture');
     }
 
-    public function userdata()
+    public function usersdata()
     {
-        return $this->hasOne('App\Models\UserData');
+        return $this->hasOne('App\Models\UsersData');
+    }
+
+//    public function followers()
+//    {
+//        return $this->hasMany('App\Models\Follower');
+//    }
+
+    public function following() {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+    }
+
+// users that follow this user
+    public function followers() {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
     }
 }

@@ -5,19 +5,22 @@
         <br>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.info', ['name' => $other_user[0]->name]) }}">Info</a>
+                <a class="nav-link" href="{{ route('profiles.info', ['name' => $other_user->name]) }}">Info</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.gallery', ['name' => $other_user[0]->name]) }}">Galeria</a>
+                <a class="nav-link" href="{{ route('profiles.gallery', ['name' => $other_user->name]) }}">Galeria</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="{{ route('profiles.comments', ['name' => $user->name]) }}">Komentarze</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Polubione</a>
+                <a class="nav-link" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">Polubione</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Obserwowani</a>
+                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwowani</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwuja</a>
             </li>
         </ul>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Picture;
 use App\Models\User;
+use App\Models\UsersData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -109,12 +110,10 @@ class UsersController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function defaultAvatar(Request $request, $id, $x)
+    public function defaultAvatar($id, $x)
     {
 
         $user = User::find($id);
@@ -136,6 +135,41 @@ class UsersController extends Controller
 
         return redirect()->back();
 
+    }
+
+    public function userinfo($id)
+    {
+        $user = User::find($id);
+
+        if ( $user->usersdata()->where('user_id', $id)->count() == 0 ) {
+            $userdata_create = new UsersData();
+            $userdata_create->user_id = $user->id;
+            $userdata_create->save();
+        }
+
+        $userdata = UsersData::where('user_id', $id)->first();
+
+        return view('users.info', compact('userdata'));
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function aboutsave(Request $request, $id)
+    {
+        $userdata = UsersData::where('user_id', $id)->first();
+
+        $userdata->about = $request->about;
+        $userdata->city = $request->city;
+        $userdata->birthdate = $request->birthdate;
+
+        $userdata->save();
+        return redirect()->back();
     }
 
     /**

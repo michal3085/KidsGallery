@@ -8,13 +8,13 @@
                 <a class="nav-link" href="{{ route('profiles.info', ['name' => $other_user->name]) }}">Info</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#">Galeria</a>
+                <a class="nav-link" href="#">Galeria</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('profiles.comments', ['name' => $other_user->name]) }}">Komentarze</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">Polubione</a>
+                <a class="nav-link active" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">Polubione</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwowani</a>

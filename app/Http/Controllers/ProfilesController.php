@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Follower;
 use App\Models\Picture;
 use App\Models\User;
 use App\Models\UsersData;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfilesController extends Controller
 {
@@ -14,24 +15,61 @@ class ProfilesController extends Controller
     public function index($name)
     {
         $pictures = Picture::where('user', $name)->latest()->paginate(5);
-        $user = User::where('name', $name)->get();
+        $user = User::where('name', $name)->first();
 
         return view('profiles.index')->with(['pictures' => $pictures, 'other_user' => $user]);
     }
 
     public function info($name)
     {
-        $user = User::where('name', $name)->get();
-        $user_data = UsersData::find($user[0]->id);
+        $user = User::where('name', $name)->first();
 
-        return view('profiles.info')->with(['other_user' => $user, 'user_data' => $user_data]);
+        if ( UsersData::where('user_id', $user->id)->count() == 0 ) {
+            $userdata_create = new UsersData();
+            $userdata_create->user_id = $user->id;
+            $userdata_create->save();
+        }
+
+        $user_data = UsersData::where('user_id', $user->id)->first();
+
+        return view('profiles.info')->with(['other_user' => $user, 'userdata' => $user_data]);
     }
 
     public function comments($name)
     {
         $comments = Comment::where('user_name', $name)->latest()->paginate(20);
-        $user = User::where('name', $name)->get();
+        $user = User::where('name', $name)->first();
 
         return view('profiles.comments')->with(['comments' => $comments, 'other_user' => $user]);
+    }
+
+    public function favorites($name)
+    {
+        $user = User::where('name', $name)->first();
+        $pictures = Picture::whereHas('likes', function ($liked) use ($user) {
+            $liked->where('user_id', $user->id);
+        })->latest()->paginate(20);
+
+        return view('profiles.favorites')->with(['pictures' => $pictures, 'other_user' => $user]);
+    }
+
+    public function followers($name)
+    {
+        $user = User::where('name', $name)->first();
+        $logged_user = User::where('id', Auth::id())->first();
+
+        $followers = $user->followers()->get();
+
+        return view('profiles.followers')->with(['other_user' => $user, 'followers' => $followers]);
+    }
+
+    public function following($name)
+    {
+        $user = User::where('name', $name)->first();
+        $logged_user = User::where('id', Auth::id())->first();
+
+        $followers = $user->following()->get();
+
+        return view('profiles.following')->with(['other_user' => $user, 'followers' => $followers]);
     }
 }

@@ -3,6 +3,20 @@
 @section('content')
 
     <div class="container-fluid p-0">
+
+        <br>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="">Avatar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('user.info', ['id' => $user->id]) }}">Informacje</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="">Konto</a>
+            </li>
+        </ul>
+
         <section class="resume-section" id="about">
             <form action="{{ route('users.update', ['user' => $user->id]) }}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
