@@ -97,10 +97,16 @@ class UsersController extends Controller
                 '1' => 'avatar/avatar1.png',
                 '2' => 'avatar/avatar2.png',
                 '3' => 'avatar/avatar3.png',
-                '4' => 'avatar/avatar4.png'
+                '4' => 'avatar/avatar4.png',
+                '5' => 'avatar/avatar5.png',
+                '6' => 'avatar/avatar6.png',
+                '7' => 'avatar/avatar7.png',
+                '8' => 'avatar/avatar8.png',
+                '9' => 'avatar/avatar9.png',
+                '10' => 'avatar/avatar10.png'
             ];
 
-            if ( !in_array($oldfilename, $avatars) ){
+            if (! in_array($oldfilename, $avatars) ){
                 Storage::disk('public')->delete($user->avatar);
             }
 
@@ -126,10 +132,16 @@ class UsersController extends Controller
             '1' => 'avatar/avatar1.png',
             '2' => 'avatar/avatar2.png',
             '3' => 'avatar/avatar3.png',
-            '4' => 'avatar/avatar4.png'
+            '4' => 'avatar/avatar4.png',
+            '5' => 'avatar/avatar5.png',
+            '6' => 'avatar/avatar6.png',
+            '7' => 'avatar/avatar7.png',
+            '8' => 'avatar/avatar8.png',
+            '9' => 'avatar/avatar9.png',
+            '10' => 'avatar/avatar10.png'
         ];
 
-        if ( !in_array($oldfilename, $avatars) ){
+        if (! in_array($oldfilename, $avatars) ){
             Storage::disk('public')->delete($user->avatar);
         }
         $user->avatar = 'avatar/avatar' . $x . '.png';

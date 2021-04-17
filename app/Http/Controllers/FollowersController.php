@@ -11,7 +11,7 @@ class FollowersController extends Controller
 {
     public function addFollower($id)
     {
-        if ( Follower::where('follower_id', $id)->where('user_id', Auth::id())->count() == 0 ) {
+        if ( Follower::where('follower_id', $id)->where('user_id', Auth::id())->count() == 0 && Auth::id() != $id ) {
             $follower = new Follower();
             $follower->user_id = Auth::id();
             $follower->follower_id = $id;
