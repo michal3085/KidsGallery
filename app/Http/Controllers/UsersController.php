@@ -19,7 +19,7 @@ class UsersController extends Controller
     public function index()
     {
         $user = User::where('id', Auth::id())->first();
-        $usersIds = $user->followers()->pluck('follower_id')->all();
+        $usersIds = $user->following()->pluck('follower_id')->all();
         //$usersIds[] = $user->id;
         $pictures = Picture::whereIn('user_id', $usersIds)->latest()->paginate(30);
 
@@ -103,7 +103,8 @@ class UsersController extends Controller
                 '7' => 'avatar/avatar7.png',
                 '8' => 'avatar/avatar8.png',
                 '9' => 'avatar/avatar9.png',
-                '10' => 'avatar/avatar10.png'
+                '10' => 'avatar/avatar10.png',
+                '11' => 'avatar/avatar11.png'
             ];
 
             if (! in_array($oldfilename, $avatars) ){
@@ -138,7 +139,8 @@ class UsersController extends Controller
             '7' => 'avatar/avatar7.png',
             '8' => 'avatar/avatar8.png',
             '9' => 'avatar/avatar9.png',
-            '10' => 'avatar/avatar10.png'
+            '10' => 'avatar/avatar10.png',
+            '11' => 'avatar/avatar11.png'
         ];
 
         if (! in_array($oldfilename, $avatars) ){

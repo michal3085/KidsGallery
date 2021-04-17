@@ -50,6 +50,7 @@
                         <a href="{{ route('set.avatar', ['id' => $user->id, 'x' => 8]) }}"> <img class="rounded float-left" style="width: 200px; height: 200px;" src="{{ asset('/storage/avatar/avatar8.png') }}" alt="" /></a>
                         <a href="{{ route('set.avatar', ['id' => $user->id, 'x' => 9]) }}"> <img class="rounded float-left" style="width: 200px; height: 200px;" src="{{ asset('/storage/avatar/avatar9.png') }}" alt="" /></a>
                         <a href="{{ route('set.avatar', ['id' => $user->id, 'x' => 10]) }}"> <img class="rounded float-left" style="width: 200px; height: 200px;" src="{{ asset('/storage/avatar/avatar10.png') }}" alt="" /></a>
+                        <a href="{{ route('set.avatar', ['id' => $user->id, 'x' => 11]) }}"> <img class="rounded float-left" style="width: 200px; height: 200px;" src="{{ asset('/storage/avatar/avatar11.png') }}" alt="" /></a>
                     </div>
                 </div>
             </form>

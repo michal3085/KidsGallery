@@ -17,10 +17,10 @@
                 <a class="nav-link active" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">Polubione</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwowani ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
+                <a class="nav-link" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwowani ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwują ({{ \App\Models\Follower::where('follower_id', $other_user->id)->count() }})</a>
+                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwują ({{ \App\Models\Follower::where('follower_id', $other_user->id)->count() }})</a>
             </li>
         </ul>
 

@@ -17,10 +17,10 @@
                 <a class="nav-link" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">Polubione</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwowani ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
+                <a class="nav-link active" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwowani ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwują ({{ \App\Models\Follower::where('follower_id', $other_user->id)->count() }})</a>
+                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwują ({{ \App\Models\Follower::where('follower_id', $other_user->id)->count() }})</a>
             </li>
         </ul>
 
@@ -36,13 +36,7 @@
                                 <p class="m-b-5 m-t-10"></p>
                             </div>
                         </div>
-
-                            @if ($user->followers()->where('follower_id', $follow->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
-                                <button type="submit" class="btn btn-outline-danger follow" data-id="{{ $follow->id }}"><i class="fas fa-heart"></i> Dodaj do ulubionych</button>
-                            @else
-                                <button type="submit" class="btn btn-danger delete" data-id="{{ $follow->id }}"><i class="fas fa-heart"></i> Usuń z ulubionych</button>
-                            @endif
-
+                                <button type="submit" class="btn btn-danger delete" data-id="{{ $follow->id }}"><i class="fas fa-heart"></i> Usuń</button>
                     </div>
                     <hr>
                 @endforeach
@@ -54,22 +48,6 @@
 
 @endsection
         @section('javascript')
-            $(function() {
-            $('.follow').click( function () {
-            $.ajax({
-            method: "POST",
-            url: "/followers/add/" + $(this).data("id")
-            // data: { name: "John", location: "Boston" }
-            })
-            .done(function( response ) {
-            window.location.reload();
-            })
-            .fail(function( response ) {
-            alert( "Error:0001" );
-            });
-            });
-            });
-
             $(function() {
             $('.delete').click( function () {
             $.ajax({

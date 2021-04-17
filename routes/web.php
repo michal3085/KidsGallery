@@ -42,8 +42,8 @@ Route::get('/profile/{name}', [ProfilesController::class, 'info'])->name('profil
 Route::get('/profile/{name}/gallery', [ProfilesController::class, 'index'])->name('profiles.gallery');
 Route::get('/profile/{name}/comments', [ProfilesController::class, 'comments'])->name('profiles.comments');
 Route::get('/profile/{name}/favorites', [ProfilesController::class, 'favorites'])->name('profiles.favorites');
-Route::get('/profile/{name}/followers', [ProfilesController::class, 'followers'])->name('profiles.followers');
 Route::get('/profile/{name}/following', [ProfilesController::class, 'following'])->name('profiles.following');
+Route::get('/profile/{name}/followers', [ProfilesController::class, 'followers'])->name('profiles.followers');
 Route::post('/followers/add/{id}', [FollowersController::class, 'addFollower'])->name('profiles.addfollowers');
 Route::delete('/followers/delete/{id}', [FollowersController::class, 'deleteFollower'])->name('profiles.delfollowers');
 

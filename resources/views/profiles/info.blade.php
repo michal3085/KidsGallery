@@ -17,10 +17,10 @@
                 <a class="nav-link" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">Polubione</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwowani ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
+                <a class="nav-link" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwowani ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwują ({{ \App\Models\Follower::where('follower_id', $other_user->id)->count() }})</a>
+                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwują ({{ \App\Models\Follower::where('follower_id', $other_user->id)->count() }})</a>
             </li>
         </ul>
 
@@ -53,10 +53,10 @@
                                 <h6>Data urodzenia: {{ $userdata->birthdate }}</h6>
                             </div>
                             @if ($user->id != $other_user->id)
-                                @if ($user->followers()->where('follower_id', $other_user->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                                @if ($user->following()->where('follower_id', $other_user->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
                                     <button type="submit" class="btn btn-outline-danger follow" data-id="{{ $other_user->id }}"><i class="fas fa-heart"></i> Dodaj do ulubionych</button>
                                 @else
-                                    <button type="submit" class="btn btn-danger" data-id="{{ $other_user->id }}"><i class="fas fa-heart"></i> Obserwujesz</button>
+                                    <button type="submit" class="btn btn-danger delete" data-id="{{ $other_user->id }}"><i class="fas fa-heart"></i> Obserwujesz</button>
                                 @endif
                             @endif
                         </div>
@@ -71,6 +71,23 @@
             $.ajax({
             method: "POST",
             url: "/followers/add/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
+            $(function() {
+            $('.delete').click( function () {
+            $.ajax({
+            method: "DELETE",
+            contentType: "application/json; charset=utf-8",
+            url: "/followers/delete/" + $(this).data("id")
             // data: { name: "John", location: "Boston" }
             })
             .done(function( response ) {
