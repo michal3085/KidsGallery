@@ -36,7 +36,9 @@
                                 <p class="m-b-5 m-t-10"></p>
                             </div>
                         </div>
+                        @if (\Illuminate\Support\Facades\Auth::Id() != $follow->id)
                                 <button type="submit" class="btn btn-danger delete" data-id="{{ $follow->id }}"><i class="fas fa-heart"></i> Usuń</button>
+                        @endif
                     </div>
                     <hr>
                 @endforeach

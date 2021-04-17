@@ -20,6 +20,7 @@
                 {{ \Illuminate\Support\Facades\Auth::user()->name }}
             </h1>
             @foreach($pictures as $picture)
+                @if ($picture->visible == 1)
                     <p class="lead mb-5">
                     <div class="row section-box">
                         <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
@@ -37,6 +38,7 @@
                     @else
                         <button type="submit" class="btn btn-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
                     @endif
+                @endif
             @endforeach
             {{--            <div class="pagination pagination-lg justify-content-center">--}}
             <div class="pagination justify-content-center">

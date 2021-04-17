@@ -11,6 +11,20 @@ use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
+
+    private $avatars = [
+                '1' => 'avatar/avatar1.png',
+                '2' => 'avatar/avatar2.png',
+                '3' => 'avatar/avatar3.png',
+                '4' => 'avatar/avatar4.png',
+                '5' => 'avatar/avatar5.png',
+                '6' => 'avatar/avatar6.png',
+                '7' => 'avatar/avatar7.png',
+                '8' => 'avatar/avatar8.png',
+                '9' => 'avatar/avatar9.png',
+                '10' => 'avatar/avatar10.png',
+                '11' => 'avatar/avatar11.png'
+            ];
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +35,7 @@ class UsersController extends Controller
         $user = User::where('id', Auth::id())->first();
         $usersIds = $user->following()->pluck('follower_id')->all();
         //$usersIds[] = $user->id;
-        $pictures = Picture::whereIn('user_id', $usersIds)->latest()->paginate(30);
+        $pictures = Picture::whereIn('user_id', $usersIds)->latest()->paginate(10);
 
 
         return view('users.index', compact('pictures'));
@@ -93,21 +107,7 @@ class UsersController extends Controller
             $user = User::find($id);
             $oldfilename = $user->avatar;
 
-            $avatars = [
-                '1' => 'avatar/avatar1.png',
-                '2' => 'avatar/avatar2.png',
-                '3' => 'avatar/avatar3.png',
-                '4' => 'avatar/avatar4.png',
-                '5' => 'avatar/avatar5.png',
-                '6' => 'avatar/avatar6.png',
-                '7' => 'avatar/avatar7.png',
-                '8' => 'avatar/avatar8.png',
-                '9' => 'avatar/avatar9.png',
-                '10' => 'avatar/avatar10.png',
-                '11' => 'avatar/avatar11.png'
-            ];
-
-            if (! in_array($oldfilename, $avatars) ){
+            if (! in_array($oldfilename, $this->avatars) ){
                 Storage::disk('public')->delete($user->avatar);
             }
 
@@ -129,21 +129,8 @@ class UsersController extends Controller
         $user = User::find($id);
         $oldfilename = $user->avatar;
 
-        $avatars = [
-            '1' => 'avatar/avatar1.png',
-            '2' => 'avatar/avatar2.png',
-            '3' => 'avatar/avatar3.png',
-            '4' => 'avatar/avatar4.png',
-            '5' => 'avatar/avatar5.png',
-            '6' => 'avatar/avatar6.png',
-            '7' => 'avatar/avatar7.png',
-            '8' => 'avatar/avatar8.png',
-            '9' => 'avatar/avatar9.png',
-            '10' => 'avatar/avatar10.png',
-            '11' => 'avatar/avatar11.png'
-        ];
 
-        if (! in_array($oldfilename, $avatars) ){
+        if (! in_array($oldfilename, $this->avatars) ){
             Storage::disk('public')->delete($user->avatar);
         }
         $user->avatar = 'avatar/avatar' . $x . '.png';
