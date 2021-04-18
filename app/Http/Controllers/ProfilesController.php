@@ -61,8 +61,6 @@ class ProfilesController extends Controller
     public function following($name)
     {
         $user = User::where('name', $name)->first();
-        $logged_user = User::where('id', Auth::id())->first();
-
         $followers = $user->following()->latest()->paginate(30);
 
         return view('profiles.following')->with(['other_user' => $user, 'followers' => $followers]);
@@ -71,8 +69,6 @@ class ProfilesController extends Controller
     public function followers($name)
     {
         $user = User::where('name', $name)->first();
-        $logged_user = User::where('id', Auth::id())->first();
-
         $followers = $user->followers()->latest()->paginate(30);
 
         return view('profiles.followers')->with(['other_user' => $user, 'followers' => $followers]);

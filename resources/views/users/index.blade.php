@@ -30,7 +30,8 @@
                             <br>
                             <b>{{ $picture->user }}</b> | {{ $picture->name }}
                             <br>
-                            {{ __('Added.') }}: {{ $picture->created_at }}
+                            <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
+                            | <i class="far fa-eye"></i> {{ $picture->views }}
                         </div>
                     </div>
                     @if ($picture->likes()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
