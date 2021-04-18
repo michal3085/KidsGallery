@@ -29,7 +29,6 @@
                 <h1 class="mb-0">
                 </h1>
                 @foreach($pictures as $picture)
-                    
 
                         <p class="lead mb-5">
                         <div class="row section-box">
@@ -59,4 +58,21 @@
         </section>
     </div>
 
+@endsection
+@section('javascript')
+$(function() {
+$('.like').click( function () {
+$.ajax({
+method: "POST",
+url: "/newlike/" + $(this).data("id")
+// data: { name: "John", location: "Boston" }
+})
+.done(function( response ) {
+window.location.reload();
+})
+.fail(function( response ) {
+alert( "Error:0001" );
+});
+});
+});
 @endsection

@@ -37,8 +37,17 @@
                             </div>
                         </div>
                         @if (\Illuminate\Support\Facades\Auth::Id() != $follow->id)
+                            @if ($user->name == $other_user->name)
                                 <button type="submit" class="btn btn-danger delete" data-id="{{ $follow->id }}"><i class="fas fa-heart"></i> Usuń</button>
+                            @elseif ($user->name != $other_user->name)
+                                @if ($user->following()->where('follower_id', $follow->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                                    <button type="submit" class="btn btn-outline-danger follow" data-id="{{ $follow->id }}"><i class="fas fa-heart"></i> Dodaj do obserwowanych</button>
+                                @else
+                                    <button type="submit" class="btn btn-danger delete" data-id="{{ $follow->id }}"><i class="fas fa-heart"></i> Usuń z obserwowanych</button>
+                                @endif
+                            @endif
                         @endif
+
                     </div>
                     <hr>
                 @endforeach
@@ -50,6 +59,23 @@
 
 @endsection
         @section('javascript')
+
+            $(function() {
+            $('.follow').click( function () {
+            $.ajax({
+            method: "POST",
+            url: "/followers/add/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
             $(function() {
             $('.delete').click( function () {
             $.ajax({

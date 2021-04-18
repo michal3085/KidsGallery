@@ -25,6 +25,7 @@ class UsersController extends Controller
                 '10' => 'avatar/avatar10.png',
                 '11' => 'avatar/avatar11.png'
             ];
+
     /**
      * Display a listing of the resource.
      *
