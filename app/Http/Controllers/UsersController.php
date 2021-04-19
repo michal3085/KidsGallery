@@ -36,7 +36,7 @@ class UsersController extends Controller
         $user = User::where('id', Auth::id())->first();
         $usersIds = $user->following()->pluck('follower_id')->all();
         //$usersIds[] = $user->id;
-        $pictures = Picture::whereIn('user_id', $usersIds)->latest()->paginate(10);
+        $pictures = Picture::whereIn('user_id', $usersIds)->where('accept', 1)->latest()->paginate(10);
 
 
         return view('users.index', compact('pictures'));

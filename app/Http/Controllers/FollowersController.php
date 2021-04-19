@@ -37,4 +37,29 @@ class FollowersController extends Controller
        }
 
     }
+
+    public function addRights($id)
+    {
+            $follower = Follower::where('user_id', Auth::id())->where('follower_id', $id)->first();
+            $follower->rights = 1;
+
+            $follower->save();
+            return redirect()->back();
+    }
+
+    public function deleteRights($id)
+    {
+        $follower = Follower::where('user_id', Auth::id())->where('follower_id', $id)->first();
+        $follower->rights = 0;
+
+        if ( $follower->save() ) {
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ])->setStatusCode();
+        }
+    }
 }

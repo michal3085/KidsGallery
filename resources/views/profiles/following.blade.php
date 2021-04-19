@@ -39,9 +39,9 @@
                         @if (\Illuminate\Support\Facades\Auth::Id() != $follow->id)
                             @if ($user->name == $other_user->name)
                                 @if ($user->following()->where('follower_id', $follow->id)->where('rights', 1)->count() != 0 )
-                                <button type="button" class="btn btn-link"><i class="far fa-eye" style="height: 30px; width: 30px;"></i></button>
+                                <button type="button" class="btn btn-link"><i class="far fa-eye rightsdel" style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
                                     @elseif ($user->following()->where('follower_id', $follow->id)->where('rights', 1)->count() == 0)
-                                        <button type="button" class="btn btn-link"><i class="far fa-eye-slash" style="height: 30px; width: 30px;"></i></button>
+                                        <button type="button" class="btn btn-link"><i class="far fa-eye-slash rightson" style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
                                 @endif
                                     <button type="button" class="btn btn-link"><i class="fas fa-heart delete" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></button>
                             @elseif ($user->name != $other_user->name)
@@ -87,6 +87,39 @@
             method: "DELETE",
             contentType: "application/json; charset=utf-8",
             url: "/followers/delete/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
+            $(function() {
+            $('.rightson').click( function () {
+            $.ajax({
+            method: "POST",
+            url: "/followers/add/rights/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
+            $(function() {
+            $('.rightsdel').click( function () {
+            $.ajax({
+            method: "DELETE",
+            contentType: "application/json; charset=utf-8",
+            url: "/followers/delete/rights/" + $(this).data("id")
             // data: { name: "John", location: "Boston" }
             })
             .done(function( response ) {

@@ -46,6 +46,8 @@ Route::get('/profile/{name}/following', [ProfilesController::class, 'following']
 Route::get('/profile/{name}/followers', [ProfilesController::class, 'followers'])->name('profiles.followers');
 Route::post('/followers/add/{id}', [FollowersController::class, 'addFollower'])->name('profiles.addfollowers');
 Route::delete('/followers/delete/{id}', [FollowersController::class, 'deleteFollower'])->name('profiles.delfollowers');
+Route::post('/followers/add/rights/{id}', [FollowersController::class, 'addRights']);
+Route::delete('/followers/delete/rights/{id}', [FollowersController::class, 'deleteRights']);
 
 // Routes for Users
 Route::resource('users', UsersController::class);

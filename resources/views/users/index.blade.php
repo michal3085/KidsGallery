@@ -20,20 +20,27 @@
                 {{ \Illuminate\Support\Facades\Auth::user()->name }}
             </h1>
             @foreach($pictures as $picture)
-                @if ( \App\Models\Follower::where('user_id', $picture->user_id)->where('follower_id', $user->id)->where('rights', 1)->count() != 0 && $picture->visible == 0)
-                    <p class="lead mb-5">
-                    <div class="row section-box">
-                        <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
-                            <a href="{{ route('pictures.show', ['picture' => $picture->id]) }}">
-                                <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
-                            </a>
-                            <br>
-                            <b>{{ $picture->user }}</b> | {{ $picture->name }}
-                            <br>
-                            <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
-                            | <i class="far fa-eye"></i> {{ $picture->views }}
+                @if ( $picture->visible == 0)
+                    @if( \App\Models\Follower::where('user_id', $picture->user_id)->where('follower_id', $user->id)->where('rights', 1)->count() != 0 )
+                        <p class="lead mb-5">
+                        <div class="row section-box">
+                            <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
+                                <a href="{{ route('pictures.show', ['picture' => $picture->id]) }}">
+                                    <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
+                                </a>
+                                <br>
+                                <b>{{ $picture->user }}</b> | {{ $picture->name }}
+                                <br>
+                                <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
+                                | <i class="far fa-eye"></i> {{ $picture->views }}
+                            </div>
                         </div>
-                    </div>
+                        @if ($picture->likes()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                            <button type="submit" class="btn btn-outline-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
+                        @else
+                            <button type="submit" class="btn btn-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
+                        @endif
+                    @endif
                 @endif
                 @if ($picture->visible == 1)
                     <p class="lead mb-5">
