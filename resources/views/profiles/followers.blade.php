@@ -29,7 +29,7 @@
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4"></div>
                 @foreach($followers as $follow)
                     <div class="d-flex flex-row comment-row">
-                        <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $follow->name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
+                        <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $follow->name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
                         <div class="comment-text w-100">
                             <a href="{{ route('profiles.info', ['name' => $follow->name ]) }}"><h5>{{ $follow->name }}</h5></a>
                             <div class="comment-footer"> <span class="date">
@@ -38,9 +38,9 @@
                         </div>
                         @if (\Illuminate\Support\Facades\Auth::Id() != $follow->id)
                             @if ($user->following()->where('follower_id', $follow->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
-                                <button type="submit" class="btn btn-outline-danger follow" data-id="{{ $follow->id }}"><i class="fas fa-heart"></i> Dodaj do obserwowanych</button>
+                                <a href=""><i class="far fa-heart follow" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></a>
                             @else
-                                <button type="submit" class="btn btn-danger delete" data-id="{{ $follow->id }}"><i class="fas fa-heart"></i> Usuń z obserwowanych</button>
+                                <a href=""><i class="fas fa-heart delete" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></a>
                             @endif
                         @endif
                     </div>
