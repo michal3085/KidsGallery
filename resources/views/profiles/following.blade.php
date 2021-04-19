@@ -38,7 +38,12 @@
                         </div>
                         @if (\Illuminate\Support\Facades\Auth::Id() != $follow->id)
                             @if ($user->name == $other_user->name)
-                                <button type="button" class="btn btn-link"><i class="fas fa-heart delete" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></button>
+                                @if ($user->following()->where('follower_id', $follow->id)->where('rights', 1)->count() != 0 )
+                                <button type="button" class="btn btn-link"><i class="far fa-eye" style="height: 30px; width: 30px;"></i></button>
+                                    @elseif ($user->following()->where('follower_id', $follow->id)->where('rights', 1)->count() == 0)
+                                        <button type="button" class="btn btn-link"><i class="far fa-eye-slash" style="height: 30px; width: 30px;"></i></button>
+                                @endif
+                                    <button type="button" class="btn btn-link"><i class="fas fa-heart delete" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></button>
                             @elseif ($user->name != $other_user->name)
                                 @if ($user->following()->where('follower_id', $follow->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
                                     <button type="button" class="btn btn-link"><i class="far fa-heart follow" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></button>
