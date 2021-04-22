@@ -21,7 +21,7 @@ class PicturesController extends Controller
     public function index()
     {
         // get data with newest date
-        $pictures = Picture::where('accept', 1)->latest()->paginate(5);
+        $pictures = Picture::where('accept', 1)->latest()->paginate(8);
 
         if (!Auth::check()) {
             return view('unloged.gallery', compact('pictures'));

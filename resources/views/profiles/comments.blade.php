@@ -29,7 +29,7 @@
                     <div class="d-flex flex-row add-comment-section mt-4 mb-4"></div>
                 @foreach($comments as $comment)
                     <div class="d-flex flex-row comment-row">
-                        <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
+                        <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
                         <div class="comment-text w-100">
                             <h5>{{ $comment->user_name }}</h5>
                             <div class="comment-footer"> <span class="date">{{ $comment->created_at }}
