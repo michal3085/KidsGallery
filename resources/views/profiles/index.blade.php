@@ -31,9 +31,9 @@
                 @foreach($pictures as $picture)
                     @if ( $picture->visible == 0)
                         @if( \App\Models\Follower::where('user_id', $picture->user_id)->where('follower_id', $user->id)->where('rights', 1)->count() != 0 || $picture->user_id == \Illuminate\Support\Facades\Auth::id() )
-                            <p class="lead mb-5">
+                            <p class="lead mb-5" >
                             <div class="row section-box">
-                                <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
+                                <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded" style="background-color: rgba(111,220,12,0.12);" >
                                     <a href="{{ route('pictures.show', ['picture' => $picture->id]) }}">
                                         <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
                                     </a>

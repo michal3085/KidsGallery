@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Follower;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FollowersController extends Controller
@@ -18,9 +16,13 @@ class FollowersController extends Controller
             $follower->rights = 0;
 
             $follower->save();
-            return redirect()->back();
+            return response()->json([
+                'status' => 'success'
+            ]);
         } else {
-            return redirect()->back();
+            return response()->json([
+                'status' => 'error'
+            ]);
         }
     }
 
@@ -44,7 +46,10 @@ class FollowersController extends Controller
             $follower->rights = 1;
 
             $follower->save();
-            return redirect()->back();
+
+            return response()->json([
+                'status' => 'success'
+            ]);
     }
 
     public function deleteRights($id)
