@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\CommentsReport;
+use App\Models\Picture;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,12 +13,15 @@ class CommentsController extends Controller
     public function store(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $comments = new Comment();
+        $picture = Picture::where('id', $id)->first();
 
         $comments->picture_id = $id;
+        $comments->user_id = Auth::id();
         $comments->comment = $request->comment;
         $comments->user_name = Auth::user()->name;
-
+        $comments->parent_id = $picture->id;
         $comments->save();
+
         return redirect()->back();
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Follower;
 use App\Models\like;
 use App\Models\Picture;
 use App\Models\PicturesReport;
@@ -20,7 +21,7 @@ class PicturesController extends Controller
     public function index()
     {
         // get data with newest date
-        $pictures = Picture::where('accept', 1)->latest()->paginate(5);
+        $pictures = Picture::where('accept', 1)->latest()->paginate(8);
 
         if (!Auth::check()) {
             return view('unloged.gallery', compact('pictures'));
@@ -98,6 +99,8 @@ class PicturesController extends Controller
     public function show(Request $request, $id)
     {
         $pictures = Picture::find($id);
+        $follow = Follower::where('user_id', $pictures->user_id)->where('follow_id', Auth::id())->first();
+
         $comments = $pictures->comments()->where('picture_id', $id)->latest()->paginate(20);
 
         if(!$request->session()->has('visit' . $id)) {
@@ -110,7 +113,8 @@ class PicturesController extends Controller
                 return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments]);
             } elseif ($pictures->visible == 0 && $pictures->user == Auth::user()->name){
                 return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments]);
-
+            } elseif ($pictures->visible == 0 && $follow->rights == 1) {
+                return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments]);
             } else {
                 return redirect()->back();
             }

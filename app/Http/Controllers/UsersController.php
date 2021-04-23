@@ -4,12 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Picture;
 use App\Models\User;
+use App\Models\UsersData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
+
+    private $avatars = [
+                '1' => 'avatar/avatar1.png',
+                '2' => 'avatar/avatar2.png',
+                '3' => 'avatar/avatar3.png',
+                '4' => 'avatar/avatar4.png',
+                '5' => 'avatar/avatar5.png',
+                '6' => 'avatar/avatar6.png',
+                '7' => 'avatar/avatar7.png',
+                '8' => 'avatar/avatar8.png',
+                '9' => 'avatar/avatar9.png',
+                '10' => 'avatar/avatar10.png',
+                '11' => 'avatar/avatar11.png'
+            ];
+
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +33,11 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $user  = User::find(Auth::id());
-        $pictures = $user->pictures()->where('accept', 1)->latest()->paginate(10);
+        $user = User::where('id', Auth::id())->first();
+        $usersIds = $user->following()->pluck('follow_id')->all();
+        //$usersIds[] = $user->id;
+        $pictures = Picture::whereIn('user_id', $usersIds)->where('accept', 1)->latest()->paginate(10);
+
 
         return view('users.index', compact('pictures'));
     }
@@ -89,14 +108,7 @@ class UsersController extends Controller
             $user = User::find($id);
             $oldfilename = $user->avatar;
 
-            $avatars = [
-                '1' => 'avatar/avatar1.png',
-                '2' => 'avatar/avatar2.png',
-                '3' => 'avatar/avatar3.png',
-                '4' => 'avatar/avatar4.png'
-            ];
-
-            if ( !in_array($oldfilename, $avatars) ){
+            if (! in_array($oldfilename, $this->avatars) ){
                 Storage::disk('public')->delete($user->avatar);
             }
 
@@ -109,34 +121,60 @@ class UsersController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function defaultAvatar(Request $request, $id, $x)
+    public function defaultAvatar($id, $x)
     {
 
         $user = User::find($id);
         $oldfilename = $user->avatar;
 
-        $avatars = [
-            '1' => 'avatar/avatar1.png',
-            '2' => 'avatar/avatar2.png',
-            '3' => 'avatar/avatar3.png',
-            '4' => 'avatar/avatar4.png'
-        ];
 
-        if ( !in_array($oldfilename, $avatars) ){
+        if (! in_array($oldfilename, $this->avatars) ){
             Storage::disk('public')->delete($user->avatar);
         }
         $user->avatar = 'avatar/avatar' . $x . '.png';
-
 
         $user->save();
 
         return redirect()->back();
 
+    }
+
+    public function userinfo($id)
+    {
+        $user = User::find($id);
+
+        if ( $user->usersdata()->where('user_id', $id)->count() == 0 ) {
+            $userdata_create = new UsersData();
+            $userdata_create->user_id = $user->id;
+            $userdata_create->save();
+        }
+
+        $userdata = UsersData::where('user_id', $id)->first();
+
+        return view('users.info', compact('userdata'));
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function aboutsave(Request $request, $id)
+    {
+        $userdata = UsersData::where('user_id', $id)->first();
+
+        $userdata->about = $request->about;
+        $userdata->city = $request->city;
+        $userdata->birthdate = $request->birthdate;
+
+        $userdata->save();
+        return redirect()->back();
     }
 
     /**

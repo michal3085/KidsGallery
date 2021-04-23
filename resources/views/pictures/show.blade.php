@@ -10,10 +10,10 @@
 
     <section class="resume-section" id="about">
         <div class="resume-section-content">
-          <h2>{{ $pictures->user }}: </h2>
-            <h1 class="mb-0">
-                {{ $pictures->name }}
-            </h1>
+                <a href="{{ route('profiles.info', ['name' => $pictures->user  ]) }}"><h2>{{ $pictures->user }}: </h2></a>
+                  <h1 class="mb-0">
+                   {{ $pictures->name }}
+                     </h1>
                     <p class="lead mb-5">
                     <div class="row section-box">
                             <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
@@ -65,9 +65,9 @@
                 </form>
                     @foreach($comments as $comment)
                         <div class="d-flex flex-row comment-row">
-                            <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
+                            <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
                             <div class="comment-text w-100">
-                                <h5>{{ $comment->user_name }}</h5>
+                                <a href="{{ route('profiles.info', ['name' => $comment->user_name ]) }}"><h5>{{ $comment->user_name }}</h5></a>
                                 <div class="comment-footer"> <span class="date">{{ $comment->created_at }}
                                     @if ( $comment->user_name == \Illuminate\Support\Facades\Auth::user()->name)
                                         </span><span class="action-icons"><i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}"></i> </span>
