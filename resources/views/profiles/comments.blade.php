@@ -20,7 +20,7 @@
                 <a class="nav-link" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwowani ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwują ({{ \App\Models\Follower::where('follower_id', $other_user->id)->count() }})</a>
+                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwują ({{ \App\Models\Follower::where('follow_id', $other_user->id)->count() }})</a>
             </li>
         </ul>
 
@@ -28,6 +28,8 @@
             <div class="resume-section-content">
                     <div class="d-flex flex-row add-comment-section mt-4 mb-4"></div>
                 @foreach($comments as $comment)
+                    @if ( \App\Models\Picture::where('id', $comment->picture_id)->where('visible', 0)->count() == 1 )
+                        @if( \App\Models\Follower::where('user_id', $comment->parent_id)->where('follow_id', $user->id)->where('rights', 1)->count() == 1 || $user->id == $comment->parent_id  )
                     <div class="d-flex flex-row comment-row">
                         <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
                         <div class="comment-text w-100">
@@ -35,9 +37,9 @@
                             <div class="comment-footer"> <span class="date">{{ $comment->created_at }}
                                     @if ( $comment->user_name == \Illuminate\Support\Facades\Auth::user()->name)
                                         </span><span class="action-icons"><i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}"></i> </span>
-                                @else
-                                </span><span class="action-icons"><i class="fas fa-exclamation comment_report" data-id="{{ $comment->id }}"></i></span>
-                                @endif
+                                        @else
+                                             </span><span class="action-icons"><i class="fas fa-exclamation comment_report" data-id="{{ $comment->id }}"></i></span>
+                                             @endif
                                 <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
                             </div>
                         </div>
@@ -48,6 +50,30 @@
                         </button>
                     </div>
                     <hr>
+                        @endif
+                    @endif
+                        @if ( \App\Models\Picture::where('id', $comment->picture_id)->where('visible', 1)->count() == 1)
+                            <div class="d-flex flex-row comment-row">
+                                <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
+                                <div class="comment-text w-100">
+                                    <h5>{{ $comment->user_name }}</h5>
+                                    <div class="comment-footer"> <span class="date">{{ $comment->created_at }}
+                                            @if ( $comment->user_name == \Illuminate\Support\Facades\Auth::user()->name)
+                                        </span><span class="action-icons"><i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}"></i> </span>
+                                        @else
+                                        </span><span class="action-icons"><i class="fas fa-exclamation comment_report" data-id="{{ $comment->id }}"></i></span>
+                                        @endif
+                                        <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-outline-success">
+                                    <a href="{{ route('pictures.show', ['picture' => $comment->picture_id]) }}">
+                                        <img class="img-fluid img-responsive  mr-2" src="{{ asset('/storage') . '/' . \App\Models\Picture::where(['id' => $comment->picture_id])->pluck('file_path')->first() }}" alt="user" width="50">
+                                    </a>
+                                </button>
+                            </div>
+                            <hr>
+                        @endif
                 @endforeach
             <div class="pagination justify-content-center">
                 {{ $comments->links() }}

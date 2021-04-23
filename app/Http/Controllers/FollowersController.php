@@ -9,10 +9,10 @@ class FollowersController extends Controller
 {
     public function addFollower($id)
     {
-        if ( Follower::where('follower_id', $id)->where('user_id', Auth::id())->count() == 0 && Auth::id() != $id ) {
+        if ( Follower::where('follow_id', $id)->where('user_id', Auth::id())->count() == 0 && Auth::id() != $id ) {
             $follower = new Follower();
             $follower->user_id = Auth::id();
-            $follower->follower_id = $id;
+            $follower->follow_id = $id;
             $follower->rights = 0;
 
             $follower->save();
@@ -28,7 +28,7 @@ class FollowersController extends Controller
 
     public function deleteFollower($id)
     {
-       if ( Follower::where('user_id', Auth::id())->where('follower_id', $id)->delete() ) {
+       if ( Follower::where('user_id', Auth::id())->where('follow_id', $id)->delete() ) {
            return response()->json([
                'status' => 'success'
            ]);
@@ -42,7 +42,7 @@ class FollowersController extends Controller
 
     public function addRights($id)
     {
-            $follower = Follower::where('user_id', Auth::id())->where('follower_id', $id)->first();
+            $follower = Follower::where('user_id', Auth::id())->where('follow_id', $id)->first();
             $follower->rights = 1;
 
             $follower->save();
@@ -54,7 +54,7 @@ class FollowersController extends Controller
 
     public function deleteRights($id)
     {
-        $follower = Follower::where('user_id', Auth::id())->where('follower_id', $id)->first();
+        $follower = Follower::where('user_id', Auth::id())->where('follow_id', $id)->first();
         $follower->rights = 0;
 
         if ( $follower->save() ) {

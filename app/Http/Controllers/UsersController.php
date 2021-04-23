@@ -34,7 +34,7 @@ class UsersController extends Controller
     public function index()
     {
         $user = User::where('id', Auth::id())->first();
-        $usersIds = $user->following()->pluck('follower_id')->all();
+        $usersIds = $user->following()->pluck('follow_id')->all();
         //$usersIds[] = $user->id;
         $pictures = Picture::whereIn('user_id', $usersIds)->where('accept', 1)->latest()->paginate(10);
 

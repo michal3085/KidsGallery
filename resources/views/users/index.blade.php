@@ -21,7 +21,7 @@
             </h1>
             @foreach($pictures as $picture)
                 @if ( $picture->visible == 0)
-                    @if( \App\Models\Follower::where('user_id', $picture->user_id)->where('follower_id', $user->id)->where('rights', 1)->count() != 0 )
+                    @if( \App\Models\Follower::where('user_id', $picture->user_id)->where('follow_id', $user->id)->where('rights', 1)->count() != 0 )
                         <p class="lead mb-5">
                         <div class="row section-box">
                             <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">

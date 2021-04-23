@@ -99,7 +99,7 @@ class PicturesController extends Controller
     public function show(Request $request, $id)
     {
         $pictures = Picture::find($id);
-        $follow = Follower::where('user_id', $pictures->user_id)->where('follower_id', Auth::id())->first();
+        $follow = Follower::where('user_id', $pictures->user_id)->where('follow_id', Auth::id())->first();
 
         $comments = $pictures->comments()->where('picture_id', $id)->latest()->paginate(20);
 
