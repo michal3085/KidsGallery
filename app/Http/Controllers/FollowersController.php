@@ -42,14 +42,14 @@ class FollowersController extends Controller
 
     public function addRights($id)
     {
-            $follower = Follower::where('user_id', Auth::id())->where('follow_id', $id)->first();
-            $follower->rights = 1;
+        $follower = Follower::where('user_id', Auth::id())->where('follow_id', $id)->first();
+        $follower->rights = 1;
 
-            $follower->save();
+        $follower->save();
 
-            return response()->json([
-                'status' => 'success'
-            ]);
+        return response()->json([
+            'status' => 'success'
+        ]);
     }
 
     public function deleteRights($id)

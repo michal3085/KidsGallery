@@ -19,6 +19,13 @@ class CreateBlockedUsersTable extends Migration
             $table->unsignedBigInteger('blocked_user');
             $table->timestamps();
         });
+
+        Schema::table('blocked_users', function (Blueprint $table) {
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+        });
     }
 
     /**
@@ -28,6 +35,8 @@ class CreateBlockedUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blocked_users');
+        Schema::table('blocked_users', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
     }
 }

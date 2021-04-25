@@ -181,7 +181,7 @@ class PicturesController extends Controller
 
     public function top()
     {
-        $pictures = Picture::where('accept', 1)->orderByDesc('likes')->take(10)->get();
+        $pictures = Picture::where('accept', 1)->where('visible', 1)->orderByDesc('likes')->take(10)->get();
 
         if (Auth::check()) {
             return view('pictures.top10', compact('pictures'));
