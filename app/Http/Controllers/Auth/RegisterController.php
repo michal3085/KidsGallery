@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -53,7 +54,21 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'terms' => 'required'
+            'terms' => 'required',
+            'g-recaptcha-response' => function ($attribute, $value, $fail) {
+                $secret = env('RECAPTCHA_SECRET');
+                $response = $value;
+                $userIP = $_SERVER['REMOTE_ADDR'];
+                $url = "https://www.google.com/recaptcha/api/siteverify?secret=" . $secret . "&response=" . $response . "&remoteip=" . $userIP ;
+                $response = \file_get_contents($url);
+                $response = json_decode($response);
+
+                if (! $response->success) {
+                    Session::flash('g-recaptcha-response', 'Please resolve a reCaptcha');
+                    Session::flash('alert-class', 'alert-danger');
+                    $fail($attribute.'Google ReCaptcha Error');
+                }
+            }
         ]);
     }
 

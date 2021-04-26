@@ -63,7 +63,18 @@
                                         </div>
                                     </div>
 
-                                            <div class="form-group row">
+                                    <div class="form-group row">
+                                        <div class="col-md-6 offset-md-4">
+                                            <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITEKEY') }}"></div>
+                                            @if(\Illuminate\Support\Facades\Session::has('g-recaptcha-response'))
+                                                <p class="text-danger">
+                                                    {{Session::get('g-recaptcha-response')}}
+                                                </p>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
                                                 <div class="col-md-6 offset-md-4">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" name="terms" id="terms" {{ old('terms') ? 'checked' : '' }} >

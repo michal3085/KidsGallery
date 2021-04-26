@@ -14,6 +14,8 @@
     <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+    <!-- Google ReCaptcha -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body id="page-top">
 <!-- Navigation-->
