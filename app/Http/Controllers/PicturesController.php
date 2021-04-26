@@ -113,7 +113,7 @@ class PicturesController extends Controller
                 return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments]);
             } elseif ($pictures->visible == 0 && $pictures->user == Auth::user()->name){
                 return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments]);
-            } elseif ($pictures->visible == 0 && $follow->rights == 1) {
+            } elseif ($pictures->visible == 0 && $follow->rights == 1 && $pictures->accept == 1) {
                 return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments]);
             } else {
                 return redirect()->back();
@@ -187,6 +187,17 @@ class PicturesController extends Controller
             return view('pictures.top10', compact('pictures'));
         } else {
             return view('unloged.top10', compact('pictures'));
+        }
+    }
+
+    public function topviews()
+    {
+        $pictures = Picture::where('accept', 1)->where('visible', 1)->orderByDesc('views')->take(10)->get();
+
+        if (Auth::check()) {
+            return view('pictures.topviews', compact('pictures'));
+        } else {
+            return view('unloged.topviews', compact('pictures'));
         }
     }
 

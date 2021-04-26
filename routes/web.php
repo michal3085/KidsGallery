@@ -31,6 +31,7 @@ Route::get('/comments/report/{id}', [CommentsController::class, 'report'])->midd
 
 // Routes for pictures
 Route::get('/pictures/top10', [PicturesController::class, 'top'])->name('top10');
+Route::get('/pictures/topviews', [PicturesController::class, 'topviews'])->name('top10.views');
 Route::get('/pictures/{id}/report', [PicturesController::class, 'report'])->name('pictures.report');
 Route::put('/pictures/{id}/send/report', [PicturesController::class, 'SendReport'])->name('pictures.sendreport');
 Route::resource('pictures', PicturesController::class);

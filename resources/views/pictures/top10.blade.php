@@ -13,6 +13,15 @@
             <strong>{{ session()->get('message2') }}</strong>
         </div>
     @endif
+    <br>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="{{ route('top10') }}">Polubienia</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('top10.views') }}">Wyświetlenia</a>
+        </li>
+    </ul>
 
     <section class="resume-section" id="about">
         <div class="resume-section-content">

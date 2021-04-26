@@ -1,4 +1,4 @@
-@extends('unloged.index')
+@extends('layout.index')
 
 @section('content')
 
@@ -16,10 +16,10 @@
     <br>
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="{{ route('top10') }}">Polubienia</a>
+            <a class="nav-link" href="{{ route('top10') }}">Polubienia</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('top10.views') }}">Wyświetlenia</a>
+            <a class="nav-link active" href="{{ route('top10.views') }}">Wyświetlenia</a>
         </li>
     </ul>
 
@@ -43,14 +43,32 @@
                             | <i class="far fa-eye"></i> {{ $picture->views }}
                         </div>
                     </div>
-                    <form action="{{ route('like.new', ['id' => $picture->id]) }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
-                    </form>
-                    </p>
+                    @if ($picture->likes()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                        <button type="submit" class="btn btn-outline-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
+                    @else
+                        <button type="submit" class="btn btn-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
+                    @endif
                 @endif
             @endforeach
         </div>
     </section>
+
+@endsection
+@section('javascript')
+    $(function() {
+    $('.like').click( function () {
+    $.ajax({
+    method: "POST",
+    url: "/newlike/" + $(this).data("id")
+    // data: { name: "John", location: "Boston" }
+    })
+    .done(function( response ) {
+    window.location.reload();
+    })
+    .fail(function( response ) {
+    alert( "Juz polubione" );
+    });
+    });
+    });
 
 @endsection

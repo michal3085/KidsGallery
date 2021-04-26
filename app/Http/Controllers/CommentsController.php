@@ -19,7 +19,7 @@ class CommentsController extends Controller
         $comments->user_id = Auth::id();
         $comments->comment = $request->comment;
         $comments->user_name = Auth::user()->name;
-        $comments->parent_id = $picture->id;
+        $comments->parent_id = $picture->user_id;
         $comments->save();
 
         return redirect()->back();

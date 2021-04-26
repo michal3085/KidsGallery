@@ -16,10 +16,10 @@
     <br>
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="{{ route('top10') }}">Polubienia</a>
+            <a class="nav-link" href="{{ route('top10') }}">Polubienia</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('top10.views') }}">Wyświetlenia</a>
+            <a class="nav-link active" href="{{ route('top10.views') }}">Wyświetlenia</a>
         </li>
     </ul>
 
