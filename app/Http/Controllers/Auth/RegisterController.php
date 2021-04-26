@@ -64,7 +64,7 @@ class RegisterController extends Controller
                 $response = json_decode($response);
 
                 if (! $response->success) {
-                    Session::flash('g-recaptcha-response', 'Please resolve a reCaptcha');
+                    Session::flash('g-recaptcha-response', 'Please resolve reCaptcha');
                     Session::flash('alert-class', 'alert-danger');
                     $fail($attribute.'Google ReCaptcha Error');
                 }
