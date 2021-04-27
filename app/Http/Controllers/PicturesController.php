@@ -230,7 +230,7 @@ class PicturesController extends Controller
             $pictures->message = 1;
 
             $report->save();
-            return view('unloged.show', compact('pictures'))
+            return redirect()->route('unloged.show', ['picture' => $pictures->id])
                 ->with('message', __('Image has been submitted for moderation'));
         }
     }

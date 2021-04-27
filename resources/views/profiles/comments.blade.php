@@ -11,7 +11,7 @@
                 <a class="nav-link" href="{{ route('profiles.gallery', ['name' => $other_user->name]) }}">Galeria</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('profiles.comments', ['name' => $user->name]) }}">Komentarze</a>
+                <a class="nav-link active" href="{{ route('profiles.comments', ['name' => $other_user->name]) }}">Komentarze</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">Polubione</a>
