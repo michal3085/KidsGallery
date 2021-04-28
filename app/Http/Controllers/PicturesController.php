@@ -201,6 +201,17 @@ class PicturesController extends Controller
         }
     }
 
+
+    public function search(Request $request)
+    {
+        $pictures = Picture::where('name', 'LIKE', "%$request->search%")->latest()->paginate(8);
+
+        if (!Auth::check()) {
+            return view('unloged.gallery', compact('pictures'));
+        }
+        return view('pictures.index', compact('pictures'));
+    }
+
     /**
      * Update the specified resource in storage.
      *

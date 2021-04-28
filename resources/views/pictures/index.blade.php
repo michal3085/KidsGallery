@@ -19,6 +19,13 @@
             <h1 class="mb-0">
                 {{ __('Main Gallery')  }}
             </h1>
+
+            <form action="{{ route('picture.search') }}" method="GET">
+                <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                    <input type="text" class="form-control mr-3" name="search" id="search" placeholder="{{ __('Search') }}..." required>
+                    <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button></div>
+            </form>
+
             @foreach($pictures as $picture)
                 @if ( $picture->visible == 0)
                     @if( \App\Models\Follower::where('user_id', $picture->user_id)->where('follow_id', $user->id)->where('rights', 1)->count() != 0 || $picture->user_id == \Illuminate\Support\Facades\Auth::id() )
