@@ -54,8 +54,6 @@
                                     <button type="button" class="btn btn-link"><i class="fas fa-heart delete" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></button>
                                 @endif
                             @endif
-
-
                     </div>
                     <hr>
                 @endforeach

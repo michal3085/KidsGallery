@@ -35,6 +35,7 @@
                 <br>
                 <br>
                 <button type="submit" class="btn btn-success btn-lg">{{ __('Add') }}</button>
+                <hr>
                 <br><br>
                 <h5>{{ __('Choose Your default avatar') }}:</h5>
                 <div class="row section-box">
