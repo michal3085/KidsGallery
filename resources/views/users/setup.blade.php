@@ -40,7 +40,7 @@
                 <h5>{{ __('Choose Your default avatar') }}:</h5>
                 <div class="row section-box">
                     <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
-                        <div>(Except the first two) Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                        <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
                         <a href="{{ route('set.avatar', ['id' => $user->id, 'x' => 1]) }}"> <img class="rounded float-left" style="width: 200px; height: 200px;" src="{{ asset('/storage/avatar/avatar1.png') }}" alt="" /></a>
                         <a href="{{ route('set.avatar', ['id' => $user->id, 'x' => 2]) }}"> <img class="rounded float-left" style="width: 200px; height: 200px;" src="{{ asset('/storage/avatar/avatar2.png') }}" alt="" /></a>
                         <a href="{{ route('set.avatar', ['id' => $user->id, 'x' => 3]) }}"> <img class="rounded float-left" style="width: 200px; height: 200px;" src="{{ asset('/storage/avatar/avatar3.png') }}" alt="" /></a>
