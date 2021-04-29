@@ -142,6 +142,14 @@ class UsersController extends Controller
 
     }
 
+    public function search(Request $request, $name)
+    {
+        $other_user = User::where('name', $name)->first();
+        $users = User::where('name', 'LIKE', "%$request->search%")->latest()->paginate(8);
+
+        return view('profiles.usersearch')->with(['other_user' => $other_user, 'followers' => $users]);
+    }
+
     public function userinfo($id)
     {
         $user = User::find($id);
