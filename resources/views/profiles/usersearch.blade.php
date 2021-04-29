@@ -44,7 +44,13 @@
                         @if (\Illuminate\Support\Facades\Auth::Id() != $follow->id)
                             @if ($user->following()->where('follow_id', $follow->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
                                 <a href=""><i class="far fa-heart follow" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></a>
+                                <input type="hidden">
                             @else
+                                @if ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() != 0 )
+                                    <button type="button" class="btn btn-link mb-3"><i class="far fa-eye rightsdel" style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
+                                @elseif ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() == 0)
+                                    <button type="button" class="btn btn-link mb-3"><i class="far fa-eye-slash rightson"  style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
+                                @endif
                                 <a href=""><i class="fas fa-heart delete" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></a>
                             @endif
                         @endif
@@ -59,6 +65,7 @@
 
         @endsection
         @section('javascript')
+
             $(function() {
             $('.follow').click( function () {
             $.ajax({
@@ -81,6 +88,39 @@
             method: "DELETE",
             contentType: "application/json; charset=utf-8",
             url: "/followers/delete/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
+            $(function() {
+            $('.rightson').click( function () {
+            $.ajax({
+            method: "POST",
+            url: "/followers/add/rights/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
+            $(function() {
+            $('.rightsdel').click( function () {
+            $.ajax({
+            method: "DELETE",
+            contentType: "application/json; charset=utf-8",
+            url: "/followers/delete/rights/" + $(this).data("id")
             // data: { name: "John", location: "Boston" }
             })
             .done(function( response ) {

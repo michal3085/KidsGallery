@@ -23,8 +23,6 @@
                 <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">{{ __('Followers') }} ({{ \App\Models\Follower::where('follow_id', $other_user->id)->count() }})</a>
             </li>
         </ul>
-
-
         <section class="resume-section" id="about">
             <div class="resume-section-content">
                 <form action="{{ route('users.search', ['name' => $other_user->name]) }}" method="GET">
