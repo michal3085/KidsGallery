@@ -15,12 +15,7 @@ class ProfilesController extends Controller
     public function index($name)
     {
         $user = User::where('name', $name)->first();
-
-        if ( $user->id == Auth::id() ) {
-            $pictures = Picture::where('user', $name)->where('accept', 1)->latest()->paginate(8);
-        } else {
-            $pictures = Picture::where('user', $name)->where('accept', 1)->latest()->paginate(8);
-        }
+        $pictures = Picture::where('user', $name)->where('accept', 1)->latest()->paginate(8);
 
         return view('profiles.index')->with(['pictures' => $pictures, 'other_user' => $user]);
     }
