@@ -20,17 +20,17 @@ class RoleSeeder extends Seeder
         DB::table('users')->insert([
             [
                 "id" => 1,
-                "name" => "michal3085",
-                "email" => "michal3085@gmail.com",
-                "password" => Hash::make('30071985'),
+                "name" => env('ADMIN_NAME'),
+                "email" => env('ADMIN_EMAIL'),
+                "password" => Hash::make(env('ADMIN_PASSWORD')),
                 "active" => 1,
                 "avatar" => "avatar/avatar1.png",
             ],
             [
                 "id" => 2,
-                "name" => "TheOne",
-                "email" => "michal3085@op.pl",
-                "password" => Hash::make('TheOneModeratore'),
+                "name" => env('MODERATOR_NAME'),
+                "email" => env('MODERATOR_EMAIL'),
+                "password" => Hash::make(env('MODERATOR_PASSWORD')),
                 "active" => 1,
                 "avatar" => "avatar/avatar1.png",
             ]
@@ -43,6 +43,10 @@ class RoleSeeder extends Seeder
             ],
             [
                 "user_id" => 1,
+                "role" => "moderator",
+            ],
+            [
+                "user_id" => 2,
                 "role" => "moderator",
             ]
         ]);
