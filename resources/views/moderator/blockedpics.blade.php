@@ -27,27 +27,27 @@
             </form>
 
             @foreach($pictures as $picture)
-                    <p class="lead mb-5">
-                    <div class="row section-box">
-                        <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
-                            <a href="{{ route('pictures.show', ['picture' => $picture->id]) }}">
-                                <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
-                            </a>
-                            <br>
-                            <a href="{{ route('profiles.info', ['name' => $picture->user ]) }}">{{ $picture->user }}</a> | {{ $picture->name }}
-                            <br>
-                            <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
-                            | <i class="far fa-eye"></i> {{ $picture->views }}
-                        </div>
+                <p class="lead mb-5">
+                <div class="row section-box">
+                    <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
+                        <a href="{{ route('pictures.show', ['picture' => $picture->id]) }}">
+                            <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
+                        </a>
+                        <br>
+                        <a href="{{ route('profiles.info', ['name' => $picture->user ]) }}">{{ $picture->user }}</a> | {{ $picture->name }}
+                        <br>
+                        <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
+                        | <i class="far fa-eye"></i> {{ $picture->views }}
                     </div>
+                </div>
 
-                    @if ($picture->likes()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
-                        <button type="submit" class="btn btn-outline-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
-                    <button type="submit" class="btn btn-outline-danger float-right block" data-id="{{ $picture->id }}" aria-hidden="true">{{ __('Block') }}</button>
-                    @else
-                        <button type="submit" class="btn btn-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
-                    <button type="submit" class="btn btn-outline-danger float-right block" data-id="{{ $picture->id }}" aria-hidden="true">{{ __('Block') }}</button>
-                    @endif
+                @if ($picture->likes()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                    <button type="submit" class="btn btn-outline-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
+                    <button type="submit" class="btn btn-outline-danger float-right unblock" data-id="{{ $picture->id }}" aria-hidden="true">{{ __('Unblock') }}</button>
+                @else
+                    <button type="submit" class="btn btn-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
+                    <button type="submit" class="btn btn-outline-danger float-right unblock" data-id="{{ $picture->id }}" aria-hidden="true">{{ __('Unblock') }}</button>
+                @endif
 
             @endforeach
             {{--            <div class="pagination pagination-lg justify-content-center">--}}
@@ -75,9 +75,9 @@
     });
 
     $( function()  {
-    $('.block').click( function () {
+    $('.unblock').click( function () {
     Swal.fire({
-    title: '{{ __('Block that picture?') }}',
+    title: '{{ __('Unblock that picture?') }}',
     icon: 'question',
     showCancelButton: true,
     confirmButtonText: '{{ __('Yes') }}',
@@ -86,11 +86,11 @@
     if (result.value) {
     $.ajax({
     method: "POST",
-    url: "/moderator/picture/block/" + $(this).data("id")
+    url: "/moderator/picture/unblock/" + $(this).data("id")
     })
     .done(function( response ) {
     Swal.fire({
-    title: '{{ __('Picture has been blocked') }}',
+    title: '{{ __('Picture has been unblocked') }}',
     icon: 'success',
     showCancelButtonText: true,
     confirmButtonText: 'OK'

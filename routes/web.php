@@ -59,6 +59,9 @@ Route::middleware('auth')->group(function () {
 // Moderator routes
 Route::middleware(['check.role:moderator'])->group(function () {
     Route::get('/moderator/gallery', [ModeratorsController::class, 'index'])->name('moderator.index');
+    Route::get('/moderator/gallery/blocked', [ModeratorsController::class, 'showBlocked'])->name('show.blocked');
+    Route::post('/moderator/picture/block/{id}', [ModeratorsController::class, 'blockPicture'])->name('block.picture');
+    Route::post('/moderator/picture/unblock/{id}', [ModeratorsController::class, 'unblockPicture'])->name('unblock.picture');
 });
 
 // Routes for Users
