@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\FollowersController;
 use App\Http\Controllers\LikesController;
+use App\Http\Controllers\ModeratorsController;
 use App\Http\Controllers\PicturesController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\UsersController;
@@ -54,6 +55,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/followers/add/rights/{id}', [FollowersController::class, 'addRights']);
     Route::delete('/followers/delete/rights/{id}', [FollowersController::class, 'deleteRights']);
 });
+
+// Moderator routes
+Route::get('/moderator/gallery', [ModeratorsController::class, 'index'])->name('moderator.index')->middleware('moderator');
+
 
 // Routes for Users
 Route::get('users/{id}/set/avatar/{x}', [UsersController::class, 'defaultAvatar'])->name('set.avatar')->middleware('auth');

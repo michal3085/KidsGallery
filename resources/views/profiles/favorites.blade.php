@@ -38,7 +38,7 @@
                                         <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
                                     </a>
                                     <br>
-                                    <b>{{ $picture->user }}</b> | {{ $picture->name }}
+                                    <a href="{{ route('profiles.info', ['name' => $picture->user ]) }}">{{ $picture->user }}</a> | {{ $picture->name }}
                                     <br>
                                     <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
                                     | <i class="far fa-eye"></i> {{ $picture->views }}
@@ -59,7 +59,7 @@
                                     <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
                                 </a>
                                 <br>
-                                <b>{{ $picture->user }}</b> | {{ $picture->name }}
+                                <a href="{{ route('profiles.info', ['name' => $picture->user ]) }}">{{ $picture->user }}</a> | {{ $picture->name }}
                                 <br>
                                 <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
                                 | <i class="far fa-eye"></i> {{ $picture->views }}

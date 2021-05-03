@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Role;
 use App\Models\User;
+use Database\Seeders\UserSeeder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -26,9 +28,8 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         View::composer('*', function($view){
-            $view->with('user', Auth::user() );
+            $view->with('user', Auth::user());
         });
     }
 }
