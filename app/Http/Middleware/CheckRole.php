@@ -21,6 +21,5 @@ class CheckRole
         } else {
             return redirect()->route('login');
         }
-
     }
 }
