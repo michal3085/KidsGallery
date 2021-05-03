@@ -57,8 +57,9 @@ Route::middleware('auth')->group(function () {
 });
 
 // Moderator routes
-Route::get('/moderator/gallery', [ModeratorsController::class, 'index'])->name('moderator.index')->middleware('moderator');
-
+Route::middleware(['check.role:moderator'])->group(function () {
+    Route::get('/moderator/gallery', [ModeratorsController::class, 'index'])->name('moderator.index');
+});
 
 // Routes for Users
 Route::get('users/{id}/set/avatar/{x}', [UsersController::class, 'defaultAvatar'])->name('set.avatar')->middleware('auth');

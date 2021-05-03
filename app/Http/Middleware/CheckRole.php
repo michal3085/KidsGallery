@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class Moderator
+class CheckRole
 {
     /**
      * Handle an incoming request.
@@ -14,9 +14,9 @@ class Moderator
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $role)
     {
-        if (auth()->check() && auth()->user()->hasRole('moderator')) {
+        if (auth()->check() && auth()->user()->hasRole($role)) {
             return $next($request);
         } else {
             return redirect()->route('login');
