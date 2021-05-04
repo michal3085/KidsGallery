@@ -46,7 +46,7 @@ class ProfilesController extends Controller
     public function favorites($name)
     {
         $user = User::where('name', $name)->first();
-        $pictures = Picture::whereHas('likes', function ($liked) use ($user) {
+        $pictures = Picture::where('accept', 1)->whereHas('likes', function ($liked) use ($user) {
             $liked->where('user_id', $user->id);
         })->latest()->paginate(20);
 
