@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfilesController extends Controller
 {
+    /*
+     * other_user is the user whose profile we are viewing.
+     */
 
     public function index($name)
     {
