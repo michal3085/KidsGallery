@@ -37,8 +37,9 @@ class ProfilesController extends Controller
 
     public function comments($name)
     {
-        $comments = Comment::where('user_name', $name)->latest()->paginate(20);
         $user = User::where('name', $name)->first();
+        $notallow_pics = Picture::where('accept', 0)->pluck('id');
+        $comments = Comment::where('user_name', $name)->whereNotIn('picture_id', $notallow_pics)->latest()->paginate(20);
 
         return view('profiles.comments')->with(['comments' => $comments, 'other_user' => $user]);
     }
