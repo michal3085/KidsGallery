@@ -16,19 +16,19 @@
 
                                     <p class="m-b-5 m-t-10">{{ $reported->reason }}</p>
                                 </div>
-                            </div>
-                            <button type="button" class="btn btn-link"><i class="far fa-thumbs-down report_down" style="height: 40px; width: 40px; color: #fdd705" data-id="{{ $reported->id }}"></i></button>
-                            @if (\App\Models\PicturesReport::where('picture_id', $reported->picture_id)->count() > 1)
-                                <button type="button" class="btn btn-link"><i class="fas fa-check-double report_del_all" style="height: 40px; width: 40px; color: #2e8d19" data-id="{{$reported->picture_id}}"></i></button>
-                                <a href="{{ route('reported.pictures', ['id' => $reported->picture_id]) }}">
-                                    <button type="button" class="btn btn-link"><i class="fas fa-list-ol report_show_all" style="height: 40px; width: 40px; color: #2e8d19" data-id="{{$reported->picture_id}}"></i></button>
-                                </a>
-                            @endif
-                            @if (\App\Models\Picture::where('id', $reported->picture_id)->where('accept', 1)->count() == 1)
-                                <button type="button" class="btn btn-link"><i class="far fa-eye ban_picture" style="height: 40px; width: 40px; color: #2e8d19" data-id="{{ $reported->picture_id }}"></i></button>
+                                <button type="button" class="btn btn-link"><i class="far fa-thumbs-down report_down" style="height: 23px; width: 23px; color: #fdd705" data-id="{{ $reported->id }}"></i></button>
+                                @if (\App\Models\PicturesReport::where('picture_id', $reported->picture_id)->count() > 1)
+                                    <button type="button" class="btn btn-link"><i class="fas fa-check-double report_del_all" style="height: 23px; width: 23px; color: #2e8d19" data-id="{{$reported->picture_id}}"></i></button>
+                                    <a href="{{ route('reported.pictures', ['id' => $reported->picture_id]) }}">
+                                        <button type="button" class="btn btn-link"><i class="fas fa-list-ol report_show_all" style="height: 23px; width: 23px; color: #2e8d19" data-id="{{$reported->picture_id}}"></i></button>
+                                    </a>
+                                @endif
+                                @if (\App\Models\Picture::where('id', $reported->picture_id)->where('accept', 1)->count() == 1)
+                                    <button type="button" class="btn btn-link"><i class="far fa-eye ban_picture" style="height: 23px; width: 23px; color: #2e8d19" data-id="{{ $reported->picture_id }}"></i></button>
                                 @else
-                                    <button type="button" class="btn btn-link"><i class="far fa-eye-slash unban_picture" style="height: 40px; width: 40px; color: #fd081c" data-id="{{ $reported->picture_id }}"></i></button>
-                            @endif
+                                    <button type="button" class="btn btn-link"><i class="far fa-eye-slash unban_picture" style="height: 23px; width: 23px; color: #fd081c" data-id="{{ $reported->picture_id }}"></i></button>
+                                @endif
+                            </div>
                             <button type="button" class="btn btn-outline-success">
                                 <a href="{{ route('pictures.show', ['picture' => $reported->picture_id]) }}">
                                     <img class="img-fluid img-responsive  mr-2" src="{{ asset('/storage') . '/' . \App\Models\Picture::where(['id' => $reported->picture_id])->pluck('file_path')->first() }}" alt="user" width="50">
