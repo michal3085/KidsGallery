@@ -31,7 +31,7 @@
                     @if ( \App\Models\Picture::where('id', $comment->picture_id)->where('visible', 0)->count() == 1 )
                         @if( \App\Models\Follower::where('user_id', $comment->parent_id)->where('follow_id', $user->id)->where('rights', 1)->count() == 1 || $user->id == $comment->parent_id  )
                     <div class="d-flex flex-row comment-row">
-                        <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
+                        <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" style="height: 50px; width: 50px;"></span></div>
                         <div class="comment-text w-100">
                             <h5>{{ $comment->user_name }}</h5>
                             <div class="comment-footer"> <span class="date">{{ $comment->created_at }}
@@ -45,7 +45,7 @@
                         </div>
                         <button type="button" class="btn btn-outline-success">
                             <a href="{{ route('pictures.show', ['picture' => $comment->picture_id]) }}">
-                            <img class="img-fluid img-responsive  mr-2" src="{{ asset('/storage') . '/' . \App\Models\Picture::where(['id' => $comment->picture_id])->pluck('file_path')->first() }}" alt="user" width="50">
+                            <img class="img-fluid img-responsive  mr-2" src="{{ asset('/storage') . '/' . \App\Models\Picture::where(['id' => $comment->picture_id])->pluck('file_path')->first() }}" alt="user" style="height: 50px; width: 50px;">
                             </a>
                         </button>
                     </div>
@@ -54,7 +54,7 @@
                     @endif
                         @if ( \App\Models\Picture::where('id', $comment->picture_id)->where('visible', 1)->count() == 1)
                             <div class="d-flex flex-row comment-row">
-                                <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
+                                <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" style="height: 50px; width: 50px;"></span></div>
                                 <div class="comment-text w-100">
                                     <h5>{{ $comment->user_name }}</h5>
                                     <div class="comment-footer"> <span class="date">{{ $comment->created_at }}

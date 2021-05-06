@@ -21,7 +21,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-lg p-3 mb-5 rounded" id="sideNav">
     <a href="{{ route('profiles.gallery', ['name' => $user->name]) }}" class="navbar-brand js-scroll-trigger">
         <span class="d-block d-lg-none">SmallGallery</span>
-        <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2 shadow p-2 mb-3 rounded" src="{{ asset('/storage') . '/' . $user->avatar }}" alt="" /></span>
+        <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2 shadow p-2 mb-3 rounded" src="{{ asset('/storage') . '/' . $user->avatar }}" alt="" style="width: 160px; height: 160px;" /></span>
      </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">

@@ -38,7 +38,7 @@
                                 <br>
                                 <a href="{{ route('profiles.info', ['name' => $picture->user ]) }}">{{ $picture->user }}</a> | {{ $picture->name }}
                                 <br>
-                                <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
+                                <i class="far fa-calendar-alt"></i>: {{ $picture->created_at }}
                                 | <i class="far fa-eye"></i> {{ $picture->views }}
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                             <br>
                             <a href="{{ route('profiles.info', ['name' => $picture->user ]) }}">{{ $picture->user }}</a> | {{ $picture->name }}
                             <br>
-                            <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
+                            <i class="far fa-calendar-alt"></i>: {{ $picture->created_at }}
                             | <i class="far fa-eye"></i> {{ $picture->views }}
                         </div>
                     </div>

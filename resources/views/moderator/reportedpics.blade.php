@@ -9,24 +9,23 @@
                 @foreach($reports as $reported)
 
                         <div class="d-flex flex-row comment-row">
-                            <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['id' => $reported->user_id])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
+                            <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['id' => $reported->user_id])->pluck('avatar')->first() }}" alt="user" style="height: 50px; width: 50px;"></span></div>
                             <div class="comment-text w-100">
                                 <h5>{{ $reported->user_name }}</h5>
                                 <div class="comment-footer"> <span class="date">{{ $reported->created_at }}
-
                                     <p class="m-b-5 m-t-10">{{ $reported->reason }}</p>
                                 </div>
-                                <button type="button" class="btn btn-link"><i class="far fa-thumbs-down report_down" style="height: 23px; width: 23px; color: #f50101" data-id="{{ $reported->id }}"></i></button>
+                                <button type="button" class="btn btn-link"><i class="far fa-thumbs-down report_down" style="height: 20px; width: 20px; color: #f50101" data-id="{{ $reported->id }}"></i></button>
                                 @if (\App\Models\PicturesReport::where('picture_id', $reported->picture_id)->count() > 1)
-                                    <button type="button" class="btn btn-link"><i class="fas fa-check-double report_del_all" style="height: 23px; width: 23px; color: #2e8d19" data-id="{{$reported->picture_id}}"></i></button>
+                                    <button type="button" class="btn btn-link"><i class="fas fa-check-double report_del_all" style="height: 20px; width: 20px; color: #2e8d19" data-id="{{$reported->picture_id}}"></i></button>
                                     <a href="{{ route('reported.pictures', ['id' => $reported->picture_id]) }}">
-                                        <button type="button" class="btn btn-link"><i class="fas fa-list-ol report_show_all" style="height: 23px; width: 23px; color: #2e8d19" data-id="{{$reported->picture_id}}"></i></button>
+                                        <button type="button" class="btn btn-link"><i class="fas fa-list-ol report_show_all" style="height: 20px; width: 20px; color: #2e8d19" data-id="{{$reported->picture_id}}"></i></button>
                                     </a>
                                 @endif
                                 @if (\App\Models\Picture::where('id', $reported->picture_id)->where('accept', 1)->count() == 1)
-                                    <button type="button" class="btn btn-link"><i class="far fa-eye ban_picture" style="height: 23px; width: 23px; color: #2e8d19" data-id="{{ $reported->picture_id }}"></i></button>
+                                    <button type="button" class="btn btn-link"><i class="fas fa-check-circle ban_picture" style="height: 20px; width: 20px; color: #2e8d19" data-id="{{ $reported->picture_id }}"></i></button>
                                 @else
-                                    <button type="button" class="btn btn-link"><i class="far fa-eye-slash unban_picture" style="height: 23px; width: 23px; color: #fd081c" data-id="{{ $reported->picture_id }}"></i></button>
+                                    <button type="button" class="btn btn-link"><i class="fas fa-times-circle unban_picture" style="height: 20px; width: 20px; color: #fd081c" data-id="{{ $reported->picture_id }}"></i></button>
                                 @endif
                             </div>
                             <button type="button" class="btn btn-outline-success">
