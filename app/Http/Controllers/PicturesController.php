@@ -78,6 +78,7 @@ class PicturesController extends Controller
             $picture->likes = 0;
             $picture->views = 0;
             $picture->allow_comments = $request->allowcomments;
+            $picture->moderator_review = 1;
             $picture->album = "main";
             $picture->ip = $request->ip();
 
