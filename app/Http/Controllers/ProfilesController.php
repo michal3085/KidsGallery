@@ -32,7 +32,6 @@ class ProfilesController extends Controller
             $userdata_create->user_id = $user->id;
             $userdata_create->save();
         }
-
         $user_data = UsersData::where('user_id', $user->id)->first();
 
         return view('profiles.info')->with(['other_user' => $user, 'userdata' => $user_data]);

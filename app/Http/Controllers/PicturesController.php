@@ -226,6 +226,7 @@ class PicturesController extends Controller
 
         if (Auth::check()){
             $report->user_id = Auth::id();
+            $report->user_name = Auth::user()->name;
             $report->ip_address = $request->ip();
             $report->picture_id = $id;
             $report->reason = $request->reason;
@@ -266,7 +267,7 @@ class PicturesController extends Controller
         } else {
             return response()->json([
                 'status' => 'error',
-            ])->setStatusCode();
+            ])->setStatusCode(200);
         }
     }
 }

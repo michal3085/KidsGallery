@@ -27,7 +27,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('moderator.index') }}">{{ __('Gallery') }}</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('pictures.index') }}">{{ __('Reported Pictures') }} ({{ \App\Models\PicturesReport::all()->count() }})</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('reported.pictures') }}">{{ __('Reported Pictures') }} ({{ \App\Models\PicturesReport::all()->count() }})</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('users.index') }}">{{ __('Reported Comments') }} ({{ \App\Models\CommentsReport::all()->count() }})</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('show.blocked') }}">{{ __('Blocked Pictures') }} ({{ \App\Models\Picture::where('accept', 0)->count() }})</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('users.edit', ['user' => $user->id]) }}">{{ __('Settings') }}</a></li>

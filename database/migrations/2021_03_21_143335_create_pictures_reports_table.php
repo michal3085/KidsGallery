@@ -16,10 +16,18 @@ class CreatePicturesReportsTable extends Migration
         Schema::create('pictures_reports', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('user_name');
             $table->unsignedBigInteger('picture_id');
             $table->string('ip_address');
             $table->longText('reason')->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('pictures_reports', function (Blueprint $table) {
+            $table->foreign('picture_id')
+                ->references('id')
+                ->on('pictures')
+                ->onDelete('cascade');
         });
     }
 
@@ -30,6 +38,8 @@ class CreatePicturesReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pictures_reports');
+        Schema::table('pictures_reports', function (Blueprint $table) {
+            $table->dropForeign(['picture_id']);
+        });
     }
 }
