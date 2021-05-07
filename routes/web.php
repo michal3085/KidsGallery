@@ -53,6 +53,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/followers/add/{id}', [FollowersController::class, 'addFollower'])->name('profiles.addfollowers');
     Route::delete('/followers/delete/{id}', [FollowersController::class, 'deleteFollower'])->name('profiles.delfollowers');
     Route::get('/profile/{name}/info', [ProfilesController::class, 'info'])->name('profiles.info');
+    Route::get('/profiles/banned/{picture_id}/{mod_info}/{name}', [ProfilesController::class, 'bannedPictureShow'])->name('banned.picture');
+    Route::post('/profiles/banned/picture/answer', [ProfilesController::class, 'banAnswer'])->name('banned.answer');
     Route::post('/followers/add/rights/{id}', [FollowersController::class, 'addRights']);
     Route::delete('/followers/delete/rights/{id}', [FollowersController::class, 'deleteRights']);
 });

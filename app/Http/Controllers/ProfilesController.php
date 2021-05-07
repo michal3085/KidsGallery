@@ -8,6 +8,7 @@ use App\Models\ModeratorAction;
 use App\Models\Picture;
 use App\Models\User;
 use App\Models\UsersData;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProfilesController extends Controller
@@ -27,7 +28,7 @@ class ProfilesController extends Controller
     public function info($name)
     {
         $user = User::where('name', $name)->first();
-        $actions = ModeratorAction::where('user_id', Auth::id())->where('moderator_only', 0)->get();
+        $actions = ModeratorAction::where('user_id', Auth::id())->where('moderator_only', 0)->latest()->paginate(20);
 
         return view('profiles.info')->with(['actions' => $actions, 'other_user' => $user]);
     }
@@ -44,6 +45,35 @@ class ProfilesController extends Controller
         $user_data = UsersData::where('user_id', $user->id)->first();
 
         return view('profiles.about')->with(['other_user' => $user, 'userdata' => $user_data]);
+    }
+
+    public function bannedPictureShow($picture_id, $mod_info, $name)
+    {
+        $picture = Picture::where('id', $picture_id)->first();
+        $info = ModeratorAction::where('id', $mod_info)->where('type_id', $picture_id)->first();
+        $user = User::where('name', $name)->first();
+
+        if ($info->user_id == Auth::id()) {
+            $info->user_viewed = 1;
+            $info->moderator_viewed = 0;
+            $info->save();
+            return view('profiles.banned_picture')->with(['picture' => $picture, 'info' => $info, 'other_user' => $user]);
+        } else {
+            return redirect()->back();
+        }
+    }
+
+
+    public function banAnswer(Request $request)
+    {
+        $info = ModeratorAction::where('id', $request->info)->first();
+
+        $info->user_response = $request->user_answer;
+        $info->user_viewed = 1;
+        $info->moderator_viewed = 0;
+
+        $info->save();
+        return redirect()->back()->with('message', 'Wiadomość wysłana');
     }
 
     public function comments($name)
