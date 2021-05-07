@@ -46,7 +46,11 @@
                         <tr>
                             <th scope="row">{{ $action->id }}</th>
                             <td>{{ $action->action }}</td>
-                            <td>{{ $action->reason }}</td>
+                            <td>
+                                <span class="d-inline-block text-truncate" style="max-width: 250px;">
+                                    {{ $action->reason }}
+                                </span>
+                            </td>
                             @if ($action->type == "picture")
                                 <td><a href="{{ route('banned.picture', ['picture_id' => $action->type_id, 'mod_info' => $action->id, 'name' => $other_user->name]) }}">Details</a></td>
                             @endif

@@ -46,12 +46,18 @@
                         | <i class="far fa-eye"></i> {{ $picture->views }}
                     </div>
                 </div>
-                    <hr>
                 <h5><p class="text-center">{{__('Reason')}}:</p></h5>
+                <div class="row">
+                    {{ $info->reason }}
+                </div>
+                    <hr>
+                @if ($info->moderator_response != NULL)
+                <h5><p class="text-center">{{__('Moderator Answer')}}:</p></h5>
                         <div class="row">
-                                {{ $info->reason }}
+                                {{ $info->moderator_response }}
                         </div>
                     <hr>
+                @endif
                 <h5><p class="text-center">{{__('Yours Answer')}}:</p></h5>
                     <form action="{{ route('banned.answer') }}" method="POST">
                         @csrf

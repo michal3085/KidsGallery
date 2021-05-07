@@ -30,8 +30,8 @@ class ModeratorsController extends Controller
         $mod_action->reason = __('Breaking the regulations');
         $mod_action->type = "picture";
         $mod_action->type_id = $id;
-        $mod_action->user_response = 0;
-        $mod_action->moderator_response = 0;
+        $mod_action->user_response = "";
+        $mod_action->moderator_response = "";
         $mod_action->user_viewed = 0;
         $mod_action->moderator_viewed = 1;
         $mod_action->moderator_only = 0;
