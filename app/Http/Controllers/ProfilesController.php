@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Follower;
+use App\Models\ModeratorAction;
 use App\Models\Picture;
 use App\Models\User;
 use App\Models\UsersData;
@@ -26,6 +27,14 @@ class ProfilesController extends Controller
     public function info($name)
     {
         $user = User::where('name', $name)->first();
+        $actions = ModeratorAction::where('user_id', Auth::id())->where('moderator_only', 0)->get();
+
+        return view('profiles.info')->with(['actions' => $actions, 'other_user' => $user]);
+    }
+
+    public function about($name)
+    {
+        $user = User::where('name', $name)->first();
 
         if ( UsersData::where('user_id', $user->id)->count() == 0 ) {
             $userdata_create = new UsersData();
@@ -34,7 +43,7 @@ class ProfilesController extends Controller
         }
         $user_data = UsersData::where('user_id', $user->id)->first();
 
-        return view('profiles.info')->with(['other_user' => $user, 'userdata' => $user_data]);
+        return view('profiles.about')->with(['other_user' => $user, 'userdata' => $user_data]);
     }
 
     public function comments($name)

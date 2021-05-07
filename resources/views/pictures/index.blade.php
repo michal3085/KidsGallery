@@ -36,7 +36,7 @@
                                     <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
                                 </a>
                                 <br>
-                                <a href="{{ route('profiles.info', ['name' => $picture->user ]) }}">{{ $picture->user }}</a> | {{ $picture->name }}
+                                <a href="{{ route('profiles.about', ['name' => $picture->user ]) }}">{{ $picture->user }}</a> | {{ $picture->name }}
                                 <br>
                                 <i class="far fa-calendar-alt"></i>: {{ $picture->created_at }}
                                 | <i class="far fa-eye"></i> {{ $picture->views }}
@@ -57,7 +57,7 @@
                                 <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
                             </a>
                             <br>
-                            <a href="{{ route('profiles.info', ['name' => $picture->user ]) }}">{{ $picture->user }}</a> | {{ $picture->name }}
+                            <a href="{{ route('profiles.about', ['name' => $picture->user ]) }}">{{ $picture->user }}</a> | {{ $picture->name }}
                             <br>
                             <i class="far fa-calendar-alt"></i>: {{ $picture->created_at }}
                             | <i class="far fa-eye"></i> {{ $picture->views }}

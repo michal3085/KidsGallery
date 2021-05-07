@@ -5,7 +5,7 @@
         <br>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('profiles.info', ['name' => $other_user->name]) }}">{{ __('Info') }}</a>
+                <a class="nav-link" href="{{ route('profiles.about', ['name' => $other_user->name]) }}">{{ __('Info') }}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('profiles.gallery', ['name' => $other_user->name]) }}">{{ __('Gallery') }}</a>
@@ -24,53 +24,48 @@
             </li>
             @if ($other_user->id == $user->id)
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">{{ __('Info') }} ({{ \App\Models\ModeratorAction::where('user_id', $user->id)->where('moderator_only', 0)->count() }})</a>
+                    <a class="nav-link active" href="{{ route('profiles.info', ['name' => $other_user->name]) }}">{{ __('Info') }} ({{ \App\Models\ModeratorAction::where('user_id', $user->id)->where('moderator_only', 0)->count() }})</a>
                 </li>
             @endif
         </ul>
 
         <section class="resume-section" id="about">
-            <div class="container portfolio">
-                <div class="row">
-                    <div class="col-md-12">
-                    </div>
-                </div>
-                <div class="bio-info">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="bio-image">
-                                        <img src="{{ asset('/storage') . '/' . $other_user->avatar }}" alt="image" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="bio-content">
-                                <h1>Hi there, I'm {{  $other_user->name }}</h1>
-                                <h6>{{ $userdata->about }}</h6>
-                            </div>
-                            <div class="bio-content">
-                                <h6>{{ __('City') }}: {{ $userdata->city }}</h6>
-                            </div>
-                            <div class="bio-content">
-                                <h6>{{ __('Birth date') }}: {{ $userdata->birthdate }}</h6>
-                            </div>
-                            @if ($user->id != $other_user->id)
-                                @if ($user->following()->where('follow_id', $other_user->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
-                                    <button type="submit" class="btn btn-outline-danger follow" data-id="{{ $other_user->id }}"><i class="fas fa-heart"></i> Dodaj do ulubionych</button>
-                                @else
-                                    <button type="submit" class="btn btn-danger delete" data-id="{{ $other_user->id }}"><i class="fas fa-heart"></i> Obserwujesz</button>
-                                @endif
+            <div class="resume-section-content">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">{{ __('Type') }}</th>
+                        <th scope="col">{{ __('Reason') }}</th>
+                        <th scope="col">{{ __('More details and options') }}</th>
+                        <th scope="col">{{ __('Answer') }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($actions as $action)
+                        <tr>
+                            <th scope="row">{{ $action->id }}</th>
+                            <td>{{ $action->action }}</td>
+                            <td>{{ $action->reason }}</td>
+                            @if ($action->type == "picture")
+                                <td><a href="{{ route('pictures.show', ['picture' => $action->type_id]) }}">Details</a></td>
                             @endif
-                        </div>
-                    </div>
-                </div>
+                            @if ($action->moderator_response == 1)
+                                <td>YES</td>
+                            @else
+                                <td>NO</td>
+                            @endif
+                        </tr>
+                    @endforeach
+
+                    </tbody>
+                </table>
             </div>
         </section>
-@endsection
-@section('javascript')
+
+        @endsection
+        @section('javascript')
+
             $(function() {
             $('.follow').click( function () {
             $.ajax({
@@ -93,6 +88,39 @@
             method: "DELETE",
             contentType: "application/json; charset=utf-8",
             url: "/followers/delete/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
+            $(function() {
+            $('.rightson').click( function () {
+            $.ajax({
+            method: "POST",
+            url: "/followers/add/rights/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
+            $(function() {
+            $('.rightsdel').click( function () {
+            $.ajax({
+            method: "DELETE",
+            contentType: "application/json; charset=utf-8",
+            url: "/followers/delete/rights/" + $(this).data("id")
             // data: { name: "John", location: "Boston" }
             })
             .done(function( response ) {

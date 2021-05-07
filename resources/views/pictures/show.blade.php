@@ -10,7 +10,7 @@
 
     <section class="resume-section" id="about">
         <div class="resume-section-content">
-                <a href="{{ route('profiles.info', ['name' => $pictures->user  ]) }}"><h2>{{ $pictures->user }}: </h2></a>
+                <a href="{{ route('profiles.about', ['name' => $pictures->user  ]) }}"><h2>{{ $pictures->user }}: </h2></a>
                   <h1 class="mb-0">
                    {{ $pictures->name }}
                      </h1>
@@ -58,16 +58,16 @@
                     @csrf
 {{--                    <div class="coment-bottom bg-white p-2 px-4">--}}
                         <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-                            <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage') . '/' . $user->avatar }}" width="38">
+                            <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage') . '/' . $user->avatar }}" style="width: 50px; height: 50px;">
                             <input type="text" class="form-control mr-3" name="comment" placeholder="{{ __('Add comment...') }}" required>
-                            <button class="btn btn-outline-primary" type="submit"><i class="fas fa-paper-plane"></i></button></div>
+                            <button class="btn btn-outline-primary" style="height: 38px;" type="submit"><i class="fas fa-paper-plane"></i></button></div>
 {{--                    </div>--}}
                 </form>
                     @foreach($comments as $comment)
                         <div class="d-flex flex-row comment-row">
-                            <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
+                            <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" style="width: 50px; height: 50px;"></span></div>
                             <div class="comment-text w-100">
-                                <a href="{{ route('profiles.info', ['name' => $comment->user_name ]) }}"><h5>{{ $comment->user_name }}</h5></a>
+                                <a href="{{ route('profiles.about', ['name' => $comment->user_name ]) }}"><h5>{{ $comment->user_name }}</h5></a>
                                 <div class="comment-footer"> <span class="date">{{ $comment->created_at }}
                                     @if ( $comment->user_name == \Illuminate\Support\Facades\Auth::user()->name)
                                         </span><span class="action-icons"><i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}"></i> </span>

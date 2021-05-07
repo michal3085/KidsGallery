@@ -5,7 +5,7 @@
         <br>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.info', ['name' => $other_user->name]) }}">{{ __('Info') }}</a>
+                <a class="nav-link" href="{{ route('profiles.about', ['name' => $other_user->name]) }}">{{ __('Info') }}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('profiles.gallery', ['name' => $other_user->name]) }}">{{ __('Gallery') }}</a>
@@ -40,7 +40,7 @@
                     <div class="d-flex flex-row comment-row">
                         <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $follow->name])->pluck('avatar')->first() }}" alt="user" style="height: 50px; width: 50px;"></span></div>
                         <div class="comment-text w-100">
-                            <a href="{{ route('profiles.info', ['name' => $follow->name ]) }}"><h5>{{ $follow->name }}</h5></a>
+                            <a href="{{ route('profiles.about', ['name' => $follow->name ]) }}"><h5>{{ $follow->name }}</h5></a>
                             <div class="comment-footer"> <span class="date">
                                 <p class="m-b-5 m-t-10"></p>
                             </div>
