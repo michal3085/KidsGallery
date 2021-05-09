@@ -53,7 +53,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'max:30', 'confirmed'],
             'terms' => 'required',
             'g-recaptcha-response' => function ($attribute, $value, $fail) {
                 $secret = env('RECAPTCHA_SECRET');

@@ -78,6 +78,7 @@ class PicturesController extends Controller
             $picture->likes = 0;
             $picture->views = 0;
             $picture->allow_comments = $request->allowcomments;
+            $picture->moderator_review = 1;
             $picture->album = "main";
             $picture->ip = $request->ip();
 
@@ -201,6 +202,17 @@ class PicturesController extends Controller
         }
     }
 
+
+    public function search(Request $request)
+    {
+        $pictures = Picture::where('name', 'LIKE', "%$request->search%")->latest()->paginate(8);
+
+        if (!Auth::check()) {
+            return view('unloged.gallery', compact('pictures'));
+        }
+        return view('pictures.index', compact('pictures'));
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -215,6 +227,7 @@ class PicturesController extends Controller
 
         if (Auth::check()){
             $report->user_id = Auth::id();
+            $report->user_name = Auth::user()->name;
             $report->ip_address = $request->ip();
             $report->picture_id = $id;
             $report->reason = $request->reason;
@@ -230,7 +243,7 @@ class PicturesController extends Controller
             $pictures->message = 1;
 
             $report->save();
-            return view('unloged.show', compact('pictures'))
+            return redirect()->route('unloged.show', ['picture' => $pictures->id])
                 ->with('message', __('Image has been submitted for moderation'));
         }
     }
@@ -255,7 +268,7 @@ class PicturesController extends Controller
         } else {
             return response()->json([
                 'status' => 'error',
-            ])->setStatusCode();
+            ])->setStatusCode(200);
         }
     }
 }

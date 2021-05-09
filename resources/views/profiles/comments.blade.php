@@ -5,23 +5,28 @@
         <br>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.info', ['name' => $other_user->name]) }}">Info</a>
+                <a class="nav-link" href="{{ route('profiles.about', ['name' => $other_user->name]) }}">{{ __('Info') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.gallery', ['name' => $other_user->name]) }}">Galeria</a>
+                <a class="nav-link" href="{{ route('profiles.gallery', ['name' => $other_user->name]) }}">{{ __('Gallery') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('profiles.comments', ['name' => $user->name]) }}">Komentarze</a>
+                <a class="nav-link active" href="{{ route('profiles.comments', ['name' => $other_user->name]) }}">{{ __('Comments') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">Polubione</a>
+                <a class="nav-link" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">{{ __('Liked') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwowani ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
+                <a class="nav-link" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">{{ __('Following') }} ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwują ({{ \App\Models\Follower::where('follow_id', $other_user->id)->count() }})</a>
+                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">{{ __('Followers') }} ({{ \App\Models\Follower::where('follow_id', $other_user->id)->count() }})</a>
             </li>
+            @if ($other_user->id == $user->id)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('profiles.info', ['name' => $user->name]) }}">{{ __('Info') }} ({{ \App\Models\ModeratorAction::where('user_id', $user->id)->where('moderator_only', 0)->count() }})</a>
+                </li>
+            @endif
         </ul>
 
         <section class="resume-section" id="about">
@@ -31,7 +36,7 @@
                     @if ( \App\Models\Picture::where('id', $comment->picture_id)->where('visible', 0)->count() == 1 )
                         @if( \App\Models\Follower::where('user_id', $comment->parent_id)->where('follow_id', $user->id)->where('rights', 1)->count() == 1 || $user->id == $comment->parent_id  )
                     <div class="d-flex flex-row comment-row">
-                        <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
+                        <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" style="height: 50px; width: 50px;"></span></div>
                         <div class="comment-text w-100">
                             <h5>{{ $comment->user_name }}</h5>
                             <div class="comment-footer"> <span class="date">{{ $comment->created_at }}
@@ -45,7 +50,7 @@
                         </div>
                         <button type="button" class="btn btn-outline-success">
                             <a href="{{ route('pictures.show', ['picture' => $comment->picture_id]) }}">
-                            <img class="img-fluid img-responsive  mr-2" src="{{ asset('/storage') . '/' . \App\Models\Picture::where(['id' => $comment->picture_id])->pluck('file_path')->first() }}" alt="user" width="50">
+                            <img class="img-fluid img-responsive  mr-2" src="{{ asset('/storage') . '/' . \App\Models\Picture::where(['id' => $comment->picture_id])->pluck('file_path')->first() }}" alt="user" style="height: 50px; width: 50px;">
                             </a>
                         </button>
                     </div>
@@ -54,7 +59,7 @@
                     @endif
                         @if ( \App\Models\Picture::where('id', $comment->picture_id)->where('visible', 1)->count() == 1)
                             <div class="d-flex flex-row comment-row">
-                                <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
+                                <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" style="height: 50px; width: 50px;"></span></div>
                                 <div class="comment-text w-100">
                                     <h5>{{ $comment->user_name }}</h5>
                                     <div class="comment-footer"> <span class="date">{{ $comment->created_at }}

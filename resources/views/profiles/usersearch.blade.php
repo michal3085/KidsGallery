@@ -17,10 +17,10 @@
                 <a class="nav-link" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">{{ __('Liked') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">{{ __('Following') }} ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
+                <a class="nav-link active" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">{{ __('Following') }} ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">{{ __('Followers') }} ({{ \App\Models\Follower::where('follow_id', $other_user->id)->count() }})</a>
+                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">{{ __('Followers') }} ({{ \App\Models\Follower::where('follow_id', $other_user->id)->count() }})</a>
             </li>
             @if ($other_user->id == $user->id)
                 <li class="nav-item">
@@ -28,9 +28,13 @@
                 </li>
             @endif
         </ul>
-
         <section class="resume-section" id="about">
             <div class="resume-section-content">
+                <form action="{{ route('users.search', ['name' => $other_user->name]) }}" method="GET">
+                    <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                        <input type="text" class="form-control mr-3" name="search" id="search" placeholder="{{ __('Search users') }}..." required>
+                        <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button></div>
+                </form>
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4"></div>
                 @foreach($followers as $follow)
                     <div class="d-flex flex-row comment-row">
@@ -42,10 +46,17 @@
                             </div>
                         </div>
                         @if (\Illuminate\Support\Facades\Auth::Id() != $follow->id)
-                            @if ($user->following()->where('follow_id', $follow->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
-                                <a href=""><i class="far fa-heart follow" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></a>
-                            @else
-                                <a href=""><i class="fas fa-heart delete" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></a>
+                            @if ($user->following()->where('follow_id', $follow->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() != 0)
+                                @if ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() != 0 )
+                                    <button type="button" class="btn btn-link"><i class="far fa-eye rightsdel" style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
+                                @elseif ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() == 0)
+                                    <button type="button" class="btn btn-link"><i class="far fa-eye-slash rightson"  style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
+                                @endif
+                            @endif
+                                @if ($user->following()->where('follow_id', $follow->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                                    <button type="button" class="btn btn-link"><i class="far fa-heart follow" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></button>
+                                @else
+                                    <button type="button" class="btn btn-link"><i class="fas fa-heart delete" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></button>
                             @endif
                         @endif
                     </div>
@@ -57,8 +68,9 @@
             </div>
         </section>
 
-@endsection
+        @endsection
         @section('javascript')
+
             $(function() {
             $('.follow').click( function () {
             $.ajax({
@@ -81,6 +93,39 @@
             method: "DELETE",
             contentType: "application/json; charset=utf-8",
             url: "/followers/delete/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
+            $(function() {
+            $('.rightson').click( function () {
+            $.ajax({
+            method: "POST",
+            url: "/followers/add/rights/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
+            $(function() {
+            $('.rightsdel').click( function () {
+            $.ajax({
+            method: "DELETE",
+            contentType: "application/json; charset=utf-8",
+            url: "/followers/delete/rights/" + $(this).data("id")
             // data: { name: "John", location: "Boston" }
             })
             .done(function( response ) {

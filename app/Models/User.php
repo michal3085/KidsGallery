@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -53,17 +54,23 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\UsersData');
     }
 
-//    public function followers()
-//    {
-//        return $this->hasMany('App\Models\Follower');
-//    }
 
     public function followers() {
         return $this->belongsToMany(User::class, 'followers', 'follow_id', 'user_id');
     }
 
-// users that follow this user
+    // users that follow this user
     public function following() {
         return $this->belongsToMany(User::class, 'followers', 'user_id', 'follow_id');
+    }
+
+    public function hasRole($role)
+    {
+        return Role::where('role', $role)->where('user_id', Auth::id())->first();
+    }
+
+    public function roles()
+    {
+        return $this->hasMany('App\Models\Role');
     }
 }

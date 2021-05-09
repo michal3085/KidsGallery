@@ -5,33 +5,42 @@
         <br>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.info', ['name' => $other_user->name]) }}">Info</a>
+                <a class="nav-link" href="{{ route('profiles.about', ['name' => $other_user->name]) }}">{{ __('Info') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.gallery', ['name' => $other_user->name]) }}">Galeria</a>
+                <a class="nav-link" href="{{ route('profiles.gallery', ['name' => $other_user->name]) }}">{{ __('Gallery') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.comments', ['name' => $other_user->name]) }}">Komentarze</a>
+                <a class="nav-link" href="{{ route('profiles.comments', ['name' => $other_user->name]) }}">{{ __('Comments') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">Polubione</a>
+                <a class="nav-link" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">{{ __('Liked') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwowani ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
+                <a class="nav-link active" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">{{ __('Following') }} ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwują ({{ \App\Models\Follower::where('follow_id', $other_user->id)->count() }})</a>
+                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">{{ __('Followers') }} ({{ \App\Models\Follower::where('follow_id', $other_user->id)->count() }})</a>
             </li>
+            @if ($other_user->id == $user->id)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('profiles.info', ['name' => $user->name]) }}">{{ __('Info') }} ({{ \App\Models\ModeratorAction::where('user_id', $user->id)->where('moderator_only', 0)->count() }})</a>
+                </li>
+            @endif
         </ul>
-
         <section class="resume-section" id="about">
             <div class="resume-section-content">
+                <form action="{{ route('users.search', ['name' => $other_user->name]) }}" method="GET">
+                    <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                        <input type="text" class="form-control mr-3" name="search" id="search" placeholder="{{ __('Search users') }}..." required>
+                        <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button></div>
+                </form>
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4"></div>
                 @foreach($followers as $follow)
                     <div class="d-flex flex-row comment-row">
-                        <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $follow->name])->pluck('avatar')->first() }}" alt="user" width="50"></span></div>
+                        <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $follow->name])->pluck('avatar')->first() }}" alt="user" style="height: 50px; width: 50px;"></span></div>
                         <div class="comment-text w-100">
-                            <a href="{{ route('profiles.info', ['name' => $follow->name ]) }}"><h5>{{ $follow->name }}</h5></a>
+                            <a href="{{ route('profiles.about', ['name' => $follow->name ]) }}"><h5>{{ $follow->name }}</h5></a>
                             <div class="comment-footer"> <span class="date">
                                 <p class="m-b-5 m-t-10"></p>
                             </div>
@@ -39,7 +48,7 @@
                         @if (\Illuminate\Support\Facades\Auth::Id() != $follow->id)
                             @if ($user->name == $other_user->name)
                                 @if ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() != 0 )
-                                <button type="button" class="btn btn-link"><i class="far fa-eye rightsdel" style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
+                                    <button type="button" class="btn btn-link"><i class="far fa-eye rightsdel" style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
                                     @elseif ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() == 0)
                                         <button type="button" class="btn btn-link"><i class="far fa-eye-slash rightson"  style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
                                 @endif

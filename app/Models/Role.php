@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PicturesReport extends Model
+class Role extends Model
 {
     use HasFactory;
 
-    public function pictures()
+    public function user()
     {
-        return $this->belongsTo('App\Models\Picture');
+        return $this->belongsTo('App\Models\User');
     }
 }

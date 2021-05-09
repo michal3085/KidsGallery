@@ -5,7 +5,7 @@
         <br>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.about', ['name' => $other_user->name]) }}">{{ __('Info') }}</a>
+                <a class="nav-link active" href="{{ route('profiles.about', ['name' => $other_user->name]) }}">{{ __('Info') }}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('profiles.gallery', ['name' => $other_user->name]) }}">{{ __('Gallery') }}</a>
@@ -20,7 +20,7 @@
                 <a class="nav-link" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">{{ __('Following') }} ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">{{ __('Followers') }} ({{ \App\Models\Follower::where('follow_id', $other_user->id)->count() }})</a>
+                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">{{ __('Followers') }} ({{ \App\Models\Follower::where('follow_id', $other_user->id)->count() }})</a>
             </li>
             @if ($other_user->id == $user->id)
                 <li class="nav-item">
@@ -30,35 +30,47 @@
         </ul>
 
         <section class="resume-section" id="about">
-            <div class="resume-section-content">
-                <div class="d-flex flex-row add-comment-section mt-4 mb-4"></div>
-                @foreach($followers as $follow)
-                    <div class="d-flex flex-row comment-row">
-                        <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $follow->name])->pluck('avatar')->first() }}" alt="user" style="height: 50px; width: 50px;"></span></div>
-                        <div class="comment-text w-100">
-                            <a href="{{ route('profiles.about', ['name' => $follow->name ]) }}"><h5>{{ $follow->name }}</h5></a>
-                            <div class="comment-footer"> <span class="date">
-                                <p class="m-b-5 m-t-10"></p>
+            <div class="container portfolio">
+                <div class="row">
+                    <div class="col-md-12">
+                    </div>
+                </div>
+                <div class="bio-info">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="bio-image">
+                                        <img src="{{ asset('/storage') . '/' . $other_user->avatar }}" alt="image" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        @if (\Illuminate\Support\Facades\Auth::Id() != $follow->id)
-                            @if ($user->following()->where('follow_id', $follow->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
-                                <a href=""><i class="far fa-heart follow" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></a>
-                            @else
-                                <a href=""><i class="fas fa-heart delete" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></a>
+                        <div class="col-md-6">
+                            <div class="bio-content">
+                                <h1>Hi there, I'm {{  $other_user->name }}</h1>
+                                <h6>{{ $userdata->about }}</h6>
+                            </div>
+                            <div class="bio-content">
+                                <h6>{{ __('City') }}: {{ $userdata->city }}</h6>
+                            </div>
+                            <div class="bio-content">
+                                <h6>{{ __('Birth date') }}: {{ $userdata->birthdate }}</h6>
+                            </div>
+                            @if ($user->id != $other_user->id)
+                                @if ($user->following()->where('follow_id', $other_user->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                                    <button type="submit" class="btn btn-outline-danger follow" data-id="{{ $other_user->id }}"><i class="fas fa-heart"></i> Dodaj do ulubionych</button>
+                                @else
+                                    <button type="submit" class="btn btn-danger delete" data-id="{{ $other_user->id }}"><i class="fas fa-heart"></i> Obserwujesz</button>
+                                @endif
                             @endif
-                        @endif
+                        </div>
                     </div>
-                    <hr>
-                @endforeach
-                <div class="pagination justify-content-center">
-                    {{ $followers->links() }}
                 </div>
             </div>
         </section>
-
 @endsection
-        @section('javascript')
+@section('javascript')
             $(function() {
             $('.follow').click( function () {
             $.ajax({

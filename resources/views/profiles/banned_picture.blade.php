@@ -29,44 +29,45 @@
             @endif
         </ul>
 
+        @if (session()->has('message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ session()->get('message') }}</strong>
+            </div>
+        @endif
+
         <section class="resume-section" id="about">
             <div class="resume-section-content">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">{{ __('Type') }}</th>
-                        <th scope="col">{{ __('Reason') }}</th>
-                        <th scope="col">{{ __('More details and options') }}</th>
-                        <th scope="col">{{ __('Answer') }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($actions as $action)
-                        <tr>
-                            <th scope="row">{{ $action->id }}</th>
-                            <td>{{ $action->action }}</td>
-                            <td>
-                                <span class="d-inline-block text-truncate" style="max-width: 250px;">
-                                    {{ $action->reason }}
-                                </span>
-                            </td>
-                            @if ($action->type == "picture")
-                                <td><a href="{{ route('banned.picture', ['picture_id' => $action->type_id, 'mod_info' => $action->id, 'name' => $other_user->name]) }}">Details</a></td>
-                            @endif
-                            @if ($action->moderator_response == 1)
-                                <td>YES</td>
-                            @else
-                                <td>NO</td>
-                            @endif
-                        </tr>
-                    @endforeach
 
-                    </tbody>
-                </table>
-                <div class="pagination justify-content-center">
-                    {{ $actions->links() }}
+                <div class="row section-box">
+                    <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
+                        <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
+                        <br>
+                        <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
+                        | <i class="far fa-eye"></i> {{ $picture->views }}
+                    </div>
                 </div>
+                <h5><p class="text-center">{{__('Reason')}}:</p></h5>
+                <div class="row">
+                    {{ $info->reason }}
+                </div>
+                    <hr>
+                @if ($info->moderator_response != NULL)
+                <h5><p class="text-center">{{__('Moderator Answer')}}:</p></h5>
+                        <div class="row">
+                                {{ $info->moderator_response }}
+                        </div>
+                    <hr>
+                @endif
+                <h5><p class="text-center">{{__('Yours Answer')}}:</p></h5>
+                    <form action="{{ route('banned.answer') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <textarea class="form-control" id="user_answer" name="user_answer" rows="5">{{ $info->user_response }}</textarea>
+                        </div>
+                        <input type="hidden" id="info" value="{{$info->id}}" name="info">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">{{ __('Send answer') }}</button>
+                    </form>
+
             </div>
         </section>
 

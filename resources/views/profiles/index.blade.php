@@ -5,23 +5,28 @@
         <br>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.info', ['name' => $other_user->name]) }}">Info</a>
+                <a class="nav-link" href="{{ route('profiles.about', ['name' => $other_user->name]) }}">{{ __('Info') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('profiles.gallery', ['name' => $other_user->name]) }}">Galeria</a>
+                <a class="nav-link active" href="{{ route('profiles.gallery', ['name' => $other_user->name]) }}">{{ __('Gallery') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.comments', ['name' => $other_user->name]) }}">Komentarze</a>
+                <a class="nav-link" href="{{ route('profiles.comments', ['name' => $other_user->name]) }}">{{ __('Comments') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">Polubione</a>
+                <a class="nav-link" href="{{ route('profiles.favorites', ['name' => $other_user->name]) }}">{{ __('Liked') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">Obserwowani ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
+                <a class="nav-link" href="{{ route('profiles.following', ['name' => $other_user->name]) }}">{{ __('Following') }} ({{ \App\Models\Follower::where('user_id', $other_user->id)->count() }})</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">Obserwują ({{ \App\Models\Follower::where('follow_id', $other_user->id)->count() }})</a>
+                <a class="nav-link" href="{{ route('profiles.followers', ['name' => $other_user->name]) }}">{{ __('Followers') }} ({{ \App\Models\Follower::where('follow_id', $other_user->id)->count() }})</a>
             </li>
+            @if ($other_user->id == $user->id)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('profiles.info', ['name' => $user->name]) }}">{{ __('Info') }} ({{ \App\Models\ModeratorAction::where('user_id', $user->id)->where('moderator_only', 0)->count() }})</a>
+                </li>
+            @endif
         </ul>
 
         <section class="resume-section" id="about">
@@ -38,7 +43,7 @@
                                         <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
                                     </a>
                                     <br>
-                                    <b>{{ $picture->user }}</b> | {{ $picture->name }}
+                                    <a href="{{ route('profiles.info', ['name' => $picture->user ]) }}">{{ $picture->user }}</a> | {{ $picture->name }}
                                     <br>
                                     <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
                                     | <i class="far fa-eye"></i> {{ $picture->views }}
@@ -59,7 +64,7 @@
                                     <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
                                 </a>
                                 <br>
-                                <b>{{ $picture->user }}</b> | {{ $picture->name }}
+                                <a href="{{ route('profiles.about', ['name' => $picture->user ]) }}">{{ $picture->user }}</a>  | {{ $picture->name }}
                                 <br>
                                 <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
                                 | <i class="far fa-eye"></i> {{ $picture->views }}
