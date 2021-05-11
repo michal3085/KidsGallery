@@ -72,26 +72,26 @@
                             <div class="row">
                                 <div class="col-6 col-lg-3">
                                     <div class="count-data text-center">
-                                        <h6 class="count h2" data-to="500" data-speed="500">500</h6>
-                                        <p class="m-0px font-w-600">Happy Clients</p>
+                                        <h6 class="count h2" data-to="500" data-speed="500">{{ \App\Models\Picture::where('user_id', $other_user->id)->where('visible', 1)->count() }}</h6>
+                                        <p class="m-0px font-w-600">{{ __('Pictures') }}</p>
                                     </div>
                                 </div>
                                 <div class="col-6 col-lg-3">
                                     <div class="count-data text-center">
-                                        <h6 class="count h2" data-to="150" data-speed="150">150</h6>
-                                        <p class="m-0px font-w-600">Project Completed</p>
+                                        <h6 class="count h2" data-to="150" data-speed="150">{{ \App\Models\Comment::where('user_id', $other_user->id)->count() }}</h6>
+                                        <p class="m-0px font-w-600">{{ __('Comments') }}</p>
                                     </div>
                                 </div>
                                 <div class="col-6 col-lg-3">
                                     <div class="count-data text-center">
-                                        <h6 class="count h2" data-to="850" data-speed="850">850</h6>
-                                        <p class="m-0px font-w-600">Photo Capture</p>
+                                        <h6 class="count h2" data-to="850" data-speed="850">{{ \App\Models\Follower::where('user_id', $other_user->id)->count()  }}</h6>
+                                        <p class="m-0px font-w-600">{{ __('Following') }}</p>
                                     </div>
                                 </div>
                                 <div class="col-6 col-lg-3">
                                     <div class="count-data text-center">
-                                        <h6 class="count h2" data-to="190" data-speed="190">190</h6>
-                                        <p class="m-0px font-w-600">Telephonic Talk</p>
+                                        <h6 class="count h2" data-to="190" data-speed="190">{{ \App\Models\Follower::where('follow_id', $other_user->id)->count() }}</h6>
+                                        <p class="m-0px font-w-600">{{ __('Followers') }}</p>
                                     </div>
                                 </div>
                             </div>
