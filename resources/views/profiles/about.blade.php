@@ -67,6 +67,7 @@
                             @endif
                         </div>
                     </div>
+                    <br>
                     <section class="section about-section gray-bg" id="about">
                         <div class="counter">
                             <div class="row">
