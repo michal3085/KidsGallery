@@ -77,8 +77,11 @@ class ModeratorsController extends Controller
 
     public function showBlocked()
     {
-        $pictures = Picture::where('accept', 0)->latest()->paginate(10);
-
+        if (auth()->user()->hasRole('admin')) {
+            $pictures = Picture::where('accept', 0)->latest()->paginate(10);
+        } else {
+            $pictures = Picture::where('accept', 0)->where('visible', 1)->latest()->paginate(10);
+        }
         return view('moderator.blockedpics', compact('pictures'));
     }
 

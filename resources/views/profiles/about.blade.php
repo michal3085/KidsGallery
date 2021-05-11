@@ -41,14 +41,14 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="bio-image">
-                                        <img src="{{ asset('/storage') . '/' . $other_user->avatar }}" alt="image" />
+                                        <img src="{{ asset('/storage') . '/' . $other_user->avatar }}" alt="image" style="width: 315px; height: 315px;" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="bio-content">
-                                <h1>Hi there, I'm {{  $other_user->name }}</h1>
+                                <h1>{{  $other_user->name }}</h1>
                                 <h6>{{ $userdata->about }}</h6>
                             </div>
                             <div class="bio-content">
@@ -63,14 +63,46 @@
                                 @else
                                     <button type="submit" class="btn btn-danger delete" data-id="{{ $other_user->id }}"><i class="fas fa-heart"></i> Obserwujesz</button>
                                 @endif
+                                    <button type="submit" class="btn btn-outline-danger " data-id="{{ $other_user->id }}"><i class="fas fa-lock"></i> Zablokuj</button>
                             @endif
                         </div>
+                    </div>
+                    <section class="section about-section gray-bg" id="about">
+                        <div class="counter">
+                            <div class="row">
+                                <div class="col-6 col-lg-3">
+                                    <div class="count-data text-center">
+                                        <h6 class="count h2" data-to="500" data-speed="500">500</h6>
+                                        <p class="m-0px font-w-600">Happy Clients</p>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3">
+                                    <div class="count-data text-center">
+                                        <h6 class="count h2" data-to="150" data-speed="150">150</h6>
+                                        <p class="m-0px font-w-600">Project Completed</p>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3">
+                                    <div class="count-data text-center">
+                                        <h6 class="count h2" data-to="850" data-speed="850">850</h6>
+                                        <p class="m-0px font-w-600">Photo Capture</p>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3">
+                                    <div class="count-data text-center">
+                                        <h6 class="count h2" data-to="190" data-speed="190">190</h6>
+                                        <p class="m-0px font-w-600">Telephonic Talk</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                     </div>
                 </div>
             </div>
         </section>
-@endsection
-@section('javascript')
+        @endsection
+        @section('javascript')
             $(function() {
             $('.follow').click( function () {
             $.ajax({
