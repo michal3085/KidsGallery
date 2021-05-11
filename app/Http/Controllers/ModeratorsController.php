@@ -27,8 +27,8 @@ class ModeratorsController extends Controller
         $mod_action = new ModeratorAction();
         $mod_action->moderator_id = Auth::id();
         $mod_action->user_id = $picture->user_id;
-        $mod_action->action = __('The picture has been blocked');
-        $mod_action->reason = __('Breaking the regulations');
+        $mod_action->action = 'The picture has been blocked';
+        $mod_action->reason = 'Breaking the regulations';
         $mod_action->type = "picture";
         $mod_action->type_id = $id;
         $mod_action->user_response = "";
