@@ -54,8 +54,8 @@
                             @if ($action->type == "picture")
                                 <td><a href="{{ route('banned.picture', ['picture_id' => $action->type_id, 'mod_info' => $action->id, 'name' => $other_user->name]) }}">Details</a></td>
                             @endif
-                            @if ($action->moderator_response == 1)
-                                <td>YES</td>
+                            @if ($action->moderator_viewed == 1 && $action->user_viewed == 0)
+                                <td><p style="color: green">YES</p></td>
                             @else
                                 <td>NO</td>
                             @endif

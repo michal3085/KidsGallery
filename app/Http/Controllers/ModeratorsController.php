@@ -5,16 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\ModeratorAction;
 use App\Models\Picture;
 use App\Models\PicturesReport;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ModeratorsController extends Controller
 {
     public function index()
     {
-        $pictures = Picture::where('accept', 1)->latest()->paginate(10);
-
+        if ( auth()->user()->hasRole('admin') ) {
+            $pictures = Picture::where('accept', 1)->latest()->paginate(10);
+        } else {
+            $pictures = Picture::where('accept', 1)->where('visible', 1)->latest()->paginate(10);
+        }
         return view('moderator.index', compact('pictures'));
     }
 
