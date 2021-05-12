@@ -57,6 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/profiles/banned/picture/answer', [ProfilesController::class, 'banAnswer'])->name('banned.answer');
     Route::post('/followers/add/rights/{id}', [FollowersController::class, 'addRights']);
     Route::delete('/followers/delete/rights/{id}', [FollowersController::class, 'deleteRights']);
+    Route::post('/profile/block/{id}', [UsersController::class, 'block']);
+    Route::post('/profile/unblock/{id}', [UsersController::class, 'unblock']);
 });
 
 // Moderator routes

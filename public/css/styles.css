@@ -10147,3 +10147,16 @@ mark {
 .dark-color {
   color: #20247b;
 }
+.backgroundstripes {
+    background: repeating-linear-gradient(
+    45deg,
+    rgba(53, 189, 36, 0.32) 25%,
+    rgba(63, 240, 19, 0.3) 25%,
+    rgba(63, 240, 19, 0.31) 50%,
+    rgba(53, 189, 36, 0.33) 50%,
+    rgba(53, 189, 36, 0.35) 75%,
+    rgba(63, 240, 19, 0.3) 75%,
+    rgba(63, 240, 19, 0.27) 100%
+    );
+    background-size: 56.57px 56.57px;
+}

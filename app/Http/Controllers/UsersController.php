@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlockedUser;
+use App\Models\Follower;
 use App\Models\Picture;
 use App\Models\User;
 use App\Models\UsersData;
@@ -67,11 +69,44 @@ class UsersController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function block($id)
     {
-        //
+      $blocks = new BlockedUser();
+
+      $blocks->user_id = Auth::id();
+      $blocks->blocks_user = $id;
+
+        if ($blocks->save()) {
+            Follower::where('user_id', Auth::id())->where('follow_id', $id)->delete();
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ])->setStatusCode(200);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function unblock($id)
+    {
+        if ( BlockedUser::where('user_id', Auth::id())->where('blocks_user', $id)->delete() ) {
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ])->setStatusCode(200);
+        }
     }
 
     /**

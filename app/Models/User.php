@@ -54,13 +54,25 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\UsersData');
     }
 
+    public function blocked()
+    {
+        return $this->belongsToMany(User::class, 'blocked_users', 'blocks_user', 'user_id');
+    }
 
-    public function followers() {
+    // who blocks that user
+    public function blocks()
+    {
+        return $this->belongsToMany(User::class, 'blocked_users', 'user_id', 'blocks_user');
+    }
+
+    public function followers()
+    {
         return $this->belongsToMany(User::class, 'followers', 'follow_id', 'user_id');
     }
 
     // users that follow this user
-    public function following() {
+    public function following()
+    {
         return $this->belongsToMany(User::class, 'followers', 'user_id', 'follow_id');
     }
 

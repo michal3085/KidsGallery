@@ -49,6 +49,19 @@
                         <div class="col-md-6">
                             <div class="bio-content">
                                 <h1>{{  $other_user->name }}</h1>
+                                @if ($user->id != $other_user->id)
+                                    @if (\App\Models\BlockedUser::where('user_id', $user->id)->where('blocks_user', $other_user->id)->count() == 0)
+                                        @if ($user->following()->where('follow_id', $other_user->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                                            <button type="submit" class="btn btn-outline-danger follow" data-id="{{ $other_user->id }}"><i class="fas fa-heart"></i> Dodaj do ulubionych</button>
+                                        @else
+                                            <button type="submit" class="btn btn-danger delete" data-id="{{ $other_user->id }}"><i class="fas fa-heart"></i> Obserwujesz</button>
+                                        @endif
+                                            <button type="submit" class="btn btn-outline-danger blocks" data-id="{{ $other_user->id }}"><i class="fas fa-lock"></i> Zablokuj</button>
+                                        @else
+                                            <button type="submit" class="btn btn-danger unblocks" data-id="{{ $other_user->id }}"><i class="fas fa-unlock"></i> Odblokuj</button>
+                                    @endif
+                                @endif
+                                <br><br>
                                 <h6>{{ $userdata->about }}</h6>
                             </div>
                             <div class="bio-content">
@@ -57,14 +70,6 @@
                             <div class="bio-content">
                                 <h6>{{ __('Birth date') }}: {{ $userdata->birthdate }}</h6>
                             </div>
-                            @if ($user->id != $other_user->id)
-                                @if ($user->following()->where('follow_id', $other_user->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
-                                    <button type="submit" class="btn btn-outline-danger follow" data-id="{{ $other_user->id }}"><i class="fas fa-heart"></i> Dodaj do ulubionych</button>
-                                @else
-                                    <button type="submit" class="btn btn-danger delete" data-id="{{ $other_user->id }}"><i class="fas fa-heart"></i> Obserwujesz</button>
-                                @endif
-                                    <button type="submit" class="btn btn-outline-danger " data-id="{{ $other_user->id }}"><i class="fas fa-lock"></i> Zablokuj</button>
-                            @endif
                         </div>
                     </div>
                     <br>
@@ -73,7 +78,7 @@
                             <div class="row">
                                 <div class="col-6 col-lg-3">
                                     <div class="count-data text-center">
-                                        <h6 class="count h2" data-to="500" data-speed="500">{{ \App\Models\Picture::where('user_id', $other_user->id)->where('visible', 1)->count() }}</h6>
+                                        <h6 class="count h2" data-to="500" data-speed="500">{{ \App\Models\Picture::where('user_id', $other_user->id)->where('accept', 1)->where('visible', 1)->count() }}</h6>
                                         <p class="m-0px font-w-600">{{ __('Pictures') }}</p>
                                     </div>
                                 </div>
@@ -126,6 +131,40 @@
             method: "DELETE",
             contentType: "application/json; charset=utf-8",
             url: "/followers/delete/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
+            $(function() {
+            $('.blocks').click( function () {
+            $.ajax({
+            method: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "/profile/block/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
+            $(function() {
+            $('.unblocks').click( function () {
+            $.ajax({
+            method: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "/profile/unblock/" + $(this).data("id")
             // data: { name: "John", location: "Boston" }
             })
             .done(function( response ) {
