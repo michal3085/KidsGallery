@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlockedUser;
 use App\Models\Comment;
 use App\Models\Follower;
 use App\Models\like;
@@ -20,8 +21,8 @@ class PicturesController extends Controller
      */
     public function index()
     {
-        // get data with newest date
-        $pictures = Picture::where('accept', 1)->latest()->paginate(8);
+        $blocks_ids = BlockedUser::where('user_id', Auth::id())->pluck('blocks_user');
+        $pictures = Picture::where('accept', 1)->whereNotIn('user_id', $blocks_ids)->latest()->paginate(8);
 
         if (!Auth::check()) {
             return view('unloged.gallery', compact('pictures'));
