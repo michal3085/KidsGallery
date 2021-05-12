@@ -102,8 +102,8 @@ class PicturesController extends Controller
     {
         $pictures = Picture::find($id);
         $follow = Follower::where('user_id', $pictures->user_id)->where('follow_id', Auth::id())->first();
-
-        $comments = $pictures->comments()->where('picture_id', $id)->latest()->paginate(20);
+        $blocked_comments = BlockedUser::where('user_id', Auth::id())->pluck('blocks_user');
+        $comments = $pictures->comments()->where('picture_id', $id)->whereNotIn('user_id', $blocked_comments)->latest()->paginate(20);
 
         if(!$request->session()->has('visit' . $id)) {
             $request->session()->put('visit' . $id, 1);

@@ -56,8 +56,8 @@
                             @endif
                             @if ($action->moderator_viewed == 1 && $action->user_viewed == 0)
                                 <td><p style="color: green">YES</p></td>
-                            @else
-                                <td>NO</td>
+                                @else
+                                    <td>NO</td>
                             @endif
                         </tr>
                     @endforeach

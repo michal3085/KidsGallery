@@ -58,12 +58,10 @@ class ModeratorsController extends Controller
         $picture->accept = 1;
 
             if ($picture->save()) {
-
                 ModeratorAction::where('moderator_id', Auth::id())
                     ->where('type_id', $id)
                     ->where('moderator_only', 0)
                     ->delete();
-
                 return response()->json([
                     'status' => 'success'
                 ]);
