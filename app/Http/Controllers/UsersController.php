@@ -39,10 +39,10 @@ class UsersController extends Controller
         $usersIds = $user->following()->pluck('follow_id')->all();
         $rights = $user->followers()->where('follow_id', $user->id)->where('rights', 1)->pluck('user_id')->all();
 
-       // collecting the IDs of users I am following
+       // collecting the pictures IDs of users I am following
        $pics_set1 = Picture::whereIn('user_id', $usersIds)->where('visible', 1)->pluck('id');
 
-       // collecting id's of users who let me see their hidden pictures
+       // collecting pictures id's of users who let me see their hidden pictures
        $pics_set2 = Picture::where('visible', 0)->whereIn('user_id', $rights)->pluck('id');
 
        /*
