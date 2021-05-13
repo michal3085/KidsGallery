@@ -63,7 +63,7 @@
                                 <a href="{{ route('pictures.show', ['picture' => $picture->id]) }}">
                                     <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
                                 </a>
-                                <br>
+                                <br><hr>
                                 <a href="{{ route('profiles.about', ['name' => $picture->user ]) }}">{{ $picture->user }}</a> | {{ $picture->name }}
                                 <br>
                                 <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}

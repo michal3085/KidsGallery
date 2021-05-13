@@ -21,13 +21,35 @@ class PicturesController extends Controller
      */
     public function index()
     {
-        $blocks_ids = BlockedUser::where('user_id', Auth::id())->pluck('blocks_user');
-        $pictures = Picture::where('accept', 1)->whereNotIn('user_id', $blocks_ids)->latest()->paginate(8);
-
         if (!Auth::check()) {
+            $pictures = Picture::where('accept', 1)->latest()->paginate(8);
             return view('unloged.gallery', compact('pictures'));
+        } else {
+            $blocks_ids = BlockedUser::where('user_id', Auth::id())->pluck('blocks_user');
+
+            $pass_ids2 = Picture::where('visible', 1)
+                ->pluck('id');
+
+            $rigts= Follower::where('follow_id', Auth::id())
+                ->where('rights', 1)
+                ->pluck('user_id');
+
+            $except = Picture::whereIn('user_id', $rigts)->where('visible', 0)->pluck('id');
+
+            $x = count($pass_ids2);
+            $y = count($except);
+
+            for ($i=0; $i<=$y-1; $i++) {
+                $pass_ids2[$x] = $except[$i];
+                $x++;
+            }
+            $pictures = Picture::where('accept', 1)->whereIn('id', $pass_ids2)
+                ->whereNotIn('user_id', $blocks_ids)
+                ->latest()
+                ->paginate(8);
+
+            return view('pictures.index', compact('pictures'));
         }
-        return view('pictures.index', compact('pictures'));
     }
 
     /**
