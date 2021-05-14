@@ -8,6 +8,7 @@ use App\Models\Follower;
 use App\Models\like;
 use App\Models\Picture;
 use App\Models\PicturesReport;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -51,6 +52,49 @@ class PicturesController extends Controller
             return view('pictures.index', compact('pictures'));
         }
     }
+
+    /**
+     * Display pictures only from follow by you.
+     * And hidden pictures from user who gives you
+     * rights to watch that pictures.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function yoursgallery()
+    {
+        $user = User::where('id', Auth::id())->first();
+        $usersIds = $user->following()->pluck('follow_id')->all();
+
+        /*
+         *  Collecting the IDs of users I am following,
+         *  and gives me right to watch hidden pictures.
+        */
+        $rights = $user->followers()->where('follow_id', $user->id)
+            ->whereIn('user_id', $usersIds)
+            ->where('rights', 1)
+            ->pluck('user_id')->all();
+
+        $pics_set1 = Picture::whereIn('user_id', $usersIds)->where('visible', 1)->pluck('id');
+
+        // collecting pictures id's of users who let me see their hidden pictures
+        $pics_set2 = Picture::where('visible', 0)->whereIn('user_id', $rights)->pluck('id');
+
+        /*
+         * Merging ID's
+         */
+        $set1_count = count($pics_set1);
+        $set2_count = count($pics_set2);
+
+        for ($i=0; $i<=$set2_count-1; $i++) {
+            $pics_set1[$set1_count] = $pics_set2[$i];
+            $set1_count++;
+        }
+        // Getting images from id's acquired earlier
+        $pictures = Picture::whereIn('id', $pics_set1)->where('accept', 1)->latest()->paginate(8);
+
+        return view('pictures.yoursgallery', compact('pictures'));
+    }
+
 
     /**
      * Show the form for creating a new resource.

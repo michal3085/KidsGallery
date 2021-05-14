@@ -28,7 +28,7 @@
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('pictures.create') }}">{{ __('Insert picture') }}</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('pictures.index') }}">{{ __('Main Gallery') }}</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('users.index') }}">{{ __('Your Gallery') }}</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('yours.gallery') }}">{{ __('Your Gallery') }}</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('top10') }}">{{ __('TOP10') }}</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('users.edit', ['user' => $user->id]) }}">{{ __('Settings') }}</a></li>
             @if (\App\Models\Role::where('user_id', $user->id)->where('role', 'moderator')->count() != 0)
