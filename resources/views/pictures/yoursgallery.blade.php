@@ -34,10 +34,10 @@
                             </a>
                             <div class="p-4">
                                 <h5> <a href="{{ route('pictures.show', ['picture' => $picture->id]) }}" class="text-dark">{{ $picture->name }}</a></h5>
-                                    <p class="small text-muted mb-0">
-                                        <a href="{{ route('profiles.about', ['name' => $picture->user ]) }}"><img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $picture->user])->pluck('avatar')->first() }}" alt="user" style="width: 25px; height: 25px;">
-                                            {{ $picture->user }}</a>
-                                    </p>
+                                <p class="small text-muted mb-0">
+                                    <a href="{{ route('profiles.about', ['name' => $picture->user ]) }}"><img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $picture->user])->pluck('avatar')->first() }}" alt="user" style="width: 25px; height: 25px;">
+                                        {{ $picture->user }}</a>
+                                </p>
                                 <hr>
                                 @if ($picture->likes()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
                                     <button type="submit" class="btn btn-outline-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>

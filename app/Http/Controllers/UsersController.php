@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
-
+    /*
+     * Avatar files that cannot be deleted.
+     */
     private $avatars = [
                 '1' => 'avatar/avatar1.png',
                 '2' => 'avatar/avatar2.png',
@@ -29,7 +31,9 @@ class UsersController extends Controller
             ];
 
     /**
-     * Display a listing of the resource.
+     * Display pictures only from follow by you.
+     * And hidden pictures from user who gives you
+     * rights to watch that pictures.
      *
      * @return \Illuminate\Http\Response
      */
@@ -39,13 +43,14 @@ class UsersController extends Controller
         $usersIds = $user->following()->pluck('follow_id')->all();
 
         /*
-         *  Collecting the pictures IDs of users I am following,
+         *  Collecting the IDs of users I am following,
          *  and gives me right to watch hidden pictures.
         */
         $rights = $user->followers()->where('follow_id', $user->id)
             ->whereIn('user_id', $usersIds)
             ->where('rights', 1)
             ->pluck('user_id')->all();
+
         $pics_set1 = Picture::whereIn('user_id', $usersIds)->where('visible', 1)->pluck('id');
 
         // collecting pictures id's of users who let me see their hidden pictures
@@ -148,7 +153,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the user avatar from hard drive.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -156,47 +161,53 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->hasFile('avatar')) {
+        if (Auth::id() == $id) {
+            if ($request->hasFile('avatar')) {
 
-            $request->validate([
-                'avatar' => 'mimes:jpeg,bmp,png,jpg'
-            ]);
-            $path = $request->file('avatar')->store('avatar', 'public');
+                $request->validate([
+                    'avatar' => 'mimes:jpeg,bmp,png,jpg'
+                ]);
+                $path = $request->file('avatar')->store('avatar', 'public');
 
-            $user = User::find($id);
-            $oldfilename = $user->avatar;
+                $user = User::find($id);
+                $oldfilename = $user->avatar;
 
-            if (! in_array($oldfilename, $this->avatars) ){
-                Storage::disk('public')->delete($user->avatar);
+                if (! in_array($oldfilename, $this->avatars)) {
+                    Storage::disk('public')->delete($user->avatar);
+                }
+
+                $user->avatar = $path;
+                $user->save();
+
+
+                return redirect()->back();
             }
-
-            $user->avatar = $path;
-            $user->save();
-
+        } else {
             return redirect()->back();
         }
     }
 
     /**
-     * Update the specified resource in storage.
+     * User set avatar from default avatars.
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function defaultAvatar($id, $x)
     {
+        if (Auth::id() == $id) {
+            $user = User::find($id);
+            $oldfilename = $user->avatar;
 
-        $user = User::find($id);
-        $oldfilename = $user->avatar;
+            if (!in_array($oldfilename, $this->avatars)) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+            $user->avatar = 'avatar/avatar' . $x . '.png';
+            $user->save();
 
-
-        if (! in_array($oldfilename, $this->avatars) ){
-            Storage::disk('public')->delete($user->avatar);
+            return redirect()->back();
+        } else {
+            return redirect()->back();
         }
-        $user->avatar = 'avatar/avatar' . $x . '.png';
-
-        $user->save();
-
-        return redirect()->back();
 
     }
 
