@@ -53,7 +53,7 @@
                                     @if ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() != 0 )
                                         <button type="button" class="btn btn-link"><i class="far fa-eye rightsdel" style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
                                     @elseif ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() == 0)
-                                        <button type="button" class="btn btn-link"><i class="far fa-eye-slash rightson"  style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
+                                        <button type="button" class="btn btn-link"><i class="far fa-eye-slash rightson" data-toggle="tooltip" data-title="Zezwalaj na ogladanie ukrytych obrazkow temu uzytkownikowi"  data-delay='{"show":"500", "hide":"300"}' style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
                                     @endif
                                 @endif
                                     @if ($user->following()->where('follow_id', $follow->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
@@ -140,4 +140,9 @@
             });
             });
             });
+
+            $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+
+            })
 @endsection

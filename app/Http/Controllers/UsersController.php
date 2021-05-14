@@ -38,12 +38,14 @@ class UsersController extends Controller
         $user = User::where('id', Auth::id())->first();
         $usersIds = $user->following()->pluck('follow_id')->all();
 
+        /*
+         *  Collecting the pictures IDs of users I am following,
+         *  and gives me right to watch hidden pictures.
+        */
         $rights = $user->followers()->where('follow_id', $user->id)
             ->whereIn('user_id', $usersIds)
             ->where('rights', 1)
             ->pluck('user_id')->all();
-
-        // collecting the pictures IDs of users I am following
         $pics_set1 = Picture::whereIn('user_id', $usersIds)->where('visible', 1)->pluck('id');
 
         // collecting pictures id's of users who let me see their hidden pictures
