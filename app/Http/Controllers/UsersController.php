@@ -37,26 +37,30 @@ class UsersController extends Controller
     {
         $user = User::where('id', Auth::id())->first();
         $usersIds = $user->following()->pluck('follow_id')->all();
-        $rights = $user->followers()->where('follow_id', $user->id)->where('rights', 1)->pluck('user_id')->all();
 
-       // collecting the pictures IDs of users I am following
-       $pics_set1 = Picture::whereIn('user_id', $usersIds)->where('visible', 1)->pluck('id');
+        $rights = $user->followers()->where('follow_id', $user->id)
+            ->whereIn('user_id', $usersIds)
+            ->where('rights', 1)
+            ->pluck('user_id')->all();
 
-       // collecting pictures id's of users who let me see their hidden pictures
-       $pics_set2 = Picture::where('visible', 0)->whereIn('user_id', $rights)->pluck('id');
+        // collecting the pictures IDs of users I am following
+        $pics_set1 = Picture::whereIn('user_id', $usersIds)->where('visible', 1)->pluck('id');
 
-       /*
-        * Merging ID's
-        */
-       $set1_count = count($pics_set1);
-       $set2_count = count($pics_set2);
+        // collecting pictures id's of users who let me see their hidden pictures
+        $pics_set2 = Picture::where('visible', 0)->whereIn('user_id', $rights)->pluck('id');
 
-       for ($i=0; $i<=$set2_count-1; $i++) {
-            $pics_set1[$set1_count] = $pics_set2[$i];
-            $set1_count++;
-       }
-       // downloading images from id's acquired earlier
-       $pictures = Picture::whereIn('id', $pics_set1)->where('accept', 1)->latest()->paginate(8);
+        /*
+         * Merging ID's
+         */
+        $set1_count = count($pics_set1);
+        $set2_count = count($pics_set2);
+
+        for ($i=0; $i<=$set2_count-1; $i++) {
+             $pics_set1[$set1_count] = $pics_set2[$i];
+             $set1_count++;
+        }
+        // Getting images from id's acquired earlier
+        $pictures = Picture::whereIn('id', $pics_set1)->where('accept', 1)->latest()->paginate(8);
 
         return view('users.index', compact('pictures'));
     }
