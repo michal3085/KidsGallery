@@ -81,7 +81,7 @@ class PicturesController extends Controller
         $pics_set2 = Picture::where('visible', 0)->whereIn('user_id', $rights)->pluck('id');
 
         /*
-         * Merging ID's
+         *  Merging ID's
          */
         $set1_count = count($pics_set1);
         $set2_count = count($pics_set2);

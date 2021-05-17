@@ -34,7 +34,7 @@
                 </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">{{ __('Short Description') }}:<small> ({{ __('Field not required') }})</small></label>
-                            <textarea class="form-control" id="comment" name="comment" rows="3">{{ $pictures->comment }}</textarea>
+                            <textarea class="form-control" id="comment" name="comment" rows="10">{{ $pictures->comment }}</textarea>
                         </div>
                             {{ __('Choose to make your work accessible to others') }}:
                             <select name="visible" class="custom-select" id="inputGroupSelect01">

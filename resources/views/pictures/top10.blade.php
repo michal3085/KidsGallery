@@ -48,12 +48,15 @@
                                 <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded" >
                                     <a href="{{ route('pictures.show', ['picture' => $picture->id]) }}">
                                         <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-fluid img-thumbnail" >
-                                    </a>
+                                                </a>
+                                                    <br>
+                                                        <a href="{{ route('profiles.about', ['name' => $picture->user ]) }}">
+                                                    <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $picture->user])->pluck('avatar')->first() }}" alt="user" style="width: 25px; height: 25px;">
+                                                <b>{{ $picture->user }}</b>
+                                        </a>  | <b>{{ $picture->name }}</b>
                                     <br>
-                                    <a href="{{ route('profiles.about', ['name' => $picture->user ]) }}">{{ $picture->user }}</a>  | {{ $picture->name }}
-                                    <br>
-                                    <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
-                                    | <i class="far fa-eye"></i> {{ $picture->views }}
+                                <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
+                            | <i class="far fa-eye"></i> {{ $picture->views }}
                                 </div>
                             </div>
                             @if ($picture->likes()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
