@@ -9,6 +9,7 @@ use App\Models\like;
 use App\Models\Picture;
 use App\Models\PicturesReport;
 use App\Models\User;
+use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -68,7 +69,7 @@ class PicturesController extends Controller
         /*
          *  Collecting the IDs of users I am following,
          *  and gives me right to watch hidden pictures.
-        */
+         */
         $rights = $user->followers()->where('follow_id', $user->id)
             ->whereIn('user_id', $usersIds)
             ->where('rights', 1)
@@ -132,6 +133,16 @@ class PicturesController extends Controller
             ]);
 
             $path =  $request->file('file')->store('gallery', 'public');
+
+            $name = str_replace('gallery/', '', $path);
+
+//            if (! file_exists('/app/public/thumbs')) {
+//                mkdir('/app/public/thumbs/', 0755, true);
+//            }
+//            dd('/gallery/' . $name);
+//            $thumb = Image::make(public_path('gallery/') . $name)
+//                ->resize(240, 160)
+//                ->save('/app/public/thumbs/' . $name, 60);
 
             $picture = new Picture();
 

@@ -46,9 +46,9 @@
                                <i class="fas fa-user-lock" style="height: 40px; width: 40px; color: rgba(71,68,68,0.62)" data-id="{{ $follow->id }}"></i>
                             @else
                                 @if ($user->following()->where('follow_id', $follow->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
-                                    <a href=""><i class="far fa-heart follow" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></a>
+                                    <a href="" class="follow" data-id="{{ $follow->id }}"><i class="far fa-heart " style="height: 40px; width: 40px; color: #c82333" ></i></a>
                                 @else
-                                    <a href=""><i class="fas fa-heart delete" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></a>
+                                    <a href="" class="delete" data-id="{{ $follow->id }}"><i class="fas fa-heart " style="height: 40px; width: 40px; color: #c82333" ></i></a>
                                 @endif
                             @endif
                         @endif

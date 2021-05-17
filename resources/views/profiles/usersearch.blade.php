@@ -51,15 +51,15 @@
                             @else
                                 @if ($user->following()->where('follow_id', $follow->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() != 0)
                                     @if ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() != 0 )
-                                        <button type="button" class="btn btn-link"><i class="far fa-eye rightsdel" style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
+                                        <button type="button" class="btn btn-link rightsdel" data-id="{{ $follow->id }}"><i class="far fa-eye" style="height: 30px; width: 30px;" ></i></button>
                                     @elseif ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() == 0)
-                                        <button type="button" class="btn btn-link"><i class="far fa-eye-slash rightson" data-toggle="tooltip" data-title="Zezwalaj na ogladanie ukrytych obrazkow temu uzytkownikowi"  data-delay='{"show":"500", "hide":"300"}' style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
+                                        <button type="button" class="btn btn-link rightson" data-toggle="tooltip" data-title="Zezwalaj na ogladanie ukrytych obrazkow temu uzytkownikowi"  data-delay='{"show":"500", "hide":"300"}' data-id="{{ $follow->id }}"><i class="far fa-eye-slash" style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
                                     @endif
                                 @endif
                                     @if ($user->following()->where('follow_id', $follow->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
-                                        <button type="button" class="btn btn-link"><i class="far fa-heart follow" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></button>
+                                        <button type="button" class="btn btn-link follow" data-id="{{ $follow->id }}"><i class="far fa-heart" style="height: 40px; width: 40px; color: #c82333" ></i></button>
                                     @else
-                                        <button type="button" class="btn btn-link"><i class="fas fa-heart delete" style="height: 40px; width: 40px; color: #c82333" data-id="{{ $follow->id }}"></i></button>
+                                        <button type="button" class="btn btn-link delete" data-id="{{ $follow->id }}"><i class="fas fa-heart" style="height: 40px; width: 40px; color: #c82333" ></i></button>
                                 @endif
                             @endif
                         @endif
