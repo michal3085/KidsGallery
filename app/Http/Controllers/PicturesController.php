@@ -23,6 +23,11 @@ class PicturesController extends Controller
      */
     public function index()
     {
+
+        /*
+         *  W galerii nie wyswietlaja sie ukryte zdjecia uzytkownika
+         */
+
         if (!Auth::check()) {
             $pictures = Picture::where('accept', 1)->latest()->paginate(8);
             return view('unloged.gallery', compact('pictures'));
@@ -31,6 +36,7 @@ class PicturesController extends Controller
 
             $pass_ids2 = Picture::where('visible', 1)
                 ->pluck('id');
+
 
             $rigts= Follower::where('follow_id', Auth::id())
                 ->where('rights', 1)
@@ -45,6 +51,7 @@ class PicturesController extends Controller
                 $pass_ids2[$x] = $except[$i];
                 $x++;
             }
+
             $pictures = Picture::where('accept', 1)->whereIn('id', $pass_ids2)
                 ->whereNotIn('user_id', $blocks_ids)
                 ->latest()
