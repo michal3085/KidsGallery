@@ -13,14 +13,23 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfilesController extends Controller
 {
-    /*
-     * other_user is the user whose profile we are viewing.
-     */
 
     public function index($name)
     {
         $user = User::where('name', $name)->first();
-        $pictures = Picture::where('user', $name)->where('accept', 1)->latest()->paginate(8);
+
+        if ($user->id == Auth::id()) {
+            $ids = Picture::where('user_id', Auth::id())->pluck('id');
+        } else {
+            $pictures = Picture::where('user', $name)->where('visible', 1)->pluck('id');
+            $friends = Auth::user()->followers()->where('rights', 1)->pluck('user_id');
+            $hidden_pictures = Picture::where('visible', 0)
+                ->where('user', $name)
+                ->whereIn('user_id', $friends)->pluck('id');
+
+            $ids = $pictures->merge($hidden_pictures);
+        }
+        $pictures = Picture::where('accept', 1)->whereIn('id', $ids)->latest()->paginate(8);
 
         return view('profiles.index')->with(['pictures' => $pictures, 'other_user' => $user]);
     }
@@ -98,7 +107,7 @@ class ProfilesController extends Controller
     public function following($name)
     {
         $user = User::where('name', $name)->first();
-        $followers = $user->following()->latest()->paginate(30);
+        $followers = $user->following()->latest()->paginate(20);
 
         return view('profiles.following')->with(['other_user' => $user, 'followers' => $followers]);
     }
@@ -106,7 +115,7 @@ class ProfilesController extends Controller
     public function followers($name)
     {
         $user = User::where('name', $name)->first();
-        $followers = $user->followers()->latest()->paginate(30);
+        $followers = $user->followers()->latest()->paginate(20);
 
         return view('profiles.followers')->with(['other_user' => $user, 'followers' => $followers]);
     }

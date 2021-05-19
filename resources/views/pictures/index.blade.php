@@ -35,7 +35,7 @@
                                 </a>
                                 <br>
                                 <a href="{{ route('profiles.about', ['name' => $picture->user ]) }}">
-                                    <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $picture->user])->pluck('avatar')->first() }}" alt="user" style="width: 25px; height: 25px;">
+                                    <img class="img-fluid img-responsive rounded-circle mr-1" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $picture->user])->pluck('avatar')->first() }}" alt="user" style="width: 30px; height: 30px;">
                                     <b>{{ $picture->user }}</b></a> | <b>{{ $picture->name }}</b>
                                 <br>
                                 <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}

@@ -32,27 +32,34 @@ class PicturesController extends Controller
             $pictures = Picture::where('accept', 1)->latest()->paginate(8);
             return view('unloged.gallery', compact('pictures'));
         } else {
+            // collecting id's of users that are blocked.
             $blocks_ids = BlockedUser::where('user_id', Auth::id())->pluck('blocks_user');
 
+            // collecting my hidden pictures.
+            $user_hidden_pics = Picture::where('user_id', Auth::id())->where('visible', 0)->pluck('id');
+
+            // get all visible pictures id and merge them with my hidden pictures.
             $pass_ids2 = Picture::where('visible', 1)
                 ->pluck('id');
+            $pass_ids = $pass_ids2->merge($user_hidden_pics);
 
-
+            // collecting id's of users who allow me to view hidden pictures
             $rigts= Follower::where('follow_id', Auth::id())
                 ->where('rights', 1)
                 ->pluck('user_id');
 
             $except = Picture::whereIn('user_id', $rigts)->where('visible', 0)->pluck('id');
 
-            $x = count($pass_ids2);
+            $x = count($pass_ids);
             $y = count($except);
 
+            // join all id's into one array
             for ($i=0; $i<=$y-1; $i++) {
-                $pass_ids2[$x] = $except[$i];
+                $pass_ids[$x] = $except[$i];
                 $x++;
             }
 
-            $pictures = Picture::where('accept', 1)->whereIn('id', $pass_ids2)
+            $pictures = Picture::where('accept', 1)->whereIn('id', $pass_ids)
                 ->whereNotIn('user_id', $blocks_ids)
                 ->latest()
                 ->paginate(8);
