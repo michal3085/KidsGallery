@@ -22,7 +22,11 @@ class ProfilesController extends Controller
             $ids = Picture::where('user_id', Auth::id())->pluck('id');
         } else {
             $pictures = Picture::where('user', $name)->where('visible', 1)->pluck('id');
+
+            // checking who's letting us see their hidden photos
             $friends = Auth::user()->followers()->where('rights', 1)->pluck('user_id');
+
+            // im taking id's of these pictures
             $hidden_pictures = Picture::where('visible', 0)
                 ->where('user', $name)
                 ->whereIn('user_id', $friends)->pluck('id');
