@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\CommentsReport;
 use App\Models\ModeratorAction;
 use App\Models\Picture;
 use App\Models\PicturesReport;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ModeratorsController extends Controller
@@ -50,6 +53,42 @@ class ModeratorsController extends Controller
             ])->setStatusCode(200);
         }
 
+    }
+
+    public function reportedComments()
+    {
+        if (auth()->user()->hasRole('admin')) {
+                $comments_ids = CommentsReport::latest()->pluck('comment_id');
+                $comments = Comment::whereIn('id', $comments_ids)->latest()->paginate(5);
+
+        } elseif (auth()->user()->hasRole('moderator')) {
+            /*
+             *  checking witch user comments i can watch, where commented picture has visible = 0
+             */
+            $allow = Auth::user()->followers()->where('rights', 1)->pluck('user_id');
+            $allow_pics = Picture::where('visible', 0)->whereIn('user_id', $allow)->pluck('id');
+
+            // getting id's of pictures where visible = 1
+            $pics = Picture::where('visible', 1)->pluck('id');
+            $result_ids = $pics->merge($allow_pics);
+
+            $com = CommentsReport::whereIn('picture_id', $result_ids)->pluck('comment_id');
+            $comments = Comment::whereIn('id', $com)->latest()->paginate(5);
+        }
+        return view('moderator.reportedComments')->with(['comments' => $comments]);
+    }
+
+    public function deleteCommentReport($id)
+    {
+        if ( CommentsReport::where('comment_id', $id)->delete() ){
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ])->setStatusCode(200);
+        }
     }
 
     public function unblockPicture($id)

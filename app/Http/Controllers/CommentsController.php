@@ -29,9 +29,11 @@ class CommentsController extends Controller
     {
         if (CommentsReport::where('comment_id', $id)->where('user_id', Auth::id())->count() == 0) {
             $report = new CommentsReport();
+            $picture_id = Comment::where('id', $id)->first();
 
             $report->user_id = Auth::id();
             $report->comment_id = $id;
+            $report->picture_id = $picture_id->picture_id;
             $report->save();
 
             return response()->json([

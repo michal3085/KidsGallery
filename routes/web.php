@@ -70,6 +70,8 @@ Route::middleware(['check.role:moderator'])->group(function () {
     Route::get('/moderator/reported/pictures/{id?}', [ModeratorsController::class, 'showReportedPictures'])->name('reported.pictures');
     Route::delete('/report/down/{id}', [ModeratorsController::class, 'reportDown']);
     Route::delete('/report/down/all/{id}', [ModeratorsController::class, 'reportDownAll']);
+    Route::get('moderator/reported/comments/{id?}', [ModeratorsController::class, 'reportedComments'])->name('reported.comments');
+    Route::delete('/moderator/delete/comment/report/{id}', [ModeratorsController::class, 'deleteCommentReport']);
 });
 
 // Routes for Users
