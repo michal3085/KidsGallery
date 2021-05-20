@@ -13,11 +13,11 @@
             <strong>{{ session()->get('message2') }}</strong>
         </div>
     @endif
-
+    <br>
     <section class="resume-section" id="about">
         <div class="resume-section-content">
             <h1 class="mb-0">
-                {{ __('Main Gallery')  }}
+                {{ __('Main Gallery') }}
             </h1>
 
             <form action="{{ route('picture.search') }}" method="GET">
@@ -27,8 +27,6 @@
             </form>
 
             @foreach($pictures as $picture)
-                @if ( $picture->visible == 0)
-                    @if( \App\Models\Follower::where('user_id', $picture->user_id)->where('follow_id', $user->id)->where('rights', 1)->count() != 0 || $picture->user_id == \Illuminate\Support\Facades\Auth::id() )
                         <p class="lead mb-5">
                         <div class="row section-box">
                             <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
@@ -36,9 +34,11 @@
                                     <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
                                 </a>
                                 <br>
-                                <a href="{{ route('profiles.about', ['name' => $picture->user ]) }}">{{ $picture->user }}</a> | {{ $picture->name }}
+                                <a href="{{ route('profiles.about', ['name' => $picture->user ]) }}">
+                                    <img class="img-fluid img-responsive rounded-circle mr-1" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $picture->user])->pluck('avatar')->first() }}" alt="user" style="width: 30px; height: 30px;">
+                                    <b>{{ $picture->user }}</b></a> | <b>{{ $picture->name }}</b>
                                 <br>
-                                <i class="far fa-calendar-alt"></i>: {{ $picture->created_at }}
+                                <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
                                 | <i class="far fa-eye"></i> {{ $picture->views }}
                             </div>
                         </div>
@@ -47,35 +47,13 @@
                         @else
                             <button type="submit" class="btn btn-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
                         @endif
-                    @endif
-                @endif
-                @if (  $picture->visible == 1 )
-                    <p class="lead mb-5">
-                    <div class="row section-box">
-                        <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
-                            <a href="{{ route('pictures.show', ['picture' => $picture->id]) }}">
-                                <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
-                            </a>
-                            <br>
-                            <a href="{{ route('profiles.about', ['name' => $picture->user ]) }}">{{ $picture->user }}</a> | {{ $picture->name }}
-                            <br>
-                            <i class="far fa-calendar-alt"></i>: {{ $picture->created_at }}
-                            | <i class="far fa-eye"></i> {{ $picture->views }}
-                        </div>
-                    </div>
-                    @if ($picture->likes()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
-                        <button type="submit" class="btn btn-outline-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
-                    @else
-                        <button type="submit" class="btn btn-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
-                    @endif
-                @endif
             @endforeach
-            {{--            <div class="pagination pagination-lg justify-content-center">--}}
             <div class="pagination justify-content-center">
                 {{ $pictures->links() }}
             </div>
         </div>
     </section>
+
 @endsection
 @section('javascript')
     $(function() {

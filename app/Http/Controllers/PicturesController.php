@@ -8,6 +8,8 @@ use App\Models\Follower;
 use App\Models\like;
 use App\Models\Picture;
 use App\Models\PicturesReport;
+use App\Models\User;
+use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -21,14 +23,93 @@ class PicturesController extends Controller
      */
     public function index()
     {
-        $blocks_ids = BlockedUser::where('user_id', Auth::id())->pluck('blocks_user');
-        $pictures = Picture::where('accept', 1)->whereNotIn('user_id', $blocks_ids)->latest()->paginate(8);
+
+        /*
+         *  W galerii nie wyswietlaja sie ukryte zdjecia uzytkownika
+         */
 
         if (!Auth::check()) {
+            $pictures = Picture::where('accept', 1)->latest()->paginate(8);
             return view('unloged.gallery', compact('pictures'));
+        } else {
+            // collecting id's of users that are blocked.
+            $blocks_ids = BlockedUser::where('user_id', Auth::id())->pluck('blocks_user');
+
+            // collecting my hidden pictures.
+            $user_hidden_pics = Picture::where('user_id', Auth::id())->where('visible', 0)->pluck('id');
+
+            // get all visible pictures id and merge them with my hidden pictures.
+            $pass_ids2 = Picture::where('visible', 1)
+                ->pluck('id');
+            $pass_ids = $pass_ids2->merge($user_hidden_pics);
+
+            // collecting id's of users who allow me to view hidden pictures
+            $rigts= Follower::where('follow_id', Auth::id())
+                ->where('rights', 1)
+                ->pluck('user_id');
+
+            $except = Picture::whereIn('user_id', $rigts)->where('visible', 0)->pluck('id');
+
+            $x = count($pass_ids);
+            $y = count($except);
+
+            // join all id's into one array
+            for ($i=0; $i<=$y-1; $i++) {
+                $pass_ids[$x] = $except[$i];
+                $x++;
+            }
+
+            $pictures = Picture::where('accept', 1)->whereIn('id', $pass_ids)
+                ->whereNotIn('user_id', $blocks_ids)
+                ->latest()
+                ->paginate(8);
+
+            return view('pictures.index', compact('pictures'));
         }
-        return view('pictures.index', compact('pictures'));
     }
+
+    /**
+     * Display pictures only from follow by you.
+     * And hidden pictures from user who gives you
+     * rights to watch that pictures.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function yoursgallery()
+    {
+        $user = User::where('id', Auth::id())->first();
+        $usersIds = $user->following()->pluck('follow_id')->all();
+
+        /*
+         *  Collecting the IDs of users I am following,
+         *  and gives me right to watch hidden pictures.
+         */
+        $rights = $user->followers()->where('follow_id', $user->id)
+            ->whereIn('user_id', $usersIds)
+            ->where('rights', 1)
+            ->pluck('user_id')->all();
+
+        $pics_set1 = Picture::whereIn('user_id', $usersIds)->where('visible', 1)->pluck('id');
+
+        // collecting pictures id's of users who let me see their hidden pictures
+        $pics_set2 = Picture::where('visible', 0)->whereIn('user_id', $rights)->pluck('id');
+
+        /*
+         *  Merging ID's
+         */
+        $set1_count = count($pics_set1);
+        $set2_count = count($pics_set2);
+
+        for ($i=0; $i<=$set2_count-1; $i++) {
+            $pics_set1[$set1_count] = $pics_set2[$i];
+            $set1_count++;
+        }
+        // Getting images from id's acquired earlier
+        $pictures = Picture::whereIn('id', $pics_set1)->where('accept', 1)->latest()->paginate(8);
+
+        return view('pictures.yoursgallery', compact('pictures'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -66,6 +147,16 @@ class PicturesController extends Controller
             ]);
 
             $path =  $request->file('file')->store('gallery', 'public');
+
+            $name = str_replace('gallery/', '', $path);
+
+//            if (! file_exists('/app/public/thumbs')) {
+//                mkdir('/app/public/thumbs/', 0755, true);
+//            }
+//            dd('/gallery/' . $name);
+//            $thumb = Image::make(public_path('gallery/') . $name)
+//                ->resize(240, 160)
+//                ->save('/app/public/thumbs/' . $name, 60);
 
             $picture = new Picture();
 

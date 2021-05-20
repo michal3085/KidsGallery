@@ -17,14 +17,19 @@ class CreateCommentsReportsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('comment_id');
+            $table->unsignedBigInteger('picture_id');
             $table->timestamps();
-        });
 
-        Schema::table('comments_reports', function (Blueprint $table) {
             $table->foreign('comment_id')
                 ->references('id')
                 ->on('comments')
                 ->onDelete('cascade');
+
+            $table->foreign('picture_id')
+                ->references('id')
+                ->on('pictures')
+                ->onDelete('cascade');
+
         });
     }
 
@@ -36,6 +41,7 @@ class CreateCommentsReportsTable extends Migration
     public function down()
     {
         Schema::table('comments_reports', function (Blueprint $table) {
+            $table->dropForeign(['comment_id']);
             $table->dropForeign(['picture_id']);
         });
     }
