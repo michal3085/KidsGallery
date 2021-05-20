@@ -16,8 +16,8 @@
                                         <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
                                     </div>
                                     </span><span class="action-icons"><i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}" style="height: 20px; width: 20px; color: red"></i> </span>
-                                    | </span><span class="action-icons"><i class="far fa-window-close report_delete" data-id="{{ $comment->id }}" style="height: 20px; width: 20px; color: green"></i> </span>
-                                    | [  <b>{{ \App\Models\CommentsReport::where('comment_id', $comment->id)->count() }}</b> ]
+                                    | </span><span class="action-icons"><i class="fas fa-clipboard-check report_delete" data-id="{{ $comment->id }}" style="height: 20px; width: 20px; color: green"></i> </span>
+                                    | [ {{ __('number of reports') }}:   <b>{{ \App\Models\CommentsReport::where('comment_id', $comment->id)->count() }}</b> ]
                                 </div>
                                 <button type="button" class="btn btn-outline-success">
                                     <a href="{{ route('pictures.show', ['picture' => $comment->picture_id]) }}">

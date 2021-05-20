@@ -297,12 +297,29 @@ class PicturesController extends Controller
 
     public function search(Request $request)
     {
-        $pictures = Picture::where('name', 'LIKE', "%$request->search%")->latest()->paginate(8);
 
         if (!Auth::check()) {
+            $pictures = Picture::where('name', 'LIKE', "%$request->search%")
+                ->where('visible', 1)
+                ->where('accept', 1)->latest()->paginate(8);
+
             return view('unloged.gallery', compact('pictures'));
+        } else {
+            /*
+             * Collecting pictures i have right to watch.
+             */
+            $user_pics = Picture::where('user_id', Auth::id())->where('visible', 0)->pluck('id');
+            $allow = Auth::user()->followers()->where('rights', 1)->pluck('user_id');
+            $allow_hidden = Picture::where('visible', 0)->whereIn('user_id', $allow)->pluck('id');
+            $stack = Picture::where('visible', 1)->where('accept', 1)->pluck('id');
+            $merge1 = $stack->merge($allow_hidden);
+            $result = $merge1->merge($user_pics);
+
+            $pictures = Picture::where('name', 'LIKE', "%$request->search%")->whereIn('id', $result)->latest()->paginate(8);
+
+            return view('pictures.index', compact('pictures'));
         }
-        return view('pictures.index', compact('pictures'));
+
     }
 
     /**
