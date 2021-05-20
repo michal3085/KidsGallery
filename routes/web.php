@@ -22,14 +22,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PicturesController::class, 'index'])->name('index');
 
-
-// Routes for comments
-Route::post('/pictures/{id}/comment', [CommentsController::class, 'store'])->name('commnents.add')
-    ->middleware('auth');
-Route::delete('/comments/delete/{id}', [CommentsController::class, 'destroy'])->middleware('auth');
-Route::get('/comments/report/{id}', [CommentsController::class, 'report'])->middleware('auth');
-
-
 // Routes for pictures
 Route::get('/pictures/top10', [PicturesController::class, 'top'])->name('top10');
 Route::get('/pictures/topviews', [PicturesController::class, 'topviews'])->name('top10.views');
@@ -39,6 +31,11 @@ Route::resource('pictures', PicturesController::class);
 
 
 Route::middleware('auth')->group(function () {
+    // Routes for comments
+    Route::post('/pictures/{id}/comment', [CommentsController::class, 'store'])->name('commnents.add');
+    Route::delete('/comments/delete/{id}', [CommentsController::class, 'destroy']);
+    Route::get('/comments/report/{id}', [CommentsController::class, 'report']);
+    // Likes
     Route::post('/newlike/{id}', [LikesController::class, 'getLike'])->name('like.new');
     // pictures routes
     Route::get('/pictures/{id}/report', [PicturesController::class, 'report'])->name('pictures.report');
