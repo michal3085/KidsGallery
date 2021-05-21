@@ -87,6 +87,16 @@ class User extends Authenticatable
         return Role::where('role', $role)->where('user_id', Auth::id())->first();
     }
 
+    public function received()
+    {
+        return Message::where('to_id', Auth::id())->get();
+    }
+
+    public function unread()
+    {
+        return Message::where('to_id', Auth::id())->where('read', 0)->get();
+    }
+
     public function roles()
     {
         return $this->hasMany('App\Models\Role');

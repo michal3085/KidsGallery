@@ -5,9 +5,11 @@
         <br>
         <section class="resume-section" id="about">
             <div class="resume-section-content">
+                <h2 class="mb-0">
+                    {{ __('Reported Comments')  }}
+                </h2>
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4"></div>
                 @foreach($comments as $comment)
-
                             <div class="d-flex flex-row comment-row">
                                 <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" style="height: 50px; width: 50px;"></span></div>
                                 <div class="comment-text w-100">
