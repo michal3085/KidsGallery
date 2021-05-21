@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Follower;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use const http\Client\Curl\AUTH_ANY;
 
 class FollowersController extends Controller
 {
@@ -29,6 +31,12 @@ class FollowersController extends Controller
     public function deleteFollower($id)
     {
        if ( Follower::where('user_id', Auth::id())->where('follow_id', $id)->delete() ) {
+
+           if (Follower::where('user_id', $id)->where('follow_id', Auth::id())->count() != 0) {
+               $friend = Follower::where('user_id', $id)->where('follow_id', Auth::id())->first();
+               $friend->rights = 0;
+               $friend->save();
+           }
            return response()->json([
                'status' => 'success'
            ]);

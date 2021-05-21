@@ -47,10 +47,12 @@
                         </div>
                         @if (\Illuminate\Support\Facades\Auth::Id() != $follow->id)
                             @if ($user->name == $other_user->name)
-                                @if ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() != 0 )
-                                    <button type="button" class="btn btn-link rightsdel" data-id="{{ $follow->id }}"><i class="far fa-eye" style="height: 30px; width: 30px;"></i></button>
-                                    @elseif ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() == 0)
-                                        <button type="button" class="btn btn-link rightson" data-id="{{ $follow->id }}" data-toggle="tooltip" data-title="Zezwalaj na ogladanie ukrytych obrazkow temu uzytkownikowi"  data-delay='{"show":"500", "hide":"300"}'><i class="far fa-eye-slash" style="height: 30px; width: 30px;"></i></button>
+                                @if ( $user->friends($follow->id) )
+                                    @if ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() != 0)
+                                            <button type="button" class="btn btn-link rightsdel" data-id="{{ $follow->id }}"><i class="far fa-eye" style="height: 30px; width: 30px;"></i></button>
+                                        @elseif ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() == 0)
+                                            <button type="button" class="btn btn-link rightson" data-id="{{ $follow->id }}" data-toggle="tooltip" data-title="Zezwalaj na ogladanie ukrytych obrazkow temu uzytkownikowi"  data-delay='{"show":"500", "hide":"300"}'><i class="far fa-eye-slash" style="height: 30px; width: 30px;"></i></button>
+                                    @endif
                                 @endif
                                     <button type="button" class="btn btn-link delete" data-id="{{ $follow->id }}"><i class="fas fa-heart" style="height: 40px; width: 40px; color: #c82333"></i></button>
                             @elseif ($user->name != $other_user->name)

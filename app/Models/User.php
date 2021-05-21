@@ -76,6 +76,12 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'followers', 'user_id', 'follow_id');
     }
 
+    // users who follow each other
+    public function friends($friend)
+    {
+        return Follower::where('follow_id', Auth::id())->where('user_id', $friend)->first();
+    }
+
     public function hasRole($role)
     {
         return Role::where('role', $role)->where('user_id', Auth::id())->first();
