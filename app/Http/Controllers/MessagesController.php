@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlockedUser;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\User;
@@ -29,17 +30,23 @@ class MessagesController extends Controller
                 $id = $check_id->id;
             }
         }
-        $messages = Message::where('conversation_id', $id)->latest()->paginate(10);
+        $messages = Message::where('conversation_id', $id)->latest()->paginate(15);
         $unreaded = Message::where('to_id', Auth::id())->where('from', $to)->get();
+
+        if ( BlockedUser::where('user_id', User::where('name', $to)->value('id'))->where('blocks_user', Auth::id())->count() != 0) {
+            $not_allow = 1;
+        } else {
+            $not_allow = 0;
+        }
 
         foreach ($unreaded as $unread) {
             $unread->read = 1;
             $unread->save();
         }
-        return view('messages.messages')->with(['messages' => $messages, 'conversation' => $id]);
+        return view('messages.messages')->with(['messages' => $messages, 'conversation' => $id, 'not_allow' => $not_allow]);
     }
 
-    public function add(Request $request)
+    public function send(Request $request)
     {
         $conversation = Conversation::where('id', $request->conversation)->first();
 

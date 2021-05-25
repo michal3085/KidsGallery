@@ -13,9 +13,10 @@
         </ul>
         <section class="resume-section" id="about">
             <div class="resume-section-content">
-                <div class="col-sm-9 col-xs-12 chat" style="overflow: hidden; outline: none;" tabindex="5001">
+                <div class="col-sm-12 col-xs-12 chat" style="overflow: hidden; outline: none;" tabindex="5001">
                     <div class="col-inside-lg decor-default">
                         <div class="chat-body">
+                            @if ($not_allow == 0)
                             <form action="{{ route('add.message') }}" method="POST">
                                 @csrf
                                 <div class="d-flex flex-row add-comment-section mt-4 mb-4">
@@ -24,6 +25,13 @@
                                     <input id="invisible_id" name="from" type="hidden" value="{{ auth()->user()->id }}">
                                     <button class="btn btn-outline-primary" style="height: 38px;" type="submit"><i class="fas fa-paper-plane"></i></button></div>
                             </form>
+                            @else
+                                <div class="d-flex flex-row comment-row">
+                                    <div class="comment-text w-100">
+                                        <h5 class="text-center"><i class="fas fa-comment-slash"></i> {{ __('User has blocked you, you cant send him messages') }}</h5>
+                                    </div>
+                                </div>
+                            @endif
                             @foreach($messages as $message)
                                 @if ($message->from_id == \Illuminate\Support\Facades\Auth::id())
                                     <div class="answer right">
@@ -35,7 +43,7 @@
                                         <div class="text">
                                             {{ $message->message }}
                                         </div>
-                                        <div class="time">5 min ago</div>
+                                        <div class="name">{{ $message->created_at }}</div>
                                     </div>
                                 @else
                                     <div class="answer left">
@@ -47,7 +55,7 @@
                                         <div class="text">
                                             {{ $message->message }}
                                         </div>
-                                        <div class="time">5 min ago</div>
+                                        <div class="name">{{ $message->created_at }}</div>
                                     </div>
                                 @endif
                             @endforeach

@@ -110,7 +110,7 @@ class User extends Authenticatable
 
     public function Conversations()
     {
-        return Conversation::where('user_a', Auth::user()->name)->orWhere('user_b', Auth::user()->name)->get();
+        return Conversation::where('user_a', Auth::user()->name)->orWhere('user_b', Auth::user()->name)->latest()->paginate(20);
     }
 
     public function roles()
