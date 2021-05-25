@@ -28,7 +28,7 @@
                                 @if ($message->from_id == \Illuminate\Support\Facades\Auth::id())
                                     <div class="answer right">
                                         <div class="avatar">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="User name">
+                                            <img src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $message->from])->pluck('avatar')->first() }}" alt="User name">
                                             <div class="status offline"></div>
                                         </div>
                                         <div class="name">{{ $message->from }}</div>
@@ -40,7 +40,7 @@
                                 @else
                                     <div class="answer left">
                                         <div class="avatar">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="User name">
+                                            <img src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $message->from])->pluck('avatar')->first() }}" alt="User name">
                                             <div class="status offline"></div>
                                         </div>
                                         <div class="name">{{ $message->from }}</div>

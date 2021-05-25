@@ -18,16 +18,19 @@ class MessagesController extends Controller
     public function show($to ,$id = NULL)
     {
         if (!isset($id)){
-            if ( auth()->user()->conversationExist($to) == false ) {
+            if ( auth()->user()->conversationExist($to) == null ) {
                 $new = new Conversation();
                 $new->user_a = Auth::user()->name;
                 $new->user_b = $to;
                 $new->save();
+                $id = $new->id;
+            } elseif (auth()->user()->conversationExist($to) != null) {
+                $check_id = auth()->user()->conversationExist($to);
+                $id = $check_id->id;
             }
-            //$id = Conversation::where
         }
         $messages = Message::where('conversation_id', $id)->latest()->paginate(10);
-        $unreaded = Message::where('to_id', Auth::id())->get();
+        $unreaded = Message::where('to_id', Auth::id())->where('from', $to)->get();
 
         foreach ($unreaded as $unread) {
             $unread->read = 1;

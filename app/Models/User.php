@@ -99,14 +99,13 @@ class User extends Authenticatable
 
     public function conversationExist($to)
     {
-        if (Conversation::where('user_a', Auth::user()->name)->orWhere('user_b', $to)->count() == 0 ||
-            Conversation::where('user_b', Auth::user()->name)->orWhere('user_a', $to)->count() == 0 ||
-            Conversation::where('user_a', $to)->orWhere('user_b', Auth::user()->name)->count() == 0 ||
-            Conversation::where('user_b', $to)->orWhere('user_a', Auth::user()->name)->count() == 0 ) {
-                return false;
-        } else {
-            return true;
-        }
+        return Conversation::where([
+            [ 'user_a', '=', Auth::user()->name ],
+            [ 'user_b', '=', $to ]
+        ])->orWhere([
+            [ 'user_a', '=', $to ],
+            [ 'user_b', '=', Auth::user()->name ]
+        ])->first();
     }
 
     public function Conversations()
