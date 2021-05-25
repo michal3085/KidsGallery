@@ -26,7 +26,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href=""><i class="far fa-comments" style="width: 25px; height: 25px;"></i> <strong>{{ auth()->user()->newMessages()->count() }}</strong></a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('messages.list') }}"><i class="far fa-comments" style="width: 25px; height: 25px;"></i> <strong>{{ auth()->user()->newMessages()->count() }}</strong></a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('pictures.create') }}">{{ __('Insert picture') }}</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('pictures.index') }}">{{ __('Main Gallery') }}</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('yours.gallery') }}">{{ __('Your Gallery') }}</a></li>

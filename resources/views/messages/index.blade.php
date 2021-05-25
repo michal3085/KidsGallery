@@ -18,13 +18,13 @@
                         @if ($conversation->user_a == \Illuminate\Support\Facades\Auth::user()->name)
                                 <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $conversation->user_b])->pluck('avatar')->first() }}" alt="user" style="width: 50px; height: 50px;"></span></div>
                                 <div class="comment-text w-100">
-                                <a href=""><h5>{{ $conversation->user_b }}</h5></a>
+                                <a href="{{ route('messages.show', ['id' => $conversation->id, 'to' => $conversation->user_b]) }}"><h5>{{ $conversation->user_b }}</h5></a>
                             @else
                                 <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $conversation->user_a])->pluck('avatar')->first() }}" alt="user" style="width: 50px; height: 50px;"></span></div>
                                 <div class="comment-text w-100">
-                                <a href=""><h5>{{ $conversation->user_a }}</h5></a>
+                                <a href="{{ route('messages.show', ['id' => $conversation->id, 'to' => $conversation->user_a]) }}"><h5>{{ $conversation->user_a }}</h5></a>
                             @endif
-                            <div class="comment-footer"> <span class="date">{{ \App\Models\Message::where('conversation_id', $conversation->id)->where('read', 0)->count() }} / {{ \App\Models\Message::where('conversation_id', $conversation->id)->count() }}
+                            <div class="comment-footer"> <span class="date">{{ \App\Models\Message::where('conversation_id', $conversation->id)->where('to_id', \Illuminate\Support\Facades\Auth::id())->where('read', 0)->count() }} / {{ \App\Models\Message::where('conversation_id', $conversation->id)->count() }}
                             </div>
                             <p class="m-b-5 m-t-10"></p>
                         </div>

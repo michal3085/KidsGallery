@@ -49,6 +49,7 @@
                         <div class="col-md-6">
                             <div class="bio-content">
                                 <h1>{{  $other_user->name }}</h1>
+                                <a href="{{ route('messages.show', ['to' => $other_user->name]) }}"><i class="far fa-comment-dots" style="height: 25px; width: 25px;"></i></a>
                                 @if ($user->id != $other_user->id)
                                     @if (\App\Models\BlockedUser::where('user_id', $user->id)->where('blocks_user', $other_user->id)->count() == 0)
                                         @if ($user->following()->where('follow_id', $other_user->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)

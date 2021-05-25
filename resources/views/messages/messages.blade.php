@@ -13,130 +13,50 @@
         </ul>
         <section class="resume-section" id="about">
             <div class="resume-section-content">
-
                 <div class="col-sm-9 col-xs-12 chat" style="overflow: hidden; outline: none;" tabindex="5001">
                     <div class="col-inside-lg decor-default">
                         <div class="chat-body">
-                            <h6>Mini Chat</h6>
-                            <div class="answer left">
-                                <div class="avatar">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="User name">
-                                    <div class="status offline"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text">
-                                    Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adiping elit
-                                </div>
-                                <div class="time">5 min ago</div>
-                            </div>
-                            <div class="answer right">
-                                <div class="avatar">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="User name">
-                                    <div class="status offline"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text">
-                                    Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adiping elit
-                                </div>
-                                <div class="time">5 min ago</div>
-                            </div>
-                            <div class="answer left">
-                                <div class="avatar">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="User name">
-                                    <div class="status online"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text">
-                                    ...
-                                </div>
-                                <div class="time">5 min ago</div>
-                            </div>
-                            <div class="answer right">
-                                <div class="avatar">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="User name">
-                                    <div class="status busy"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text">
-                                    It is a long established fact that a reader will be. Thanks Mate!
-                                </div>
-                                <div class="time">5 min ago</div>
-                            </div>
-                            <div class="answer right">
-                                <div class="avatar">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="User name">
-                                    <div class="status off"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text">
-                                    It is a long established fact that a reader will be. Thanks Mate!
-                                </div>
-                                <div class="time">5 min ago</div>
-                            </div>
-                            <div class="answer left">
-                                <div class="avatar">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="User name">
-                                    <div class="status offline"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text">
-                                    Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adiping elit
-                                </div>
-                                <div class="time">5 min ago</div>
-                            </div>
-                            <div class="answer right">
-                                <div class="avatar">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="User name">
-                                    <div class="status offline"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text">
-                                    Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adiping elit
-                                </div>
-                                <div class="time">5 min ago</div>
-                            </div>
-                            <div class="answer left">
-                                <div class="avatar">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="User name">
-                                    <div class="status online"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text">
-                                    ...
-                                </div>
-                                <div class="time">5 min ago</div>
-                            </div>
-                            <div class="answer right">
-                                <div class="avatar">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="User name">
-                                    <div class="status busy"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text">
-                                    It is a long established fact that a reader will be. Thanks Mate!
-                                </div>
-                                <div class="time">5 min ago</div>
-                            </div>
-                            <div class="answer right">
-                                <div class="avatar">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="User name">
-                                    <div class="status off"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text">
-                                    It is a long established fact that a reader will be. Thanks Mate!
-                                </div>
-                                <div class="time">5 min ago</div>
-                            </div>
-                            <div class="answer-add">
-                                <input placeholder="Write a message">
-                                <span class="answer-btn answer-btn-1"></span>
-                                <span class="answer-btn answer-btn-2"></span>
-                            </div>
+                            <form action="{{ route('add.message') }}" method="POST">
+                                @csrf
+                                <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                                    <input type="text" class="form-control mr-3" name="message" placeholder="{{ __('Add comment...') }}" required>
+                                    <input id="invisible_id" name="conversation" type="hidden" value="{{ $conversation }}">
+                                    <input id="invisible_id" name="from" type="hidden" value="{{ auth()->user()->id }}">
+                                    <button class="btn btn-outline-primary" style="height: 38px;" type="submit"><i class="fas fa-paper-plane"></i></button></div>
+                            </form>
+                            @foreach($messages as $message)
+                                @if ($message->from_id == \Illuminate\Support\Facades\Auth::id())
+                                    <div class="answer right">
+                                        <div class="avatar">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="User name">
+                                            <div class="status offline"></div>
+                                        </div>
+                                        <div class="name">{{ $message->from }}</div>
+                                        <div class="text">
+                                            {{ $message->message }}
+                                        </div>
+                                        <div class="time">5 min ago</div>
+                                    </div>
+                                @else
+                                    <div class="answer left">
+                                        <div class="avatar">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="User name">
+                                            <div class="status offline"></div>
+                                        </div>
+                                        <div class="name">{{ $message->from }}</div>
+                                        <div class="text">
+                                            {{ $message->message }}
+                                        </div>
+                                        <div class="time">5 min ago</div>
+                                    </div>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
-
             </div>
+                <div class="pagination justify-content-center">
+                    {{ $messages->links() }}
+                </div>
         </section>
 @endsection
 @section('javascript')
