@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\FollowersController;
 use App\Http\Controllers\LikesController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\ModeratorsController;
 use App\Http\Controllers\PicturesController;
 use App\Http\Controllers\ProfilesController;
@@ -35,11 +36,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/pictures/{id}/comment', [CommentsController::class, 'store'])->name('commnents.add');
     Route::delete('/comments/delete/{id}', [CommentsController::class, 'destroy']);
     Route::get('/comments/report/{id}', [CommentsController::class, 'report']);
+
     // Likes
     Route::post('/newlike/{id}', [LikesController::class, 'getLike'])->name('like.new');
+
     // pictures routes
     Route::get('/pictures/{id}/report', [PicturesController::class, 'report'])->name('pictures.report');
     Route::get('/pictures/yours/gallery', [PicturesController::class, 'yoursgallery'])->name('yours.gallery');
+
     // Profiles routes
     Route::get('/profile/{name}', [ProfilesController::class, 'about'])->name('profiles.about');
     Route::get('/profile/{name}/gallery', [ProfilesController::class, 'index'])->name('profiles.gallery');
@@ -56,6 +60,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/followers/delete/rights/{id}', [FollowersController::class, 'deleteRights']);
     Route::post('/profile/block/{id}', [UsersController::class, 'block']);
     Route::post('/profile/unblock/{id}', [UsersController::class, 'unblock']);
+
+    //Messages routes
+    Route::get('/messages/', [MessagesController::class, 'index'])->name('messages.list');
+    Route::get('/messages/show/', [MessagesController::class, 'show'])->name('messages.show');
 });
 
 // Moderator routes

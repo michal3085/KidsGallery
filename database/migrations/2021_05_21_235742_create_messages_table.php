@@ -20,6 +20,7 @@ class CreateMessagesTable extends Migration
             $table->unsignedBigInteger('from_id');
             $table->string('to');
             $table->unsignedBigInteger('to_id');
+            $table->longText('message');
             $table->tinyInteger('read');
             $table->timestamps();
 

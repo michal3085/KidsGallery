@@ -92,9 +92,14 @@ class User extends Authenticatable
         return Message::where('to_id', Auth::id())->get();
     }
 
-    public function unread()
+    public function newMessages()
     {
         return Message::where('to_id', Auth::id())->where('read', 0)->get();
+    }
+
+    public function Conversations()
+    {
+        return Conversation::where('user_a', Auth::user()->name)->orWhere('user_b', Auth::user()->name)->get();
     }
 
     public function roles()

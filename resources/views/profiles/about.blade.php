@@ -56,9 +56,9 @@
                                         @else
                                             <button type="submit" class="btn btn-danger delete" data-id="{{ $other_user->id }}"><i class="fas fa-heart"></i> Obserwujesz</button>
                                         @endif
-                                            <button type="submit" class="btn btn-outline-danger blocks" data-id="{{ $other_user->id }}"><i class="fas fa-lock"></i> Zablokuj</button>
+                                            <button type="submit" class="btn btn-outline-secondary blocks" data-id="{{ $other_user->id }}"><i class="fas fa-lock"></i> Zablokuj</button>
                                         @else
-                                            <button type="submit" class="btn btn-danger unblocks" data-id="{{ $other_user->id }}"><i class="fas fa-unlock"></i> Użytkownik zablokowany (Odblokuj)</button>
+                                            <button type="submit" class="btn btn-secondary unblocks" data-id="{{ $other_user->id }}"><i class="fas fa-unlock"></i> Użytkownik zablokowany (Odblokuj)</button>
                                     @endif
                                 @endif
                                 <br><br>
