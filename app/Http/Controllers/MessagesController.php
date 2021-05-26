@@ -24,6 +24,13 @@ class MessagesController extends Controller
         return view('messages.unread')->with('conversations', $conversations);
     }
 
+    public function search(Request $request)
+    {
+        $users = User::where('name', 'LIKE', "%$request->search%")->latest()->paginate(8);
+
+        return view('messages.search')->with('users', $users);
+    }
+
     public function show($to ,$id = NULL)
     {
         /*

@@ -13,6 +13,11 @@
         </ul>
         <section class="resume-section" id="about">
             <div class="resume-section-content">
+                <form action="{{ route('search.messages') }}" method="GET">
+                    <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                        <input type="text" class="form-control mr-3" name="search" id="search" placeholder="{{ __('Search users') }}..." required>
+                        <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button></div>
+                </form>
                 @foreach($conversations as $conversation)
                     <div class="d-flex flex-row comment-row">
                         @if ($conversation->user_a == \Illuminate\Support\Facades\Auth::user()->name)
