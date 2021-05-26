@@ -5,10 +5,10 @@
         <br>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="">{{ __('Unread ') }}</a>
+                <a class="nav-link" href="{{ route('messages.list') }}">{{ __('All') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">{{ __('All') }}</a>
+                <a class="nav-link" href="{{ route('unread.messages') }}">{{ __('Unread ') }} ({{ auth()->user()->newMessages()->count() }})</a>
             </li>
         </ul>
         <section class="resume-section" id="about">
@@ -17,7 +17,7 @@
                     <div class="col-inside-lg decor-default">
                         <div class="chat-body">
                             @if ($not_allow == 0)
-                            <form action="{{ route('add.message') }}" method="POST">
+                            <form action="{{ route('send.message') }}" method="POST">
                                 @csrf
                                 <div class="d-flex flex-row add-comment-section mt-4 mb-4">
                                     <input type="text" class="form-control mr-3" name="message" placeholder="{{ __('Add comment...') }}" required>

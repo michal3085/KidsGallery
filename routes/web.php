@@ -64,7 +64,8 @@ Route::middleware('auth')->group(function () {
     //Messages routes
     Route::get('/messages/', [MessagesController::class, 'index'])->name('messages.list');
     Route::get('/messages/show/{to}/{id?}', [MessagesController::class, 'show'])->name('messages.show');
-    Route::post('/message/send', [MessagesController::class, 'send'])->name('add.message');
+    Route::post('/message/send', [MessagesController::class, 'send'])->name('send.message');
+    Route::get('/messages/unread', [MessagesController::class, 'unreadIndex'])->name('unread.messages');
 });
 
 // Moderator routes
