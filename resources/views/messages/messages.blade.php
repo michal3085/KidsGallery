@@ -3,14 +3,6 @@
 @section('content')
     <div class="container-fluid p-0">
         <br>
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('messages.list') }}">{{ __('All') }}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('unread.messages') }}">{{ __('Unread ') }} ({{ auth()->user()->newMessages()->count() }})</a>
-            </li>
-        </ul>
         <section class="resume-section" id="about">
             <div class="resume-section-content">
                 <div class="col-sm-12 col-xs-12 chat" style="overflow: hidden; outline: none;" tabindex="5001">
@@ -20,10 +12,10 @@
                             <form action="{{ route('send.message') }}" method="POST">
                                 @csrf
                                 <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-                                    <input type="text" class="form-control mr-3" name="message" placeholder="{{ __('Add comment...') }}" required>
+                                    <input type="text" class="form-control mr-3" name="message" style="border-radius: 25px;" placeholder="{{ __('Add comment...') }}" required>
                                     <input id="invisible_id" name="conversation" type="hidden" value="{{ $conversation }}">
                                     <input id="invisible_id" name="from" type="hidden" value="{{ auth()->user()->id }}">
-                                    <button class="btn btn-outline-primary" style="height: 38px;" type="submit"><i class="fas fa-paper-plane"></i></button></div>
+                                    <button class="btn btn-outline-primary" style="height: 38px; border-radius: 25px;" type="submit"><i class="fas fa-paper-plane"></i></button></div>
                             </form>
                             @else
                                 <div class="d-flex flex-row comment-row">
@@ -43,7 +35,7 @@
                                         <div class="text">
                                             {{ $message->message }}
                                         </div>
-                                        <div class="name">{{ $message->created_at }}</div>
+                                        <div class="name"><i class="fas fa-exclamation"></i> {{ $message->created_at }}</div>
                                     </div>
                                 @else
                                     <div class="answer left">
@@ -55,7 +47,7 @@
                                         <div class="text">
                                             {{ $message->message }}
                                         </div>
-                                        <div class="name">{{ $message->created_at }}</div>
+                                        <div class="name">{{ $message->created_at }} <i class="fas fa-exclamation"></i></div>
                                     </div>
                                 @endif
                             @endforeach

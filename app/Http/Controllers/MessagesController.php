@@ -13,15 +13,10 @@ class MessagesController extends Controller
 {
     public function index()
     {
-       return view('messages.index')->with('conversations', auth()->user()->conversations());
-    }
-
-    public function unreadIndex()
-    {
         $ids = Message::where('to_id', Auth::id())->where('read', 0)->pluck('conversation_id');
-        $conversations = Conversation::whereIn('id', $ids)->latest()->paginate(15);
+        $unread = Conversation::whereIn('id', $ids)->latest()->paginate(15);
 
-        return view('messages.unread')->with('conversations', $conversations);
+       return view('messages.index')->with(['conversations' => auth()->user()->conversations()->whereNotIn('id', $ids), 'unread' => $unread]);
     }
 
     public function search(Request $request)

@@ -17,8 +17,6 @@ class CreateConversationsTable extends Migration
             $table->id();
             $table->string('user_a');
             $table->string('user_b');
-            $table->tinyInteger('accept_a');
-            $table->tinyInteger('accept_b');
             $table->timestamps();
         });
     }

@@ -3,14 +3,6 @@
 @section('content')
     <div class="container-fluid p-0">
         <br>
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="{{ route('messages.list') }}">{{ __('All') }}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('unread.messages') }}">{{ __('Unread ') }} ({{ auth()->user()->newMessages()->count() }})</a>
-            </li>
-        </ul>
         <section class="resume-section" id="about">
             <div class="resume-section-content">
                 <form action="{{ route('search.messages') }}" method="GET">
