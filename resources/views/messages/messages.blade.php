@@ -12,7 +12,7 @@
                             <form action="{{ route('send.message') }}" method="POST">
                                 @csrf
                                 <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-                                    <input type="text" class="form-control mr-3" name="message" style="border-radius: 25px;" placeholder="{{ __('Add comment...') }}" required>
+                                    <input type="text" class="form-control mr-3" name="message" autofocus="autofocus" style="border-radius: 25px;" placeholder="{{ __('Add comment...') }}" required>
                                     <input id="invisible_id" name="conversation" type="hidden" value="{{ $conversation }}">
                                     <input id="invisible_id" name="from" type="hidden" value="{{ auth()->user()->id }}">
                                     <button class="btn btn-outline-primary" style="height: 38px; border-radius: 25px;" type="submit"><i class="fas fa-paper-plane"></i></button></div>
@@ -28,22 +28,26 @@
                                 @if ($message->from_id == \Illuminate\Support\Facades\Auth::id())
                                     <div class="answer right">
                                         <div class="avatar">
-                                            <img src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $message->from])->pluck('avatar')->first() }}" alt="User name">
+                                            <a href="{{ route('profiles.about', ['name' => $message->from ]) }}">
+                                                <img src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $message->from])->pluck('avatar')->first() }}" alt="User name">
+                                            </a>
                                             <div class="status offline"></div>
                                         </div>
-                                        <div class="name">{{ $message->from }}</div>
+                                        <a href="{{ route('profiles.about', ['name' => $message->from ]) }}"><div class="name">{{ $message->from }}</div></a>
                                         <div class="text">
                                             {{ $message->message }}
                                         </div>
-                                        <div class="name"><i class="fas fa-exclamation"></i> {{ $message->created_at }}</div>
+                                        <div class="name"><i class="far fa-trash-alt"></i> {{ $message->created_at }}</div>
                                     </div>
                                 @else
                                     <div class="answer left">
                                         <div class="avatar">
-                                            <img src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $message->from])->pluck('avatar')->first() }}" alt="User name">
-                                            <div class="status offline"></div>
+                                            <a href="{{ route('profiles.about', ['name' => $message->from ]) }}">
+                                                <img src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $message->from])->pluck('avatar')->first() }}" alt="User name">
+                                            </a>
+                                          <div class="status offline"></div>
                                         </div>
-                                        <div class="name">{{ $message->from }}</div>
+                                        <a href="{{ route('profiles.about', ['name' => $message->from ]) }}"><div class="name">{{ $message->from }}</div></a>
                                         <div class="text">
                                             {{ $message->message }}
                                         </div>

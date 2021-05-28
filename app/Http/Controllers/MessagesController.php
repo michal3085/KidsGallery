@@ -104,6 +104,8 @@ class MessagesController extends Controller
         $new_message->read = 0;
 
         if ($new_message->save()) {
+            // touch() update a update_at in conversation table.
+            $conversation->touch();
             return redirect()->back();
         } else {
             return redirect()->back();

@@ -112,7 +112,7 @@ class User extends Authenticatable
     {
         return Conversation::where('user_a', Auth::user()->name)
             ->orWhere('user_b', Auth::user()->name)
-            ->latest()
+            ->orderBy('updated_at', 'desc')
             ->paginate(20);
     }
 
