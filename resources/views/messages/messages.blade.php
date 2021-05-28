@@ -37,7 +37,7 @@
                                         <div class="text">
                                             {{ $message->message }}
                                         </div>
-                                        <div class="name"><i class="far fa-trash-alt"></i> {{ $message->created_at }}
+                                        <div class="name"><i class="far fa-trash-alt delete" data-id="{{ $message->id }}"></i> {{ $message->created_at }}
                                             @if ($message->read == 1)
                                                 <i class="far fa-eye" data-toggle="tooltip" data-html="true" data-title="Wiadomość wyświetlona przez <b>{{ $message->to }}</b>: <br> {{ $message->updated_at }}"  data-delay='{"show":"500", "hide":"300"}'></i>
                                             @endif
@@ -55,7 +55,7 @@
                                         <div class="text">
                                             {{ $message->message }}
                                         </div>
-                                        <div class="name">{{ $message->created_at }} <i class="fas fa-exclamation"></i></div>
+                                        <div class="name">{{ $message->created_at }} <i class="fas fa-exclamation report" data-id="{{ $message->id }}"></i></div>
                                     </div>
                                 @endif
                             @endforeach
@@ -68,6 +68,67 @@
         </section>
 @endsection
 @section('javascript')
+            $( function()  {
+            $('.delete').click( function () {
+            Swal.fire({
+            title: '{{ __('You definitely want to delete this message') }}',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '{{ __('Yes') }}',
+            cancelButtonText: '{{ __('No') }}'
+            }).then((result) => {
+            if (result.value) {
+            $.ajax({
+            method: "DELETE",
+            url: "/messages/delete/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            Swal.fire('Ups', '{{ __('Something went wrong') }}', 'error');
+            });
+            }
+            })
+            });
+            });
+
+            $( function()  {
+            $('.report').click( function () {
+            Swal.fire({
+            title: '{{ __('Are you sure you want to report this message?') }}',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: '{{ __('Yes') }}',
+            cancelButtonText: '{{ __('No') }}'
+            }).then((result) => {
+            if (result.value) {
+            $.ajax({
+            method: "GET",
+            url: "/message/report/" + $(this).data("id")
+            })
+            .done(function( response ) {
+            Swal.fire({
+            title: '{{ __('Message has been reported') }}',
+            icon: 'success',
+            showCancelButtonText: true,
+            confirmButtonText: 'OK'
+            }).then((result) => {
+            window.location.reload();
+            })
+
+            })
+            .fail(function( response ) {
+            Swal.fire('{{ __('Something went wrong.') }}', '{{ __('You probably report this comment before') }}', 'error');
+            });
+            }
+
+            })
+            });
+            });
+
+
             $(function () {
             $('[data-toggle="tooltip"]').tooltip()
 

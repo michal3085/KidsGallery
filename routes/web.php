@@ -66,6 +66,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/messages/show/{to}/{id?}', [MessagesController::class, 'show'])->name('messages.show');
     Route::post('/message/send', [MessagesController::class, 'send'])->name('send.message');
     Route::get('/messages/search/', [MessagesController::class, 'search'])->name('search.messages');
+    Route::get('/message/report/{id}', [MessagesController::class, 'reportMessage']);
+    Route::delete('/messages/delete/{id}', [MessagesController::class, 'delete']);
 });
 
 // Moderator routes

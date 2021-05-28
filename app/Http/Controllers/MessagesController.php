@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BlockedUser;
 use App\Models\Conversation;
 use App\Models\Message;
+use App\Models\ReportedMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -102,6 +103,7 @@ class MessagesController extends Controller
         }
         $new_message->message = $request->message;
         $new_message->read = 0;
+        $new_message->from_ip = $request->ip();
 
         if ($new_message->save()) {
             // touch() update a update_at in conversation table.
@@ -110,6 +112,46 @@ class MessagesController extends Controller
         } else {
             return redirect()->back();
         }
+    }
 
+    public function reportMessage($id)
+    {
+        $message = Message::where('id', $id)->first();
+        $report = new ReportedMessage();
+
+        $report->conversation_id = $message->conversation_id;
+        $report->message_id = $id;
+        $report->from_name = $message->from;
+        $report->message = $message->message;
+        $report->from_id = $message->from_id;
+        $report->from_ip = $message->from_ip;
+
+        if ( ReportedMessage::where('message_id', $id)->count() == 0 ){
+            $report->save();
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ])->setStatusCode(200);
+        }
+    }
+
+    public function delete($id)
+    {
+        $message = Message::where('id', $id)->first();
+        $message->message = "[Usunięta przez autora]";
+        $message->timestamps = false;
+
+        if ( $message->save() ){
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ])->setStatusCode(200);
+        }
     }
 }

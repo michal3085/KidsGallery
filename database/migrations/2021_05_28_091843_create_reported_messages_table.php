@@ -18,7 +18,9 @@ class CreateReportedMessagesTable extends Migration
             $table->unsignedBigInteger('conversation_id');
             $table->unsignedBigInteger('message_id');
             $table->string('from_name');
+            $table->longText('message');
             $table->unsignedBigInteger('from_id');
+            $table->string('from_ip');
             $table->timestamps();
 
             $table->foreign('conversation_id')
