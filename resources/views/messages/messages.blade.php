@@ -37,7 +37,11 @@
                                         <div class="text">
                                             {{ $message->message }}
                                         </div>
-                                        <div class="name"><i class="far fa-trash-alt"></i> {{ $message->created_at }}</div>
+                                        <div class="name"><i class="far fa-trash-alt"></i> {{ $message->created_at }}
+                                            @if ($message->read == 1)
+                                                <i class="far fa-eye" data-toggle="tooltip" data-html="true" data-title="Wiadomość wyświetlona przez <b>{{ $message->to }}</b>: <br> {{ $message->updated_at }}"  data-delay='{"show":"500", "hide":"300"}'></i>
+                                            @endif
+                                        </div>
                                     </div>
                                 @else
                                     <div class="answer left">
@@ -64,5 +68,8 @@
         </section>
 @endsection
 @section('javascript')
+            $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
 
+            })
 @endsection
