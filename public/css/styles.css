@@ -10195,10 +10195,18 @@ mark {
   border-radius: 20px;
   height: 100%;
 }
-.chat-body .answer .name {
+.chat-body .answer .namer {
   font-size: 14px;
+  text-align: right;
   line-height: 36px;
 }
+
+.chat-body .answer .namel {
+  font-size: 14px;
+  text-align: left;
+  line-height: 36px;
+}
+
 .chat-body .answer.left .avatar .status {
   right: 4px;
 }
