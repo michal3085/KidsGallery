@@ -8,6 +8,7 @@
                 <h2 class="mb-0">
                     {{ __('Reported Comments')  }}
                 </h2>
+                <hr>
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4"></div>
                 @foreach($comments as $comment)
                             <div class="d-flex flex-row comment-row">

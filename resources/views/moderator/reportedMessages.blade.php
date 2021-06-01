@@ -5,6 +5,10 @@
         <br>
         <section class="resume-section" id="about">
             <div class="resume-section-content">
+                <h2 class="mb-0">
+                    {{ __('Reported Messages')  }}
+                </h2>
+                <hr>
                 <div class="col-sm-12 col-xs-12 chat" style="overflow: hidden; outline: none;" tabindex="5001">
                     <div class="col-inside-lg decor-default">
                         <div class="chat-body">
@@ -20,7 +24,9 @@
                                         <div class="text">
                                             {{ $message->message }}
                                         </div>
-                                        <div class="name">{{ $message->created_at }} <i class="far fa-trash-alt delete" data-id="{{ $message->message_id }}"></i></div>
+                                        <div class="name">{{ $message->created_at }} <i class="far fa-trash-alt delete" style="height: 20px; width: 20px; color: red" data-id="{{ $message->message_id }}"></i>
+                                            | <i class="far fa-check-circle accept" style="height: 20px; width: 20px; color:green" data-id="{{ $message->id }}"></i>
+                                        </div>
                                     </div>
                             @endforeach
                         </div>
@@ -88,6 +94,32 @@
             });
             }
 
+            })
+            });
+            });
+
+            $( function()  {
+            $('.accept').click( function () {
+            Swal.fire({
+            title: '{{ __('You want to accept that message') }}',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '{{ __('Yes') }}',
+            cancelButtonText: '{{ __('No') }}'
+            }).then((result) => {
+            if (result.value) {
+            $.ajax({
+            method: "DELETE",
+            url: "/moderator/reported/message/accept/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            Swal.fire('Ups', '{{ __('Something went wrong') }}', 'error');
+            });
+            }
             })
             });
             });

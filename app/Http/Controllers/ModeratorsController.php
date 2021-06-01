@@ -193,4 +193,17 @@ class ModeratorsController extends Controller
 
         return view('moderator.reportedMessages', compact('messages'));
     }
+
+    public function messageAccept($id)
+    {
+        if ( ReportedMessage::where('id', $id)->delete() ) {
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ])->setStatusCode(200);
+        }
+    }
 }
