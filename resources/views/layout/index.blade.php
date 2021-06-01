@@ -15,6 +15,8 @@
     <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+{{--    Google Ad Sense uncomment that--}}
+{{--    <script data-ad-client="ca-pub-4931814970460150" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>--}}
 </head>
 <body id="page-top">
 <!-- Navigation-->

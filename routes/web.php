@@ -81,6 +81,7 @@ Route::middleware(['check.role:moderator'])->group(function () {
     Route::delete('/report/down/all/{id}', [ModeratorsController::class, 'reportDownAll']);
     Route::get('moderator/reported/comments/{id?}', [ModeratorsController::class, 'reportedComments'])->name('reported.comments');
     Route::delete('/moderator/delete/comment/report/{id}', [ModeratorsController::class, 'deleteCommentReport']);
+    Route::get('/moderator/reported/messages/', [ModeratorsController::class, 'reportedMessages'])->name('reported.messages');
 });
 
 // Routes for Users

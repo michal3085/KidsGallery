@@ -10266,6 +10266,56 @@ mark {
   padding-right: 12px;
   color: #333333;
 }
+/*Blocked*/
+
+.chat-body .answer.right.blocked {
+  padding: 0 58px 0 0;
+  text-align: right;
+  float: right;
+}
+
+.chat-body .answer.right.blocked .avatar {
+  right: 0;
+}
+.chat-body .answer.right.blocked .avatar .status {
+  left: 4px;
+}
+.chat-body .answer.right.blocked .text {
+  background: rgba(189, 93, 56, 0.53);
+  color: #ffffff;
+  border-radius: 8px 8px 0 8px;
+}
+.chat-body .answer.right.blocked .text:before {
+  right: -30px;
+  border-left-color: rgba(189, 93, 56, 0.54);
+  border-left-width: 12px;
+}
+.chat-body .answer.right.blocked .time {
+  padding-right: 12px;
+  color: #333333;
+}
+
+/* BLOCKED LEFT */
+
+.chat-body .answer.left.block .avatar .status {
+  right: 4px;
+}
+
+.chat-body .answer.left.block .text {
+  background: #ebebeb;
+  color: rgba(51, 51, 51, 0.35);
+  border-radius: 8px 8px 8px 0;
+}
+.chat-body .answer.left.block .text:before {
+  left: -30px;
+  border-right-color: #ebebeb;
+  border-right-width: 12px;
+}
+
+.chat-body .answer.left.block .time {
+  padding-left: 12px;
+  color: rgba(51, 51, 51, 0.39);
+}
 
 /**************ADD FORM ***************/
 .chat-body .answer-add {

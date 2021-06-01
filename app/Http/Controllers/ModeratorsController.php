@@ -7,6 +7,7 @@ use App\Models\CommentsReport;
 use App\Models\ModeratorAction;
 use App\Models\Picture;
 use App\Models\PicturesReport;
+use App\Models\ReportedMessage;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -184,5 +185,12 @@ class ModeratorsController extends Controller
             ])->setStatusCode(200);
         }
 
+    }
+
+    public function reportedMessages()
+    {
+        $messages = ReportedMessage::latest()->paginate(20);
+
+        return view('moderator.reportedMessages', compact('messages'));
     }
 }

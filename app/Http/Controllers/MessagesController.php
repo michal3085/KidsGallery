@@ -104,6 +104,7 @@ class MessagesController extends Controller
         $new_message->message = $request->message;
         $new_message->read = 0;
         $new_message->from_ip = $request->ip();
+        $new_message->deleted = 0;
 
         if ($new_message->save()) {
             // touch() update a update_at in conversation table.
@@ -141,7 +142,15 @@ class MessagesController extends Controller
     public function delete($id)
     {
         $message = Message::where('id', $id)->first();
-        $message->message = "[Usunięta przez autora]";
+
+        if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('moderator')) {
+            $message->message = "[Wiadomość usunięta przez moderatora " . Auth::user()->name . "]";
+            $message->deleted = 1;
+            ReportedMessage::where('message_id', $id)->delete();
+        } else {
+            $message->message = "[Wiadomość usunięta przez autora]";
+            $message->deleted = 1;
+        }
         $message->timestamps = false;
 
         if ( $message->save() ){

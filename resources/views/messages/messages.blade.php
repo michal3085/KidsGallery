@@ -26,7 +26,11 @@
                             @endif
                             @foreach($messages as $message)
                                 @if ($message->from_id == \Illuminate\Support\Facades\Auth::id())
-                                    <div class="answer right">
+                                    @if ($message->deleted == 1)
+                                    <div class="answer right blocked">
+                                        @else
+                                            <div class="answer right">
+                                            @endif
                                         <div class="avatar">
                                             <a href="{{ route('profiles.about', ['name' => $message->from ]) }}">
                                                 <img src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $message->from])->pluck('avatar')->first() }}" alt="User name">
@@ -44,7 +48,11 @@
                                         </div>
                                     </div>
                                 @else
-                                    <div class="answer left">
+                                  @if ($message->deleted == 1)
+                                       <div class="answer left block">
+                                    @else
+                                       <div class="answer left">
+                                           @endif
                                         <div class="avatar">
                                             <a href="{{ route('profiles.about', ['name' => $message->from ]) }}">
                                                 <img src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $message->from])->pluck('avatar')->first() }}" alt="User name">
