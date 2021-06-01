@@ -10316,7 +10316,7 @@ mark {
 }
 .chat-body .answer.left.block .text:before {
   left: -30px;
-  border-right-color: #ebebeb;
+  border-right-color: rgba(235, 235, 235, 0.51);
   border-right-width: 12px;
 }
 
