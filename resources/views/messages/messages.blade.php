@@ -41,11 +41,17 @@
                                         <div class="text">
                                             {{ $message->message }}
                                         </div>
+                                        @if ($message->deleted == 0)
                                         <div class="name"><i class="far fa-trash-alt delete" data-id="{{ $message->id }}"></i> {{ $message->created_at }}
                                             @if ($message->read == 1)
                                                 <i class="far fa-eye" data-toggle="tooltip" data-html="true" data-title="Wiadomość wyświetlona przez <b>{{ $message->to }}</b>: <br> {{ $message->updated_at }}"  data-delay='{"show":"500", "hide":"300"}'></i>
                                             @endif
                                         </div>
+                                        @else
+                                               <div class="name">{{ $message->created_at }}
+                                                   <i class="far fa-eye" data-toggle="tooltip" data-html="true" data-title="Wiadomość wyświetlona przez <b>{{ $message->to }}</b>: <br> {{ $message->updated_at }}"  data-delay='{"show":"500", "hide":"300"}'></i>
+                                               </div>
+                                        @endif
                                     </div>
                                 @else
                                   @if ($message->deleted == 1)
@@ -63,7 +69,11 @@
                                         <div class="text">
                                             {{ $message->message }}
                                         </div>
-                                        <div class="name">{{ $message->created_at }} <i class="fas fa-exclamation report" data-id="{{ $message->id }}"></i></div>
+                                           @if ($message->deleted == 0)
+                                                <div class="name">{{ $message->created_at }} <i class="fas fa-exclamation report" data-id="{{ $message->id }}"></i></div>
+                                           @else
+                                               <div class="name">{{ $message->created_at }}</div>
+                                           @endif
                                     </div>
                                 @endif
                             @endforeach
