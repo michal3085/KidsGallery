@@ -49,7 +49,9 @@
                                         </div>
                                         @else
                                                <div class="namer">{{ $message->created_at }}
-                                                   <i class="far fa-eye" data-toggle="tooltip" data-html="true" data-title="Wiadomość wyświetlona przez <b>{{ $message->to }}</b>: <br> {{ $message->updated_at }}"  data-delay='{"show":"500", "hide":"300"}'></i>
+                                                   @if ($message->read == 1)
+                                                       <i class="far fa-eye" data-toggle="tooltip" data-html="true" data-title="Wiadomość wyświetlona przez <b>{{ $message->to }}</b>: <br> {{ $message->updated_at }}"  data-delay='{"show":"500", "hide":"300"}'></i>
+                                                   @endif
                                                </div>
                                         @endif
                                     </div>
