@@ -24,7 +24,7 @@ class MessagesController extends Controller
     {
         $users = User::where('name', 'LIKE', "%$request->search%")->latest()->paginate(8);
 
-        return view('messages.search')->with('users', $users);
+        return view('messages.search')->with(['users' => $users, 'search' => $request->search]);
     }
 
     public function show($to ,$id = NULL)

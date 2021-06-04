@@ -303,7 +303,7 @@ class PicturesController extends Controller
                 ->where('visible', 1)
                 ->where('accept', 1)->latest()->paginate(8);
 
-            return view('unloged.gallery', compact('pictures'));
+            return view('unloged.gallery')->with(['pictures' => $pictures, 'search' => $request->search]);
         } else {
             /*
              * Collecting pictures i have right to watch.
@@ -317,7 +317,7 @@ class PicturesController extends Controller
 
             $pictures = Picture::where('name', 'LIKE', "%$request->search%")->whereIn('id', $result)->latest()->paginate(8);
 
-            return view('pictures.index', compact('pictures'));
+            return view('pictures.index')->with(['pictures' => $pictures, 'search' => $request->search]);
         }
 
     }

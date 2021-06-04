@@ -32,7 +32,7 @@
             <div class="resume-section-content">
                 <form action="{{ route('users.search', ['name' => $other_user->name]) }}" method="GET">
                     <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-                        <input type="text" class="form-control mr-3" name="search" id="search" placeholder="{{ __('Search users') }}..." required>
+                        <input type="text" class="form-control mr-3" value="{{ $search }}" name="search" id="search" placeholder="{{ __('Search users') }}..." required>
                         <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button></div>
                 </form>
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4"></div>
