@@ -28,11 +28,15 @@
                 </li>
             @endif
         </ul>
-
         <section class="resume-section" id="about">
             <div class="container portfolio">
                 <div class="row">
                     <div class="col-md-12">
+                        @if (\App\Models\User::where('name', $other_user->name)->where('active', 0)->count() != 0)
+                            <div class="alert alert-danger" role="alert">
+                                {{ __('That user was blocked, for breaking regulations.') }}
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="bio-info">
