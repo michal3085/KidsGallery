@@ -5,9 +5,10 @@
         <br>
         <section class="resume-section" id="about">
             <div class="resume-section-content">
+                <h2>{{ __('Messages') }}</h2>
                 <form action="{{ route('search.messages') }}" method="GET">
                     <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-                        <input type="text" class="form-control mr-3" name="search" id="search" placeholder="{{ __('Search users') }}..." required>
+                        <input type="text" class="form-control mr-3" name="search" id="search" placeholder="{{ __('Search users') }}/{{ __('conversations') }}..." required>
                         <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button></div>
                 </form>
                 @foreach($unread as $new)
@@ -29,6 +30,7 @@
                                                     </div>
                                                     <p class="m-b-5 m-t-10"></p>
                                                 </div>
+                                                <button type="button" class="btn btn-link unwanted" data-id="{{ $new->id  }}"><i class="fas fa-comment-slash" style="height: 30px; width: 30px; color: rgba(128,123,125,0.63)"></i></button>
                                         </div>
                                         <hr>
                                         @endforeach
@@ -51,6 +53,7 @@
                             </div>
                             <p class="m-b-5 m-t-10"></p>
                         </div>
+                           <button type="button" class="btn btn-link unwanted" data-id="{{ $conversation->id  }}"><i class="fas fa-comment-slash" style="height: 30px; width: 30px; color: rgba(128,123,125,0.63)"></i></button>
                     </div>
                  <hr>
                 @endforeach
@@ -58,5 +61,35 @@
         </section>
         @endsection
         @section('javascript')
-
+            $( function()  {
+            $('.unwanted').click( function () {
+            Swal.fire({
+            title: '{{ __('You definitely want to hide that conversation?') }}',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: '{{ __('Yes') }}',
+            cancelButtonText: '{{ __('No') }}'
+            }).then((result) => {
+            if (result.value) {
+            $.ajax({
+            method: "POST",
+            url: "/message/unwanted/conversation/" + $(this).data("id")
+            })
+            .done(function( response ) {
+            Swal.fire({
+            title: '{{ __('Comment has been removed') }}',
+            icon: 'success',
+            showCancelButtonText: true,
+            confirmButtonText: 'OK'
+            }).then((result) => {
+            window.location.reload();
+            })
+            })
+            .fail(function( response ) {
+            Swal.fire('Ups', '{{ __('Something went wrong') }}', 'error');
+            });
+            }
+            })
+            });
+            });
 @endsection

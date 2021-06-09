@@ -116,6 +116,11 @@ class User extends Authenticatable
             ->paginate(20);
     }
 
+    public function unwantedConversation()
+    {
+        return UnwantedConversation::where('user_id', Auth::id())->get();
+    }
+
     public function roles()
     {
         return $this->hasMany('App\Models\Role');

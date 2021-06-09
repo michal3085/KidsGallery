@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Conversation;
 use App\Models\Follower;
 use App\Models\ModeratorAction;
 use App\Models\Picture;
+use App\Models\UnwantedConversation;
 use App\Models\User;
 use App\Models\UsersData;
 use Illuminate\Http\Request;
@@ -57,7 +59,25 @@ class ProfilesController extends Controller
         }
         $user_data = UsersData::where('user_id', $user->id)->first();
 
-        return view('profiles.about')->with(['other_user' => $user, 'userdata' => $user_data]);
+        $unwantMessageId = auth()->user()->unwantedConversation()->pluck('conversation_id');
+
+        if (Conversation::whereIn('id', $unwantMessageId)->where('user_a', $user->name)->exists()){
+            $conv_id = Conversation::whereIn('id', $unwantMessageId)->where('user_a', $user->name)->pluck('id');
+            $unwanted = 1;
+        } elseif (Conversation::whereIn('id', $unwantMessageId)->where('user_b', $user->name)->exists()) {
+            $conv_id = Conversation::whereIn('id', $unwantMessageId)->where('user_b', $user->name)->pluck('id');
+            $unwanted = 1;
+        } else {
+            $conv_id = null;
+            $unwanted = 0;
+        }
+
+        return view('profiles.about')->with([
+            'other_user' => $user,
+            'userdata' => $user_data,
+            'unwanted' => $unwanted,
+            'conversation' => $conv_id
+        ]);
     }
 
     public function bannedPictureShow($picture_id, $mod_info, $name)

@@ -6,6 +6,7 @@ use App\Models\BlockedUser;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\ReportedMessage;
+use App\Models\UnwantedConversation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +17,10 @@ class MessagesController extends Controller
     {
         $ids = Message::where('to_id', Auth::id())->where('read', 0)->pluck('conversation_id');
         $unread = Conversation::whereIn('id', $ids)->latest()->paginate(15);
+        $unwanted = auth()->user()->unwantedConversation()->pluck('conversation_id');
+        $not_show = $unwanted->merge($ids);
 
-       return view('messages.index')->with(['conversations' => auth()->user()->conversations()->whereNotIn('id', $ids), 'unread' => $unread]);
+       return view('messages.index')->with(['conversations' => auth()->user()->conversations()->whereNotIn('id', $not_show), 'unread' => $unread]);
     }
 
     public function search(Request $request)
@@ -30,12 +33,12 @@ class MessagesController extends Controller
     public function show($to ,$id = NULL)
     {
         /*
-         * if no id is given, check if the converse exists.
+         *  if no id is given, check if the converse exists.
          *  If it does not we create it, and if it exists we
          *  take id of this conversation.
          */
         if (!isset($id)) {
-            if ( auth()->user()->conversationExist($to) == null ) {
+            if (auth()->user()->conversationExist($to) == null) {
                 $new = new Conversation();
                 $new->user_a = Auth::user()->name;
                 $new->user_b = $to;
@@ -63,6 +66,8 @@ class MessagesController extends Controller
              */
             if (BlockedUser::where('user_id', User::where('name', $to)->value('id'))->where('blocks_user', Auth::id())->count() != 0) {
                 $not_allow = 1;
+            } elseif (UnwantedConversation::where('conversation_id', $id)->where('user_id', '!=', Auth::id())->count() != 0) {
+                $not_allow = 2;
             } else {
                 $not_allow = 0;
             }
@@ -74,7 +79,8 @@ class MessagesController extends Controller
                 $unread->read = 1;
                 $unread->save();
             }
-            return view('messages.messages')->with(['messages' => $messages,
+            return view('messages.messages')->with([
+                'messages' => $messages,
                 'conversation' => $id,
                 'not_allow' => $not_allow
             ]);
@@ -135,7 +141,7 @@ class MessagesController extends Controller
         } else {
             return response()->json([
                 'status' => 'error',
-            ])->setStatusCode(200);
+            ])->setStatusCode(400);
         }
     }
 
@@ -160,7 +166,45 @@ class MessagesController extends Controller
         } else {
             return response()->json([
                 'status' => 'error',
-            ])->setStatusCode(200);
+            ])->setStatusCode(400);
+        }
+    }
+
+    public function unwantedConversation($id)
+    {
+        if (UnwantedConversation::where('conversation_id', $id)->where('user_id', Auth::id())->count() == 0) {
+            $unwanted = new UnwantedConversation();
+
+            $unwanted->conversation_id = $id;
+            $unwanted->user_id = Auth::id();
+            $unwanted->user = Auth::user()->name;
+
+            if ($unwanted->save()) {
+                return response()->json([
+                    'status' => 'success'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                ])->setStatusCode(400);
+            }
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ])->setStatusCode(400);
+        }
+    }
+
+    public function nowIwantConversation($id)
+    {
+        if (UnwantedConversation::where('conversation_id', $id)->delete()) {
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ])->setStatusCode(400);
         }
     }
 }

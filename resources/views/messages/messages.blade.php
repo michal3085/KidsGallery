@@ -17,10 +17,16 @@
                                     <input id="invisible_id" name="from" type="hidden" value="{{ auth()->user()->id }}">
                                     <button class="btn btn-outline-primary" style="height: 38px; border-radius: 25px;" type="submit"><i class="fas fa-paper-plane"></i></button></div>
                             </form>
-                            @else
+                            @elseif ($not_allow == 1)
                                 <div class="d-flex flex-row comment-row">
                                     <div class="comment-text w-100">
                                         <h5 class="text-center"><i class="fas fa-comment-slash"></i> {{ __('User has blocked you, you cant send him messages') }}</h5>
+                                    </div>
+                                </div>
+                            @elseif($not_allow == 2)
+                                <div class="d-flex flex-row comment-row">
+                                    <div class="comment-text w-100">
+                                        <h5 class="text-center"><i class="fas fa-comment-slash"></i> {{ __('User does not want to receive messages from you') }}</h5>
                                     </div>
                                 </div>
                             @endif

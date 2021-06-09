@@ -54,9 +54,14 @@
                             <div class="bio-content">
                                 <h1>{{  $other_user->name }}</h1>
                                 @if ($user->id != $other_user->id)
-                                @if (\App\Models\BlockedUser::where('user_id', $user->id)->where('blocks_user', $other_user->id)->count() == 0)
-                                        <a href="{{ route('messages.show', ['to' => $other_user->name]) }}"><button type="button" class="btn btn-outline-info"><i class="far fa-envelope"></i></button></a>
-                                    @if ($user->following()->where('follow_id', $other_user->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                                    @if (\App\Models\BlockedUser::where('user_id', $user->id)->where('blocks_user', $other_user->id)->count() == 0)
+                                        @if ($unwanted == 0)
+                                            <a href="{{ route('messages.show', ['to' => $other_user->name]) }}"><button type="button" class="btn btn-outline-info"><i class="far fa-envelope"></i></button></a>
+                                        @elseif ($unwanted == 1)
+                                            <button type="button" class="btn btn-outline-secondary renewConv" data-id="{{ $conversation }}"><i class="fas fa-comment-slash"></i> Odblokuj widomosci</button>
+                                            <br><br>
+                                        @endif
+                                        @if ($user->following()->where('follow_id', $other_user->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
                                             <button type="submit" class="btn btn-outline-danger follow" data-id="{{ $other_user->id }}"><i class="fas fa-heart"></i> Dodaj do ulubionych</button>
                                         @else
                                             <button type="submit" class="btn btn-danger delete" data-id="{{ $other_user->id }}"><i class="fas fa-heart"></i> Obserwujesz</button>
@@ -119,6 +124,22 @@
             $.ajax({
             method: "POST",
             url: "/followers/add/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
+            $(function() {
+            $('.renewConv').click( function () {
+            $.ajax({
+            method: "POST",
+            url: "/messages/renew/conversation/" + $(this).data("id")
             // data: { name: "John", location: "Boston" }
             })
             .done(function( response ) {
