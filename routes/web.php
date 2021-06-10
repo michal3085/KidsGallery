@@ -69,7 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/message/report/{id}', [MessagesController::class, 'reportMessage']);
     Route::delete('/messages/delete/{id}', [MessagesController::class, 'delete']);
     Route::post('/message/unwanted/conversation/{id}', [MessagesController::class, 'unwantedConversation']);
-    Route::post('/messages/renew/conversation/{id}', [MessagesController::class, 'nowIwantConversation']);
+    Route::post('/messages/renew/conversation/{id}', [MessagesController::class, 'nowIwantConversation'])->name('conversation.renew');
 });
 
 // Moderator routes

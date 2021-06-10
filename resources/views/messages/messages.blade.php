@@ -9,25 +9,32 @@
                     <div class="col-inside-lg decor-default">
                         <div class="chat-body">
                             @if ($not_allow == 0)
-                            <form action="{{ route('send.message') }}" method="POST">
-                                @csrf
-                                <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-                                    <input type="text" class="form-control mr-3" name="message" autofocus="autofocus" style="border-radius: 25px;" placeholder="{{ __('Add comment...') }}" required>
-                                    <input id="invisible_id" name="conversation" type="hidden" value="{{ $conversation }}">
-                                    <input id="invisible_id" name="from" type="hidden" value="{{ auth()->user()->id }}">
-                                    <button class="btn btn-outline-primary" style="height: 38px; border-radius: 25px;" type="submit"><i class="fas fa-paper-plane"></i></button></div>
-                            </form>
-                            @elseif ($not_allow == 1)
-                                <div class="d-flex flex-row comment-row">
-                                    <div class="comment-text w-100">
-                                        <h5 class="text-center"><i class="fas fa-comment-slash"></i> {{ __('User has blocked you, you cant send him messages') }}</h5>
+                                @if (\App\Models\UnwantedConversation::where('conversation_id', $conversation)->where('user_id', \Illuminate\Support\Facades\Auth::id())->exists())
+                                    <div class="alert alert-danger" role="alert">
+                                        <h4 class="alert-heading"><i class="fas fa-comment-slash"></i></h4>
+                                            <p>{{ __('You are blocked from sending messages to this user.') }}</p>
+                                            <hr>
+                                        <p class="mb-0"><a href="" class="alert-link renewConv" data-id="{{ $conversation }}">{{ __('Unlock') }}</a>{{ __(' the ability to send messages.') }}</p>
                                     </div>
+                                @else
+                                    <form action="{{ route('send.message') }}" method="POST">
+                                        @csrf
+                                        <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                                            <input type="text" class="form-control mr-3" name="message" autofocus="autofocus" style="border-radius: 25px;" placeholder="{{ __('Add comment...') }}" required>
+                                                <input id="invisible_id" name="conversation" type="hidden" value="{{ $conversation }}">
+                                                <input id="invisible_id" name="from" type="hidden" value="{{ auth()->user()->id }}">
+                                            <button class="btn btn-outline-primary" style="height: 38px; border-radius: 25px;" type="submit"><i class="fas fa-paper-plane"></i></button></div>
+                                    </form>
+                                @endif
+                            @elseif ($not_allow == 1)
+                                <div class="alert alert-danger" role="alert">
+                                    <i class="fas fa-comment-slash"></i>
+                                    {{ __('User has blocked you, you cant send him messages') }}
                                 </div>
                             @elseif($not_allow == 2)
-                                <div class="d-flex flex-row comment-row">
-                                    <div class="comment-text w-100">
-                                        <h5 class="text-center"><i class="fas fa-comment-slash"></i> {{ __('User does not want to receive messages from you') }}</h5>
-                                    </div>
+                                <div class="alert alert-danger" role="alert">
+                                    <i class="fas fa-comment-slash"></i>
+                                    {{ __('User does not want to receive messages from you') }}
                                 </div>
                             @endif
                             @foreach($messages as $message)
@@ -151,6 +158,22 @@
             }
 
             })
+            });
+            });
+
+            $(function() {
+            $('.renewConv').click( function () {
+            $.ajax({
+            method: "POST",
+            url: "/messages/renew/conversation/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
             });
             });
 
