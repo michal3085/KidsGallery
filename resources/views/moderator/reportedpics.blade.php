@@ -29,7 +29,7 @@
                                 @endif
                             </div>
                             <button type="button" class="btn btn-outline-success">
-                                <a href="{{ route('pictures.show', ['picture' => $reported->picture_id]) }}">
+                                <a href="{{ route('moderator.picture', ['id' => $reported->picture_id]) }}">
                                     <img class="img-fluid img-responsive  mr-2" src="{{ asset('/storage') . '/' . \App\Models\Picture::where(['id' => $reported->picture_id])->pluck('file_path')->first() }}" alt="user" width="50">
                                 </a>
                             </button>

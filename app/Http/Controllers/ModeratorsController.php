@@ -10,6 +10,7 @@ use App\Models\PicturesReport;
 use App\Models\ReportedMessage;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use function GuzzleHttp\Promise\all;
 
 class ModeratorsController extends Controller
 {
@@ -18,7 +19,13 @@ class ModeratorsController extends Controller
         if ( auth()->user()->hasRole('admin') ) {
             $pictures = Picture::where('accept', 1)->latest()->paginate(10);
         } else {
-            $pictures = Picture::where('accept', 1)->where('visible', 1)->latest()->paginate(10);
+            $allow = Auth::user()->followers()->where('rights', 1)->pluck('user_id');
+
+            $all_pics = Picture::where('accept', 1)->where('visible', 1)->pluck('id');
+            $allowed_pics = Picture::where('accept', 1)->where('visible', 0)->whereIn('user_id', $allow)->pluck('id');
+
+            $ids = $all_pics->merge($allowed_pics);
+            $pictures = Picture::whereIn('id', $ids)->latest()->paginate(20);
         }
         return view('moderator.index', compact('pictures'));
     }
@@ -121,6 +128,28 @@ class ModeratorsController extends Controller
             $pictures = Picture::where('accept', 0)->where('visible', 1)->latest()->paginate(10);
         }
         return view('moderator.blockedpics', compact('pictures'));
+    }
+
+    public function showPicture($id)
+    {
+        if (auth()->user()->hasRole('admin')) {
+            $picture = Picture::where('id', $id)->first();
+            $comments = Comment::where('picture_id', $id)->latest()->paginate(20);
+
+            return view('moderator.picture')->with(['picture' => $picture, 'comments' => $comments]);
+        } else {
+            $picture = Picture::where('id', $id)->first();
+            $allow = Auth::user()->followers()->where('rights', 1)->pluck('user_id')->toArray();
+
+            if ($picture->visible == 0 && in_array($picture->user_id, $allow) || $picture->visible == 1) {
+                $picture = Picture::where('id', $id)->first();
+                $comments = Comment::where('picture_id', $id)->latest()->paginate(20);
+
+                return view('moderator.picture')->with(['picture' => $picture, 'comments' => $comments]);
+            } elseif ($picture->visible == 0 && !in_array($picture->user_id, $allow)) {
+                return redirect()->back();
+            }
+        }
     }
 
     public function showReportedPictures($id = NULL)

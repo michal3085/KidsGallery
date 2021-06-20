@@ -30,7 +30,7 @@
                     <p class="lead mb-5">
                     <div class="row section-box">
                         <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
-                            <a href="{{ route('pictures.show', ['picture' => $picture->id]) }}">
+                            <a href="{{ route('moderator.picture', ['id' => $picture->id]) }}">
                                 <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
                             </a>
                             <br>

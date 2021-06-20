@@ -23,7 +23,7 @@
                                     | [ {{ __('number of reports') }}:   <b>{{ \App\Models\CommentsReport::where('comment_id', $comment->id)->count() }}</b> ]
                                 </div>
                                 <button type="button" class="btn btn-outline-success">
-                                    <a href="{{ route('pictures.show', ['picture' => $comment->picture_id]) }}">
+                                    <a href="{{ route('moderator.picture', ['id' => $comment->picture_id]) }}">
                                         <img class="img-fluid img-responsive  mr-2" src="{{ asset('/storage') . '/' . \App\Models\Picture::where(['id' => $comment->picture_id])->pluck('file_path')->first() }}" alt="user" style="height: 50px; width: 50px;">
                                     </a>
                                 </button>
