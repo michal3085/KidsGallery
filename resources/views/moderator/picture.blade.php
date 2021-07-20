@@ -30,21 +30,10 @@
             @endif
             <br>
             <br>
+                <a href="{{ route('pictures.report', ['id' => $picture->id]) }}">
+                   <button type="submit" class="btn btn-outline-danger float-right">{{ __('Block') }}</button>
+                </a>
 
-            @if (Auth::check())
-                @if (Auth::user()->name == $picture->user)
-                    <button type="submit" class="btn btn-outline-danger float-right delete" data-id="{{ $picture->id }}" aria-hidden="true">
-                        {{ __('Delete') }}</button>
-                        <a href="{{ route('pictures.edit', ['picture' => $picture->id]) }}">
-                            <button type="submit" class="btn btn-outline-success float-left">{{ __('Edit') }}</button>
-                        </a>
-                @else
-
-                    <a href="{{ route('pictures.report', ['id' => $picture->id]) }}">
-                        <button type="submit" class="btn btn-outline-danger float-right">{{ __('Report') }}</button>
-                    </a>
-                    @endif
-                    @endif
                     </p>
                     <br>
                     <hr>

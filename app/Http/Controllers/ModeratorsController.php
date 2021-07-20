@@ -120,6 +120,11 @@ class ModeratorsController extends Controller
 
     }
 
+    public  function saveMessage($id)
+    {
+        //
+    }
+
     public function showBlocked()
     {
         if (auth()->user()->hasRole('admin')) {
