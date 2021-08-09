@@ -37,6 +37,7 @@
                                 <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
                             </a>
                             <br>
+                            <img class="img-fluid img-responsive rounded-circle mr-1" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $picture->user])->pluck('avatar')->first() }}" alt="user" style="width: 30px; height: 30px;">
                             <b>{{ $picture->user }}</b> | {{ $picture->name }}
                             <br>
                             <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
