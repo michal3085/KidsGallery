@@ -31,11 +31,19 @@
                                     <i class="fas fa-comment-slash"></i>
                                     {{ __('User has blocked you, you cant send him messages') }}
                                 </div>
+                                <hr>
                             @elseif($not_allow == 2)
                                 <div class="alert alert-danger" role="alert">
                                     <i class="fas fa-comment-slash"></i>
                                     {{ __('User does not want to receive messages from you') }}
                                 </div>
+                                <hr>
+                            @elseif($not_allow == 3)
+                                <div class="alert alert-secondary" role="alert">
+                                    <h4 class="alert-heading">{{ __('you have blocked this user') }}</h4>
+                                    <p>{{ __('unblock this user to send messages to him') }}</p>
+                                </div>
+                                <hr>
                             @endif
                             @foreach($messages as $message)
                                 @if ($message->from_id == \Illuminate\Support\Facades\Auth::id())

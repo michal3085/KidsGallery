@@ -68,6 +68,8 @@ class MessagesController extends Controller
                 $not_allow = 1;
             } elseif (UnwantedConversation::where('conversation_id', $id)->where('user_id', '!=', Auth::id())->count() != 0) {
                 $not_allow = 2;
+            } elseif (BlockedUser::where('user_id', Auth::id())->where('blocks_user', User::where('name', $to)->value('id'))->count() != 0) {
+                $not_allow = 3;
             } else {
                 $not_allow = 0;
             }
