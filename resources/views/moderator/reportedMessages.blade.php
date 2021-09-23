@@ -14,6 +14,7 @@
                         <div class="chat-body">
                            @foreach($messages as $message)
                                     <div class="answer left">
+                                        <hr>
                                         <div class="avatar">
                                             <a href="{{ route('profiles.about', ['name' => $message->from_name ]) }}">
                                                 <img src="{{ asset('/storage') . '/' . \App\Models\User::where(['id' => $message->from_id])->pluck('avatar')->first() }}" alt="User name">
