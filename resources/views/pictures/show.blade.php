@@ -67,8 +67,8 @@
                         <div class="d-flex flex-row comment-row">
                             <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" style="width: 50px; height: 50px;"></span></div>
                             <div class="comment-text w-100">
-                                <a href="{{ route('profiles.about', ['name' => $comment->user_name ]) }}"><h5>{{ $comment->user_name }}</h5></a>
-                                <div class="comment-footer"> <span class="date">{{ $comment->created_at }}
+                                <a href="{{ route('profiles.about', ['name' => $comment->user_name ]) }}"><b></b>{{ $comment->user_name }}</b></a>
+                                <div class="comment-footer"> <span class="date" style="font-size: 12px;">{{ $comment->created_at }}
                                     @if ( $comment->user_name == \Illuminate\Support\Facades\Auth::user()->name)
                                         </span><span class="action-icons"><i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}"></i> </span>
                                     @else

@@ -43,8 +43,8 @@
                 <div class="d-flex flex-row comment-row">
                     <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" style="width: 50px; height: 50px;"></span></div>
                     <div class="comment-text w-100">
-                        <h5>{{ $comment->user_name }}</h5>
-                        <div class="comment-footer"> <span class="date">{{ $comment->created_at }}</span></div>
+                        <b>{{ $comment->user_name }}</b>
+                        <div class="comment-footer"> <span class="date" style="font-size: 12px;">{{ $comment->created_at }}</span></div>
                         <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
                     </div>
                 </div>

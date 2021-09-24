@@ -54,7 +54,7 @@
                                             <button type="button" class="btn btn-link rightson" data-id="{{ $follow->id }}" data-toggle="tooltip" data-title="Zezwalaj na ogladanie ukrytych obrazkow temu uzytkownikowi"  data-delay='{"show":"500", "hide":"300"}'><i class="far fa-eye-slash" style="height: 30px; width: 30px;"></i></button>
                                     @endif
                                 @else
-                                    <button type="button" class="btn btn-link" data-id="{{ $follow->id }}" data-html="true" data-toggle="tooltip" data-title="<b><h3>{{ $follow->name }}</h3></b> nie obserwuje Cie, wiec nie mozesz udostepnic mu swoich ukrytych prac."  data-delay='{"show":"500", "hide":"300"}'><i class="far fa-eye-slash" style="height: 30px; width: 30px; color: #4e555b; opacity: 25%"></i></button>
+                                    <button type="button" class="btn btn-link" data-id="{{ $follow->id }}" data-html="true" data-toggle="tooltip" data-title="<b>{{ $follow->name }}</b><br> nie obserwuje Cie, wiec nie mozesz udostepnic mu swoich ukrytych prac."  data-delay='{"show":"500", "hide":"300"}'><i class="far fa-eye-slash" style="height: 30px; width: 30px; color: #4e555b; opacity: 25%"></i>
                                 @endif
                                     <button type="button" class="btn btn-link delete" data-id="{{ $follow->id }}"><i class="fas fa-heart" style="height: 40px; width: 40px; color: #c82333"></i></button>
                             @elseif ($user->name != $other_user->name)
