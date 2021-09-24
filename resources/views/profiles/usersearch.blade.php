@@ -57,10 +57,14 @@
                                             <button type="button" class="btn btn-link rightson" data-toggle="tooltip" data-title="Zezwalaj na ogladanie ukrytych obrazkow temu uzytkownikowi"  data-delay='{"show":"500", "hide":"300"}' data-id="{{ $follow->id }}"><i class="far fa-eye-slash" style="height: 30px; width: 30px;" data-id="{{ $follow->id }}"></i></button>
                                         @endif
                                     @endif
-                                @endif
+                                        @endif
                                     @if ($user->following()->where('follow_id', $follow->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
                                         <button type="button" class="btn btn-link follow" data-id="{{ $follow->id }}"><i class="far fa-heart" style="height: 40px; width: 40px; color: #c82333" ></i></button>
                                     @else
+                                        @if ($user->following()->where('follow_id', $follow->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() != 0 &&
+                                             $follow->following()->where('follow_id', $user->id)->count() == 0)
+                                            <button type="button" class="btn btn-link" data-id="{{ $follow->id }}" data-html="true" data-toggle="tooltip" data-title="<b>{{ $follow->name }}</b><br> nie obserwuje Cie, wiec nie mozesz udostepnic mu swoich ukrytych prac."  data-delay='{"show":"500", "hide":"300"}'><i class="far fa-eye-slash" style="height: 30px; width: 30px; color: #4e555b; opacity: 25%"></i>
+                                        @endif
                                         <button type="button" class="btn btn-link delete" data-id="{{ $follow->id }}"><i class="fas fa-heart" style="height: 40px; width: 40px; color: #c82333" ></i></button>
                                 @endif
                             @endif
