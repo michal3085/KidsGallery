@@ -78,6 +78,7 @@
                                 <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
                             </div>
                         </div>
+                        <hr>
                     @endforeach
                     <div class="pagination justify-content-center">
                         {{ $comments->links() }}

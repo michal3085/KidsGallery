@@ -48,6 +48,7 @@
                         <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
                     </div>
                 </div>
+                <hr>
             @endforeach
             <br>
             <div class="pagination justify-content-center">
