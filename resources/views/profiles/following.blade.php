@@ -70,14 +70,16 @@
                                 @endif
                             @endif
                         @endif
-
-                    </div>
-                    <hr>
-                @endforeach
-                <div class="pagination justify-content-center">
-                    {{ $followers->links() }}
-                </div>
-            </div>
+                            @if ($follow->id == $user->id)
+                                <i class="far fa-smile-wink" style="height: 45px; width: 45px; color: #43a20b; opacity: 40%;"></i>
+                                    @endif
+                                </div>
+                            <hr>
+                        @endforeach
+                            <div class="pagination justify-content-center">
+                                {{ $followers->links() }}
+                            </div>
+                        </div>
         </section>
 
 @endsection
