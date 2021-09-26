@@ -43,6 +43,9 @@
                             <br>
                                 <a href="{{ route('profiles.about', ['name' => $follow->name ]) }}"><b>{{ $follow->name }}</b></a>
                                     <div class="comment-footer"> <span class="date">
+                                        @if ($follow->following()->where('follow_id', $user->id)->where('rights', 1)->count() == 1)
+                                            <i class="far fa-eye" style="color: #43a20b" data-toggle="tooltip" data-title="Użytkownik zezwala Tobie na oglądanie swoich ukrytych prac."  data-delay='{"show":"500", "hide":"300"}'></i>
+                                        @endif
                                 <p class="m-b-5 m-t-10"></p>
                             </div>
                         </div>

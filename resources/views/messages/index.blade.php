@@ -20,11 +20,11 @@
                                     @if ($new->user_a == \Illuminate\Support\Facades\Auth::user()->name)
                                         <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $new->user_b])->pluck('avatar')->first() }}" alt="user" style="width: 50px; height: 50px;"></span></div>
                                         <div class="comment-text w-100">
-                                            <a href="{{ route('messages.show', ['id' => $new->id, 'to' => $new->user_b]) }}"><h5>{{ $new->user_b }}</h5></a>
+                                            <a href="{{ route('messages.show', ['id' => $new->id, 'to' => $new->user_b]) }}"><b>{{ $new->user_b }}</b></a>
                                             @else
                                                 <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $new->user_a])->pluck('avatar')->first() }}" alt="user" style="width: 50px; height: 50px;"></span></div>
                                                 <div class="comment-text w-100">
-                                                    <a href="{{ route('messages.show', ['id' => $new->id, 'to' => $new->user_a]) }}"><h5>{{ $new->user_a }}</h5></a>
+                                                    <a href="{{ route('messages.show', ['id' => $new->id, 'to' => $new->user_a]) }}"><b>{{ $new->user_a }}</b></a>
                                                     @endif
                                                     <div class="comment-footer"> <span class="date">{{ \App\Models\Message::where('conversation_id', $new->id)->where('to_id', \Illuminate\Support\Facades\Auth::id())->where('read', 0)->count() }} / {{ \App\Models\Message::where('conversation_id', $new->id)->count() }}
                                                     </div>
@@ -43,11 +43,11 @@
                                 @if ($conversation->user_a == \Illuminate\Support\Facades\Auth::user()->name)
                                 <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $conversation->user_b])->pluck('avatar')->first() }}" alt="user" style="width: 50px; height: 50px;"></span></div>
                                 <div class="comment-text w-100">
-                                <a href="{{ route('messages.show', ['id' => $conversation->id, 'to' => $conversation->user_b]) }}"><h5>{{ $conversation->user_b }}</h5></a>
+                                <a href="{{ route('messages.show', ['id' => $conversation->id, 'to' => $conversation->user_b]) }}"><b>{{ $conversation->user_b }}</b></a>
                             @else
                                 <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $conversation->user_a])->pluck('avatar')->first() }}" alt="user" style="width: 50px; height: 50px;"></span></div>
                                 <div class="comment-text w-100">
-                                <a href="{{ route('messages.show', ['id' => $conversation->id, 'to' => $conversation->user_a]) }}"><h5>{{ $conversation->user_a }}</h5></a>
+                                <a href="{{ route('messages.show', ['id' => $conversation->id, 'to' => $conversation->user_a]) }}"><b>{{ $conversation->user_a }}</b></a>
                             @endif
                             <div class="comment-footer"> <span class="date">{{ \App\Models\Message::where('conversation_id', $conversation->id)->where('to_id', \Illuminate\Support\Facades\Auth::id())->where('read', 0)->count() }} / {{ \App\Models\Message::where('conversation_id', $conversation->id)->count() }}
                             </div>
