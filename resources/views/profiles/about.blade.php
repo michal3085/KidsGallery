@@ -52,7 +52,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="bio-content">
-                                <h1>{{  $other_user->name }}</h1>
+                                 <b style="font-size: 35px;">{{  $other_user->name }}</b>
+                                    <hr>
+                                <br>
                                 @if ($user->id != $other_user->id)
                                     @if (\App\Models\BlockedUser::where('user_id', $user->id)->where('blocks_user', $other_user->id)->count() == 0)
                                         @if ($unwanted == 0)

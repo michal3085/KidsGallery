@@ -10,10 +10,11 @@
 
     <section class="resume-section" id="about">
         <div class="resume-section-content">
-                <a href="{{ route('profiles.about', ['name' => $pictures->user  ]) }}"><h2>{{ $pictures->user }}: </h2></a>
-                  <h1 class="mb-0">
+                <a href="{{ route('profiles.about', ['name' => $pictures->user  ]) }}"><b>{{ $pictures->user }}: </b></a>
+                     <br>
+                  <b class="mb-0" style="font-size: 40px;">
                    {{ $pictures->name }}
-                     </h1>
+                     </b>
                     <p class="lead mb-5">
                     <div class="row section-box">
                             <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
