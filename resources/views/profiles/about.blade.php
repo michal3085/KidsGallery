@@ -32,11 +32,7 @@
             <div class="container portfolio">
                 <div class="row">
                     <div class="col-md-12">
-                        @if (\App\Models\User::where('name', $other_user->name)->where('active', 0)->count() != 0)
-                            <div class="alert alert-danger" role="alert">
-                                {{ __('That user was blocked, for breaking regulations.') }}
-                            </div>
-                        @endif
+
                     </div>
                 </div>
                 <div class="bio-info">
@@ -52,9 +48,22 @@
                         </div>
                         <div class="col-md-6">
                             <div class="bio-content">
-                                 <b style="font-size: 35px;">{{  $other_user->name }}</b>
+                                 <b style="font-size: 35px;">{{  $other_user->name }} </b>
+                                @if ($other_user->following()->where('follow_id', $user->id)->where('rights', 1)->count() == 1)
+                                        <i class="far fa-eye" style="color: #43a20b; font-size: 30px;" data-toggle="tooltip" data-title="Użytkownik zezwala Tobie na oglądanie swoich ukrytych prac."  data-delay='{"show":"500", "hide":"300"}'></i>
+                                @endif
                                     <hr>
-                                <br>
+                                @if (\App\Models\User::where('name', $other_user->name)->where('active', 0)->count() != 0)
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ __('That user was blocked, for breaking regulations.') }}
+                                    </div>
+                                @endif
+                                @if (\App\Models\BlockedUser::where('user_id', $other_user->id)->where('blocks_user', $user->id)->count() == 1)
+                                    <div class="alert alert-secondary" role="alert">
+                                        <i class="fas fa-user-lock" data-toggle="tooltip" data-title="Użytkownik blokuje Cię."  data-delay='{"show":"500", "hide":"300"}'></i>
+                                        {{ __('User is blocking you') }}
+                                    </div>
+                                @endif
                                 @if ($user->id != $other_user->id)
                                     @if (\App\Models\BlockedUser::where('user_id', $user->id)->where('blocks_user', $other_user->id)->count() == 0)
                                         @if ($unwanted == 0)
@@ -74,8 +83,10 @@
                                     @endif
                                 @endif
                                 <br><br>
-                                <h6>{{ $userdata->about }}</h6>
+                                <h6>{{ __('Caption') }}:</h6>
+                                {{ $userdata->about }}
                             </div>
+                            <br>
                             <div class="bio-content">
                                 <h6>{{ __('City') }}: {{ $userdata->city }}</h6>
                             </div>

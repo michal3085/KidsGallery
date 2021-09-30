@@ -43,9 +43,15 @@
                             <br>
                                 <a href="{{ route('profiles.about', ['name' => $follow->name ]) }}"><b>{{ $follow->name }}</b></a>
                                     <div class="comment-footer"> <span class="date">
-                                <p class="m-b-5 m-t-10"></p>
+                                     @if ($follow->following()->where('follow_id', $user->id)->where('rights', 1)->count() == 1)
+                                        <i class="far fa-eye" style="color: #43a20b" data-toggle="tooltip" data-title="Użytkownik zezwala Tobie na oglądanie swoich ukrytych prac."  data-delay='{"show":"500", "hide":"300"}'></i>
+                                            @endif
+                                                @if (\App\Models\BlockedUser::where('user_id', $follow->id)->where('blocks_user', $user->id)->count() == 1)
+                                                    <i class="fas fa-user-lock" data-toggle="tooltip" data-title="Użytkownik blokuje Cię."  data-delay='{"show":"500", "hide":"300"}'></i>
+                                                        @endif
+                                         <p class="m-b-5 m-t-10"></p>
+                                    </div>
                             </div>
-                        </div>
                         @if (\Illuminate\Support\Facades\Auth::Id() != $follow->id)
                             @if (\App\Models\BlockedUser::where('user_id', $user->id)->where('blocks_user', $follow->id)->count() != 0)
                                 <i class="fas fa-user-lock" style="height: 40px; width: 40px; color: rgba(71,68,68,0.62)" data-id="{{ $follow->id }}"></i>

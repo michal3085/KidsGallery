@@ -46,6 +46,9 @@
                                         @if ($follow->following()->where('follow_id', $user->id)->where('rights', 1)->count() == 1)
                                             <i class="far fa-eye" style="color: #43a20b" data-toggle="tooltip" data-title="Użytkownik zezwala Tobie na oglądanie swoich ukrytych prac."  data-delay='{"show":"500", "hide":"300"}'></i>
                                         @endif
+                                            @if (\App\Models\BlockedUser::where('user_id', $follow->id)->where('blocks_user', $user->id)->count() == 1)
+                                                <i class="fas fa-user-lock" data-toggle="tooltip" data-title="Użytkownik blokuje Cię."  data-delay='{"show":"500", "hide":"300"}'></i>
+                                                    @endif
                                 <p class="m-b-5 m-t-10"></p>
                             </div>
                         </div>
