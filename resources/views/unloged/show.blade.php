@@ -10,19 +10,18 @@
 
     <section class="resume-section" id="about">
         <div class="resume-section-content">
-          <b>{{ $pictures->user }}: </b>
-            <br>
-            <b class="mb-0" style="font-size: 40px;">
-                {{ $pictures->name }}
-            </b>
-                    <p class="lead mb-5">
-                    <div class="row section-box">
-                            <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
-                                    <img src="{{ asset('/storage') . '/' . $pictures->file_path }}" class="img-thumbnail">
-                                <br>
+                <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $pictures->user])->pluck('avatar')->first() }}" alt="user" style="width: 40px; height: 40px;"><b>{{ $pictures->user }}: </b></span></div>
+                    <b class="mb-0" style="font-size: 40px;">
+                        {{ $pictures->name }}
+                            </b>
+                                <p class="lead mb-5">
+                                    <div class="row section-box">
+                                        <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
+                                            <img src="{{ asset('/storage') . '/' . $pictures->file_path }}" class="img-thumbnail">
+                                    <br>
                                 <i class="fas fa-calendar-week"></i>: {{ $pictures->created_at }}
-                                | <i class="far fa-eye"></i> {{ $pictures->views }}
-                            </div>
+                            | <i class="far fa-eye"></i> {{ $pictures->views }}
+                        </div>
                     </div>
                     <form action="{{ route('like.new', ['id' => $pictures->id]) }}" method="post">
                         @csrf
@@ -32,7 +31,6 @@
                         <a href="{{ route('pictures.report', ['id' => $pictures->id]) }}">
                             <button type="submit" class="btn btn-outline-danger float-right">{{ __('Report') }}</button>
                         </a>
-
                     </p>
                 <br>
             <hr>

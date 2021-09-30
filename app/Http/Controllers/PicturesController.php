@@ -143,7 +143,7 @@ class PicturesController extends Controller
         if ($request->hasFile('file')) {
 
             $request->validate([
-                'file' => 'mimes:jpeg,bmp,png,jpg'
+                'file' => 'required|mimes:jpeg,bmp,png,jpg,gif|max:550000'
             ]);
 
             $path =  $request->file('file')->store('gallery', 'public');

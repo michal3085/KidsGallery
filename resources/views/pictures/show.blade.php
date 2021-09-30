@@ -10,10 +10,11 @@
 
     <section class="resume-section" id="about">
         <div class="resume-section-content">
-                <a href="{{ route('profiles.about', ['name' => $pictures->user  ]) }}"><b>{{ $pictures->user }}: </b></a>
-                     <br>
+                <a href="{{ route('profiles.about', ['name' => $pictures->user  ]) }}">
+                    <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $pictures->user])->pluck('avatar')->first() }}" alt="user" style="width: 40px; height: 40px;"><b>{{ $pictures->user }}: </b></span></div>
+                        </a>
                   <b class="mb-0" style="font-size: 40px;">
-                   {{ $pictures->name }}
+                      {{ $pictures->name }}
                      </b>
                     <p class="lead mb-5">
                     <div class="row section-box">
