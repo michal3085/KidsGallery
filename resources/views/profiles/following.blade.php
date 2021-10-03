@@ -34,7 +34,7 @@
                     <div class="d-flex flex-row add-comment-section mt-4 mb-4">
                         <input type="text" class="form-control mr-3" name="search" id="search" placeholder="{{ __('Search users') }}..." required>
                         <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button></div>
-                </form>
+                    </form>
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4"></div>
                 @foreach($followers as $follow)
                     <div class="d-flex flex-row comment-row">
@@ -43,13 +43,14 @@
                             <br>
                                 <a href="{{ route('profiles.about', ['name' => $follow->name ]) }}"><b>{{ $follow->name }}</b></a>
                                     <div class="comment-footer"> <span class="date">
-                                        @if ($follow->following()->where('follow_id', $user->id)->where('rights', 1)->count() == 1)
-                                            <i class="far fa-eye" style="color: #43a20b" data-toggle="tooltip" data-title="Użytkownik zezwala Tobie na oglądanie swoich ukrytych prac."  data-delay='{"show":"500", "hide":"300"}'></i>
-                                        @endif
+                                         <p class="m-b-5 m-t-10">
+                                            @if ($follow->following()->where('follow_id', $user->id)->where('rights', 1)->count() == 1)
+                                                <i class="far fa-eye" style="color: #43a20b" data-toggle="tooltip" data-title="Użytkownik zezwala Tobie na oglądanie swoich ukrytych prac."  data-delay='{"show":"500", "hide":"300"}'></i>
+                                             @endif
                                             @if (\App\Models\BlockedUser::where('user_id', $follow->id)->where('blocks_user', $user->id)->count() == 1)
-                                                <i class="fas fa-user-lock" data-toggle="tooltip" data-title="Użytkownik blokuje Cię."  data-delay='{"show":"500", "hide":"300"}'></i>
-                                                    @endif
-                                <p class="m-b-5 m-t-10"></p>
+                                        <i class="fas fa-user-lock" data-toggle="tooltip" data-title="Użytkownik blokuje Cię."  data-delay='{"show":"500", "hide":"300"}'></i>
+                                    @endif
+                                </p>
                             </div>
                         </div>
                         @if (\Illuminate\Support\Facades\Auth::Id() != $follow->id)
