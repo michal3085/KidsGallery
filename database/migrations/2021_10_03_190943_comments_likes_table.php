@@ -19,6 +19,16 @@ class CommentsLikesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->integer('like');
             $table->integer('dislike');
+
+            $table->foreign('comment_id')
+                ->references('id')
+                ->on('comments')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 
@@ -30,7 +40,8 @@ class CommentsLikesTable extends Migration
     public function down()
     {
         Schema::table('comments_likes', function (Blueprint $table) {
-           // ...
+            $table->dropForeign(['comment_id']);
+            $table->dropForeign(['user_id']);
         });
     }
 }

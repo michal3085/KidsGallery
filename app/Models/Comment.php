@@ -13,4 +13,9 @@ class Comment extends Model
     {
         return $this->belongsTo('App\Models\Picture');
     }
+
+    public function commentslikes()
+    {
+        return $this->hasMany('App\Models\CommentLike');
+    }
 }

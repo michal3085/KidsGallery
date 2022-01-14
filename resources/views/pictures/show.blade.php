@@ -78,6 +78,10 @@
                                     @endif
                                 </div>
                                 <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
+                                    <i class="far fa-thumbs-up" style="color: green"></i>
+                                        {{ \App\Models\CommentsLike::where('comment_id', $comment->id)->where('like', 1)->count() }} |
+                                    <i class="far fa-thumbs-down" style="color: red"></i>
+                                {{ \App\Models\CommentsLike::where('comment_id', $comment->id)->where('dislike', 1)->count() }}
                             </div>
                         </div>
                         <hr>
