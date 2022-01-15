@@ -63,12 +63,24 @@
                                 <div class="comment-text w-100">
                                     <b>{{ $comment->user_name }}</b>
                                     <div class="comment-footer"> <span class="date" style="font-size: 12px;">{{ $comment->created_at }}
-                                            @if ( $comment->user_name == \Illuminate\Support\Facades\Auth::user()->name)
-                                        </span><span class="action-icons"><i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}"></i> </span>
-                                        @else
-                                        </span><span class="action-icons"><i class="fas fa-exclamation comment_report" data-id="{{ $comment->id }}"></i></span>
+                                        @if ( $comment->user_name == \Illuminate\Support\Facades\Auth::user()->name)
+                                            </span><span class="action-icons"><i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}"></i> </span>
+                                                @else
+                                                    </span><span class="action-icons"><i class="fas fa-exclamation comment_report" data-id="{{ $comment->id }}"></i></span>
+                                                        @endif
+                                                        <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
+                                                     @if (\App\Models\CommentsLike::where('comment_id', $comment->id)->where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('like', 1)->count() == 1)
+                                                <i class="fas fa-thumbs-up get_comment_like" data-id="{{ $comment->id }}" style="color: green"></i>
+                                            @else
+                                            <i class="far fa-thumbs-up get_comment_like" data-id="{{ $comment->id }}" style="color: green"></i>
                                         @endif
-                                        <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
+                                        {{ \App\Models\CommentsLike::where('comment_id', $comment->id)->where('like', 1)->count() }} |
+                                        @if (\App\Models\CommentsLike::where('comment_id', $comment->id)->where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('dislike', 1)->count() == 1)
+                                            <i class="fas fa-thumbs-down get_comment_unlike" data-id="{{ $comment->id }}" style="color: red"></i>
+                                        @else
+                                            <i class="far fa-thumbs-down get_comment_unlike" data-id="{{ $comment->id }}" style="color: red"></i>
+                                        @endif
+                                        {{ \App\Models\CommentsLike::where('comment_id', $comment->id)->where('dislike', 1)->count() }}
                                     </div>
                                 </div>
                                 <button type="button" class="btn btn-outline-success">
@@ -155,6 +167,39 @@
         })
         });
         });
+
+            $(function() {
+            $('.get_comment_like').click( function () {
+            $.ajax({
+            method: "GET",
+            url: "/comments/like/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
+            $(function() {
+            $('.get_comment_unlike').click( function () {
+            $.ajax({
+            method: "GET",
+            url: "/comments/dislike/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
 
 
 @endsection

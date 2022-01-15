@@ -78,9 +78,17 @@
                                     @endif
                                 </div>
                                 <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
-                                    <i class="far fa-thumbs-up get_comment_like" data-id="{{ $comment->id }}" style="color: green"></i>
-                                        {{ \App\Models\CommentsLike::where('comment_id', $comment->id)->where('like', 1)->count() }} |
-                                    <i class="far fa-thumbs-down get_comment_unlike" data-id="{{ $comment->id }}" style="color: red"></i>
+                                    @if (\App\Models\CommentsLike::where('comment_id', $comment->id)->where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('like', 1)->count() == 1)
+                                        <i class="fas fa-thumbs-up get_comment_like" data-id="{{ $comment->id }}" style="color: green"></i>
+                                            @else
+                                                <i class="far fa-thumbs-up get_comment_like" data-id="{{ $comment->id }}" style="color: green"></i>
+                                                    @endif
+                                                        {{ \App\Models\CommentsLike::where('comment_id', $comment->id)->where('like', 1)->count() }} |
+                                                    @if (\App\Models\CommentsLike::where('comment_id', $comment->id)->where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('dislike', 1)->count() == 1)
+                                                <i class="fas fa-thumbs-down get_comment_unlike" data-id="{{ $comment->id }}" style="color: red"></i>
+                                            @else
+                                        <i class="far fa-thumbs-down get_comment_unlike" data-id="{{ $comment->id }}" style="color: red"></i>
+                                    @endif
                                 {{ \App\Models\CommentsLike::where('comment_id', $comment->id)->where('dislike', 1)->count() }}
                             </div>
                         </div>
