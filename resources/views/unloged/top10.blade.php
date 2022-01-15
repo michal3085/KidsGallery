@@ -41,6 +41,7 @@
                             <b>{{ $picture->user }}</b> | {{ $picture->name }}
                             <br>
                             <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
+                            | <i class="far fa-comment-alt"></i> {{ \App\Models\Comment::where('picture_id', $picture->id)->count() }}
                             | <i class="far fa-eye"></i> {{ $picture->views }}
                         </div>
                     </div>

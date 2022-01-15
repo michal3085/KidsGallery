@@ -39,6 +39,7 @@
                                 <a href="{{ route('profiles.about', ['name' => $picture->user ]) }}">{{ $picture->user }}</a>  | {{ $picture->name }}
                                 <br>
                                 <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
+                                | <i class="far fa-comment-alt"></i> {{ \App\Models\Comment::where('picture_id', $picture->id)->count() }}
                                 | <i class="far fa-eye"></i> {{ $picture->views }}
                             </div>
                         </div>
@@ -56,7 +57,8 @@
                                         </a>  | <b>{{ $picture->name }}</b>
                                     <br>
                                 <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
-                            | <i class="far fa-eye"></i> {{ $picture->views }}
+                                | <i class="far fa-comment-alt"></i> {{ \App\Models\Comment::where('picture_id', $picture->id)->count() }}
+                                | <i class="far fa-eye"></i> {{ $picture->views }}
                                 </div>
                             </div>
                             @if ($picture->likes()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)

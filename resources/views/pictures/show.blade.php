@@ -22,6 +22,7 @@
                                     <img src="{{ asset('/storage') . '/' . $pictures->file_path }}" class="img-thumbnail">
                                 <br>
                                 <i class="fas fa-calendar-week"></i>: {{ $pictures->created_at }}
+                                | <i class="far fa-comment-alt"></i> {{ \App\Models\Comment::where('picture_id', $pictures->id)->count() }}
                                 | <i class="far fa-eye"></i> {{ $pictures->views }}
                             </div>
                     </div>
