@@ -14,11 +14,12 @@ class CommentsLikesTable extends Migration
     public function up()
     {
         Schema::create('comments_likes', function (Blueprint $table) {
-            $table->unsignedBigInteger('id');
+            $table->id();
             $table->unsignedBigInteger('comment_id');
             $table->unsignedBigInteger('user_id');
             $table->integer('like');
             $table->integer('dislike');
+            $table->timestamps();
 
             $table->foreign('comment_id')
                 ->references('id')

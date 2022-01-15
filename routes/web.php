@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\CommentsLikes;
 use App\Http\Controllers\FollowersController;
 use App\Http\Controllers\LikesController;
 use App\Http\Controllers\MessagesController;
@@ -36,6 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/pictures/{id}/comment', [CommentsController::class, 'store'])->name('commnents.add');
     Route::delete('/comments/delete/{id}', [CommentsController::class, 'destroy']);
     Route::get('/comments/report/{id}', [CommentsController::class, 'report']);
+    Route::get('/comments/like/{id}', [CommentsLikes::class, 'like']);
+    Route::get('/comments/dislike/{id}', [CommentsLikes::class, 'dislike']);
 
     // Likes
     Route::post('/newlike/{id}', [LikesController::class, 'getLike'])->name('like.new');
