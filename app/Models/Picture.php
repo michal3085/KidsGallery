@@ -35,4 +35,24 @@ class Picture extends Model
     {
         return $this->hasOne('App\Models\PictureView');
     }
+
+    public function isTopLikes($id)
+    {
+        $check = Picture::where('accept', 1)->where('visible', 1)->orderByDesc('likes')->take(10)->pluck('id')->toArray();
+        if ( in_array($id, $check)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public function isTopViews($id)
+    {
+        $check = Picture::where('accept', 1)->where('visible', 1)->orderByDesc('views')->take(10)->pluck('id')->toArray();
+        if ( in_array($id, $check)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }

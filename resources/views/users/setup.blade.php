@@ -21,7 +21,7 @@
             <form action="{{ route('users.update', ['user' => $user->id]) }}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 @method('PUT')
-                <h2>{{ $user->name }} - {{ __('Settings') }}</h2>
+                <b style="font-size: 25px;">{{ $user->name }} - {{ __('Settings') }}</b>
                 <br><br>
                 <h5>{{ __('Choose Your avatar') }}:</h5>
                 <div class="row section-box">

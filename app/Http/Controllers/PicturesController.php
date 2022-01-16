@@ -201,13 +201,24 @@ class PicturesController extends Controller
             $pictures->increment('views');
         }
 
+        if ($pictures->isTopLikes($id) == 1){
+            $top = 1;
+        } else {
+            $top = 0;
+        }
+        if ($pictures->isTopViews($id) == 1){
+            $top_views = 1;
+        } else {
+            $top_views = 0;
+        }
+
         if (Auth::check()){
             if ($pictures->visible == 1 && $pictures->accept == 1){
-                return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments]);
+                return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments, 'top' => $top, 'top_views' => $top_views]);
             } elseif ($pictures->visible == 0 && $pictures->user == Auth::user()->name){
-                return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments]);
+                return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments, 'top' => $top, 'top_views' => $top_views]);
             } elseif ($pictures->visible == 0 && $follow->rights == 1 && $pictures->accept == 1) {
-                return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments]);
+                return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments, 'top' => $top, 'top_views' => $top_views]);
             } else {
                 return redirect()->back();
             }
