@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\CommentsLike;
 use App\Models\CommentsReport;
 use App\Models\Picture;
 use Illuminate\Http\Request;
@@ -49,6 +50,7 @@ class CommentsController extends Controller
     public function destroy($id)
     {
         if ( Comment::destroy($id) ){
+            CommentsLike::where('comment_id', $id)->delete();
             return response()->json([
                 'status' => 'success'
             ]);
