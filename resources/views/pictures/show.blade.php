@@ -7,7 +7,6 @@
             <strong>{{ session()->get('message') }}</strong>
         </div>
     @endif
-
     <section class="resume-section" id="about">
         <div class="resume-section-content">
                 <a href="{{ route('profiles.about', ['name' => $pictures->user  ]) }}">
@@ -17,11 +16,13 @@
                       {{ $pictures->name }}
                      </b>
                         @if ($top == 1)
-                            <i class="fas fa-award" style="color: #cea807; font-size: 25px;" data-toggle="tooltip" data-html="true" data-title="Ta praca jest w TOP10 pod względem polubień"  data-delay='{"show":"500", "hide":"300"}'></i>
+                            <i class="fas fa-award" style="color: #cea807; font-size: 25px;" data-toggle="tooltip" data-html="true" data-title="Ta praca jest w <b>TOP10 ({{ $place_likes }})</b> pod względem <b>polubień</b>"  data-delay='{"show":"500", "hide":"300"}'></i>
                                 @endif
-                                    @if ($top_views == 1)
-                                <i class="fas fa-medal" style="color: #cea807; font-size: 25px;" data-toggle="tooltip" data-html="true" data-title="Ta praca jest w TOP10 pod względem wyswietleń"  data-delay='{"show":"500", "hide":"300"}'></i>
-                            @endif
+                                        @if ($top_views == 1)
+                                    <i class="fas fa-medal" style="color: #cea807; font-size: 25px;" data-toggle="tooltip" data-html="true" data-title="Ta praca jest w <b>TOP10 ({{ $place_views }})</b> pod względem <b>wyswietleń</b>"  data-delay='{"show":"500", "hide":"300"}'></i>
+                                @endif
+
+
                     <p class="lead mb-5">
                     <div class="row section-box">
                             <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">

@@ -202,29 +202,61 @@ class PicturesController extends Controller
         }
 
         if ($pictures->isTopLikes($id) == 1){
+            $place_likes = $pictures->witchPlaceInLikess($id);
             $top = 1;
         } else {
+            $place_likes = 0;
             $top = 0;
         }
         if ($pictures->isTopViews($id) == 1){
+            $place_view = $pictures->witchPlaceInViews($id);
             $top_views = 1;
         } else {
+            $place_view = 0;
             $top_views = 0;
         }
 
         if (Auth::check()){
             if ($pictures->visible == 1 && $pictures->accept == 1){
-                return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments, 'top' => $top, 'top_views' => $top_views]);
+                return view('pictures.show')
+                    ->with(['pictures' => $pictures,
+                        'comments' => $comments,
+                        'top' => $top,
+                        'top_views' => $top_views,
+                        'place_views' => $place_view,
+                        'place_likes' => $place_likes
+                    ]);
             } elseif ($pictures->visible == 0 && $pictures->user == Auth::user()->name){
-                return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments, 'top' => $top, 'top_views' => $top_views]);
+                return view('pictures.show')
+                    ->with(['pictures' => $pictures,
+                        'comments' => $comments,
+                        'top' => $top,
+                        'top_views' => $top_views,
+                        'place_views' => $place_view,
+                        'place_likes' => $place_likes
+                    ]);
             } elseif ($pictures->visible == 0 && $follow->rights == 1 && $pictures->accept == 1) {
-                return view('pictures.show')->with(['pictures' => $pictures, 'comments' => $comments, 'top' => $top, 'top_views' => $top_views]);
+                return view('pictures.show')
+                    ->with(['pictures' => $pictures,
+                        'comments' => $comments,
+                        'top' => $top,
+                        'top_views' => $top_views,
+                        'place_views' => $place_view,
+                        'place_likes' => $place_likes
+                        ]);
             } else {
                 return redirect()->back();
             }
         } else {
             if ($pictures->visible == 1 && $pictures->accept == 1){
-                return view('unloged.show')->with(['pictures' => $pictures, 'comments' => $comments]);
+                return view('unloged.show')
+                    ->with(['pictures' => $pictures,
+                        'comments' => $comments,
+                        'top' => $top,
+                        'top_views' => $top_views,
+                        'place_views' => $place_view,
+                        'place_likes' => $place_likes
+                    ]);
             } else {
                 return redirect()->back();
             }

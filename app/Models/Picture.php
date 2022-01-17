@@ -55,4 +55,28 @@ class Picture extends Model
             return 0;
         }
     }
+
+    public function witchPlaceInViews($id)
+    {
+        $result = 0;
+        $check = Picture::where('accept', 1)->where('visible', 1)->orderByDesc('views')->take(10)->pluck('id')->toArray();
+        foreach ($check as $key => $value) {
+            if ($value == $id){
+                $result = $key + 1;
+            }
+        }
+        return $result;
+    }
+
+    public function witchPlaceInLikess($id)
+    {
+        $result = 0;
+        $check = Picture::where('accept', 1)->where('visible', 1)->orderByDesc('likes')->take(10)->pluck('id')->toArray();
+        foreach ($check as $key => $value) {
+            if ($value == $id){
+                $result = $key + 1;
+            }
+        }
+        return $result;
+    }
 }
