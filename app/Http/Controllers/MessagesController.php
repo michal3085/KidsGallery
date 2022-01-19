@@ -20,6 +20,14 @@ class MessagesController extends Controller
         $unwanted = auth()->user()->unwantedConversation()->pluck('conversation_id');
         $not_show = $unwanted->merge($ids);
 
+        // Check which conversations have no messages and delete them
+        $conv_check = auth()->user()->conversations()->whereNotIn('id', $not_show)->pluck('id');
+        foreach ($conv_check as $value) {
+            if (Message::countMessages($value) == 0) {
+                Conversation::where('id', $value)->delete();
+            }
+        }
+
        return view('messages.index')->with(['conversations' => auth()->user()->conversations()->whereNotIn('id', $not_show), 'unread' => $unread]);
     }
 

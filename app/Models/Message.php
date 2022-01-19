@@ -13,4 +13,9 @@ class Message extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public static function countMessages($conversation)
+    {
+        return Message::where('conversation_id', $conversation)->count();
+    }
 }
