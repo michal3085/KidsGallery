@@ -28,7 +28,11 @@ class MessagesController extends Controller
             }
         }
 
-       return view('messages.index')->with(['conversations' => auth()->user()->conversations()->whereNotIn('id', $not_show), 'unread' => $unread]);
+       return view('messages.index')
+           ->with([
+               'conversations' => auth()->user()->conversations()->whereNotIn('id', $not_show),
+               'unread' => $unread
+           ]);
     }
 
     public function search(Request $request)
