@@ -44,10 +44,6 @@
             @endif
         </ul>
     </div>
-    <form method="post" action="{{ route('logout') }}">
-        @csrf
-        <button class="btn btn-outline-light" type="submit" name="logout">{{ __('Logout') }}</button>
-    </form>
 </nav>
 <!-- Page Content-->
 

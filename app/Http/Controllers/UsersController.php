@@ -204,6 +204,11 @@ class UsersController extends Controller
 
     }
 
+    public function account()
+    {
+        return view('users.account')->with('user', Auth::user()->id);
+    }
+
     /**
      * Update the specified resource in storage.
      *

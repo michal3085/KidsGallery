@@ -11,7 +11,7 @@
                 <a class="nav-link active" href="{{ route('user.info', ['id' => $user->id]) }}">Informacje</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="">Konto</a>
+                <a class="nav-link" href="{{ route('user.account') }}">Konto</a>
             </li>
         </ul>
         <div class="container-fluid p-0">

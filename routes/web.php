@@ -98,6 +98,7 @@ Route::middleware(['check.role:moderator'])->group(function () {
 // Routes for Users
 Route::get('users/{id}/set/avatar/{x}', [UsersController::class, 'defaultAvatar'])->name('set.avatar')->middleware('auth');
 Route::get('users/{id}/info', [UsersController::class, 'userinfo'])->name('user.info')->middleware('auth');
+Route::get('users/account', [UsersController::class, 'account'])->name('user.account')->middleware('auth');
 Route::post('users/{id}/info/save', [UsersController::class, 'aboutsave'])->name('user.aboutsave')->middleware('auth');
 Route::get('users/search/{name}', [UsersController::class, 'search'])->name('users.search')->middleware('auth');
 Route::resource('users', UsersController::class);
