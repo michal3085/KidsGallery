@@ -25,6 +25,7 @@
         <span class="d-block d-lg-none">
             <div class="avatar">
                   <img class="img-fluid img-profile rounded-circle mx-auto shadow p-1 rounded" src="{{ asset('/storage') . '/' . $user->avatar }}" alt="" style="width: 50px; height: 50px;" />
+                {{ \Illuminate\Support\Str::limit($user->name, 20, $end="...") }}
             <div class="status offline"></div>
             </div>
         </span>
