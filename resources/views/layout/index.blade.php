@@ -43,6 +43,9 @@
             @if (\App\Models\Role::where('user_id', $user->id)->where('role', 'moderator')->count() != 0)
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('moderator.index') }}">{{ __('Moderator') }}</a></li>
             @endif
+            <li><a class="nav-link js-scroll-trigger" href="{{ route('lang', ['en']) }}" style="display: inline-block;"><img src="{{ asset('assets/img/united-kingdom.png')}}" style="width: 20px; height: 20px;"></a> |
+                <a class="nav-link js-scroll-trigger" href="{{ route('lang', ['pl']) }}" style="display: inline-block;"><img src="{{ asset('assets/img/poland.png')}}" style="width: 20px; height: 20px;"></a>
+            </li>
         </ul>
     </div>
 </nav>

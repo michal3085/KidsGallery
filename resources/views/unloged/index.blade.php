@@ -38,6 +38,9 @@
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{route('top10')}}">Top 10</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('register') }}">{{ __('Register') }}</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ url('/login') }}" >{{ __('Login') }}</a></li>
+            <li><a class="nav-link js-scroll-trigger" href="{{ route('lang', ['en']) }}" style="display: inline-block;"><img src="{{ asset('assets/img/united-kingdom.png')}}" style="width: 20px; height: 20px;"></a> |
+                <a class="nav-link js-scroll-trigger" href="{{ route('lang', ['pl']) }}" style="display: inline-block;"><img src="{{ asset('assets/img/poland.png')}}" style="width: 20px; height: 20px;"></a>
+            </li>
         </ul>
     </div>
 </nav>

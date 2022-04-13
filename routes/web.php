@@ -24,6 +24,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PicturesController::class, 'index'])->name('index');
 
+Route::get('/language/{locale}', function ($locale) {
+    app()->setLocale($locale);
+    session()->put('locale', $locale);
+    return redirect()->back();
+})->name('lang');
+
+
 // Routes for pictures
 Route::get('/pictures/top10', [PicturesController::class, 'top'])->name('top10');
 Route::get('/pictures/topviews', [PicturesController::class, 'topviews'])->name('top10.views');
