@@ -17,10 +17,30 @@
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
 {{--    Google Ad Sense uncomment that--}}
 {{--    <script data-ad-client="ca-pub-4931814970460150" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>--}}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F3BYTT856T"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-F3BYTT856T');
+    </script>
 </head>
 <body id="page-top">
+
+<div id="simplecookienotification_v01" style="display: block; z-index: 99999; min-height: 35px; width: 300px; position: fixed; background: rgb(255, 243, 224); border: 1px solid rgb(255, 152, 0); text-align: center; right: 10px; color: rgb(119, 119, 119); bottom: 10px;">
+    <div style="padding:10px; margin-left:15px; margin-right:15px; font-size:14px; font-weight:normal;">
+        <span id="simplecookienotification_v01_powiadomienie">Używamy cookies w celach funkcjonalnych, aby ułatwić użytkownikom korzystanie z witryny oraz w celu tworzenia anonimowych statystyk serwisu. Jeżeli nie blokujesz plików cookies, to zgadzasz się na ich używanie oraz zapisanie w pamięci urządzenia.</span><span id="br_pc_title_html"><br></span>
+        <a id="simplecookienotification_v01_polityka" href="http://jakwylaczyccookie.pl/polityka-cookie/" style="color: rgb(255, 152, 0);">Polityka Prywatności</a><span id="br_pc2_title_html"> &nbsp;&nbsp; </span>
+        <a id="simplecookienotification_v01_info" href="http://jakwylaczyccookie.pl/jak-wylaczyc-pliki-cookies/" style="color: rgb(255, 152, 0);">Jak wyłączyć cookies?</a><span id="br_pc3_title_html"> &nbsp;&nbsp; </span>
+        <a id="simplecookienotification_v01_info2" href="https://nety.pl/cyberbezpieczenstwo" style="color: rgb(255, 152, 0);">Cyberbezpieczeństwo</a><div id="jwc_hr1" style="height: 10px; display: block;"></div>
+        <a id="okbutton" href="javascript:simplecookienotification_v01_create_cookie('simplecookienotification_v01',1,7);" style="position: relative; background: rgb(255, 152, 0); color: rgb(255, 255, 255); padding: 5px 15px; text-decoration: none; font-size: 12px; font-weight: normal; border: 0px solid rgb(255, 243, 224); border-radius: 0px;">AKCEPTUJĘ</a><div id="jwc_hr2" style="height: 10px; display: block;"></div>
+    </div>
+</div>
+<script type="text/javascript">var galTable= new Array(); var galx = 0;</script><script type="text/javascript">function simplecookienotification_v01_create_cookie(name,value,days) { if (days) { var date = new Date(); date.setTime(date.getTime()+(days*24*60*60*1000)); var expires = "; expires="+date.toGMTString(); } else var expires = ""; document.cookie = name+"="+value+expires+"; path=/"; document.getElementById("simplecookienotification_v01").style.display = "none"; } function simplecookienotification_v01_read_cookie(name) { var nameEQ = name + "="; var ca = document.cookie.split(";"); for(var i=0;i < ca.length;i++) { var c = ca[i]; while (c.charAt(0)==" ") c = c.substring(1,c.length); if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length); }return null;}var simplecookienotification_v01_jest = simplecookienotification_v01_read_cookie("simplecookienotification_v01");if(simplecookienotification_v01_jest==1){ document.getElementById("simplecookienotification_v01").style.display = "none"; }</script>
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-lg p-2 mb-5 rounded" id="sideNav">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-lg p-2 mb-5 rounded"  id="sideNav">
     <a href="{{ route('profiles.gallery', ['name' => $user->name]) }}" class="navbar-brand js-scroll-trigger">
         <span class="d-block d-lg-none">
             <div class="avatar">
