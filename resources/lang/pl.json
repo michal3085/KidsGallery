@@ -1,4 +1,8 @@
 {
+    "You do not allow this user to view your hidden pictures": "Nie zezwalasz temu użytkownikowi na oglądanie ukrytych prac",
+    "is not watching you, so you cannot give him access to your hidden pictures": "nie obserwuje Cie, wiec nie mozesz udostepnic mu swoich ukrytych prac",
+    "can see your hidden images": "może oglądać twoje ukryte prace",
+
     "30 Days": "30 Dni",
     "60 Days": "60 Dni",
     "90 Days": "90 Dni",
@@ -589,6 +593,7 @@
     "This resource no longer exists": "This resource no longer exists",
     "This user already belongs to the team.": "Ten użytkownik jest już w zespole.",
     "This user has already been invited to the team.": "Ten użytkownik został już zaproszony do zespołu.",
+    "The user allows you to view their hidden work.": "Użytkownik zezwala Tobie na oglądanie swoich ukrytych prac.",
     "Timor-Leste": "Timor-Leste",
     "to": "do",
     "Today": "Today",
@@ -635,6 +640,7 @@
     "Verify Your Email Address": "Zweryfikuj swój adres email",
     "Viet Nam": "Vietnam",
     "View": "View",
+    "Views": "Wyświetlenia",
     "Virgin Islands, British": "British Virgin Islands",
     "Virgin Islands, U.S.": "U.S. Virgin Islands",
     "Wallis And Futuna": "Wallis and Futuna",

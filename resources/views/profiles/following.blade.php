@@ -45,7 +45,7 @@
                                     <div class="comment-footer"> <span class="date">
                                          <p class="m-b-5 m-t-10">
                                             @if ($follow->following()->where('follow_id', $user->id)->where('rights', 1)->count() == 1)
-                                                <i class="far fa-eye" style="color: #43a20b" data-toggle="tooltip" data-title="Użytkownik zezwala Tobie na oglądanie swoich ukrytych prac."  data-delay='{"show":"500", "hide":"300"}'></i>
+                                                <i class="far fa-eye" style="color: #43a20b" data-toggle="tooltip" data-title="{{ __('The user allows you to view their hidden work.') }}"  data-delay='{"show":"500", "hide":"300"}'></i>
                                              @endif
                                             @if (\App\Models\BlockedUser::where('user_id', $follow->id)->where('blocks_user', $user->id)->count() == 1)
                                         <i class="fas fa-user-lock" data-toggle="tooltip" data-title="Użytkownik blokuje Cię."  data-delay='{"show":"500", "hide":"300"}'></i>
@@ -57,12 +57,12 @@
                             @if ($user->name == $other_user->name)
                                 @if ( $user->friends($follow->id) )
                                     @if ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() != 0)
-                                            <button type="button" class="btn btn-link rightsdel" data-id="{{ $follow->id }}"><i class="far fa-eye" style="height: 30px; width: 30px;"></i></button>
+                                            <button type="button" class="btn btn-link rightsdel" data-id="{{ $follow->id }}" data-html="true" data-toggle="tooltip" data-title="<b>{{ $follow->name }}</b><br> {{ __('can see your hidden images') }}."  data-delay='{"show":"500", "hide":"300"}'><i class="far fa-eye" style="height: 30px; width: 30px;"></i></button>
                                         @elseif ($user->following()->where('follow_id', $follow->id)->where('rights', 1)->count() == 0)
-                                            <button type="button" class="btn btn-link rightson" data-id="{{ $follow->id }}" data-toggle="tooltip" data-title="Zezwalaj na ogladanie ukrytych obrazkow temu uzytkownikowi"  data-delay='{"show":"500", "hide":"300"}'><i class="far fa-eye-slash" style="height: 30px; width: 30px;"></i></button>
+                                            <button type="button" class="btn btn-link rightson" data-id="{{ $follow->id }}" data-toggle="tooltip" data-title="{{ __('You do not allow this user to view your hidden pictures') }}"  data-delay='{"show":"500", "hide":"300"}'><i class="far fa-eye-slash" style="height: 30px; width: 30px;"></i></button>
                                     @endif
                                 @else
-                                    <button type="button" class="btn btn-link" data-id="{{ $follow->id }}" data-html="true" data-toggle="tooltip" data-title="<b>{{ $follow->name }}</b><br> nie obserwuje Cie, wiec nie mozesz udostepnic mu swoich ukrytych prac."  data-delay='{"show":"500", "hide":"300"}'><i class="far fa-eye-slash" style="height: 30px; width: 30px; color: #4e555b; opacity: 25%"></i>
+                                    <button type="button" class="btn btn-link" data-id="{{ $follow->id }}" data-html="true" data-toggle="tooltip" data-title="<b>{{ $follow->name }}</b><br> {{ __('is not watching you, so you cannot give him access to your hidden pictures') }}."  data-delay='{"show":"500", "hide":"300"}'><i class="far fa-eye-slash" style="height: 30px; width: 30px; color: #4e555b; opacity: 25%"></i>
                                 @endif
                                     <button type="button" class="btn btn-link delete" data-id="{{ $follow->id }}"><i class="fas fa-heart" style="height: 40px; width: 40px; color: #c82333"></i></button>
                             @elseif ($user->name != $other_user->name)

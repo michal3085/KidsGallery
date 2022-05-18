@@ -16,6 +16,8 @@
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
     <!-- Google ReCaptcha -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- Ad Sense Google -->
+    <script data-ad-client="ca-pub-4931814970460150" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-F3BYTT856T"></script>
     <script>
