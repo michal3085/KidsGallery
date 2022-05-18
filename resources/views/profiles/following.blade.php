@@ -45,7 +45,7 @@
                                     <div class="comment-footer"> <span class="date">
                                          <p class="m-b-5 m-t-10">
                                             @if ($follow->following()->where('follow_id', $user->id)->where('rights', 1)->count() == 1)
-                                                <i class="far fa-eye" style="color: #43a20b" data-toggle="tooltip" data-title="{{ __('The user allows you to view their hidden work.') }}"  data-delay='{"show":"500", "hide":"300"}'></i>
+                                                <i class="far fa-eye" style="color: #43a20b" data-toggle="tooltip" data-title="{{ __('The user allows you to view their hidden pictures.') }}"  data-delay='{"show":"500", "hide":"300"}'></i>
                                              @endif
                                             @if (\App\Models\BlockedUser::where('user_id', $follow->id)->where('blocks_user', $user->id)->count() == 1)
                                         <i class="fas fa-user-lock" data-toggle="tooltip" data-title="Użytkownik blokuje Cię."  data-delay='{"show":"500", "hide":"300"}'></i>
