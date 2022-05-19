@@ -67,7 +67,7 @@
                                 @if ($user->id != $other_user->id)
                                     @if (\App\Models\BlockedUser::where('user_id', $user->id)->where('blocks_user', $other_user->id)->count() == 0)
                                         @if ($unwanted == 0)
-                                            <a href="{{ route('messages.show', ['to' => $other_user->name]) }}"><button type="button" class="btn btn-outline-info"><i class="far fa-envelope"></i></button></a>
+                                            <a href="{{ route('messages.show', ['to' => $other_user->name]) }}"><button type="button" class="btn btn-outline-info"><i class="far fa-envelope"></i> {{ auth()->user()->newMessages()->count() }} </button></a>
                                         @elseif ($unwanted == 1)
                                             <button type="button" class="btn btn-outline-secondary renewConv" data-id="{{ $conversation }}"><i class="fas fa-comment-slash"></i> Odblokuj widomosci</button>
                                             <br><br>
