@@ -97,6 +97,11 @@ class User extends Authenticatable
         return Message::where('to_id', Auth::id())->where('read', 0)->get();
     }
 
+    public function countNewMessagesFrom($from)
+    {
+        return Message::where('to_id', Auth::id())->where('from', $from)->where('read', 0)->count();
+    }
+
     public function conversationExist($to)
     {
         return Conversation::where([
