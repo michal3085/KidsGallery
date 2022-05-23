@@ -37,7 +37,8 @@
                     <p class="lead mb-5">
                     <div class="row section-box">
                         @if ($picture->visible == 0)
-                        <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded backgroundstripes">
+                        <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
+                            <i class="fas fa-unlock" style="font-size: 25px;"></i>
                             @else
                                 <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
                                     @endif

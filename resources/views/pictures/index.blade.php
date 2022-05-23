@@ -16,10 +16,6 @@
     <br>
     <section class="resume-section" id="about">
         <div class="resume-section-content">
-            <h1 class="mb-0">
-                {{ __('Main Gallery') }}
-            </h1>
-
             <form action="{{ route('picture.search') }}" method="GET">
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4">
                     <input type="text" class="form-control mr-3" @isset($search) value="{{ $search }}" @endisset name="search" id="search" placeholder="{{ __('Search') }}..." required>
@@ -29,7 +25,12 @@
             @foreach($pictures as $picture)
                         <p class="lead mb-5">
                         <div class="row section-box">
-                            <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
+                    @if ($picture->visible == 0)
+                        <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
+                            <i class="fas fa-unlock" style="font-size: 25px;"></i>
+                            @else
+                                <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
+                                    @endif
                                 <a href="{{ route('pictures.show', ['picture' => $picture->id]) }}">
                                     <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
                                 </a>

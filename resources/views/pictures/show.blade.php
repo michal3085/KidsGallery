@@ -25,11 +25,14 @@
                                     <i class="fas fa-medal" style="color: #cea807; font-size: 25px;" data-toggle="tooltip" data-html="true" data-title="Ta praca jest w <b>TOP10 ({{ $place_views }})</b> pod względem <b>wyswietleń</b>"  data-delay='{"show":"500", "hide":"300"}'></i>
                                 @endif
                             @endif
-
-
-                    <p class="lead mb-5">
+                            <p class="lead mb-5">
                     <div class="row section-box">
+                @if ($pictures->visible == 0)
+                    <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
+                        <i class="fas fa-unlock" style="font-size: 25px;"></i>
+                        @else
                             <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
+                                @endif
                                     <img src="{{ asset('/storage') . '/' . $pictures->file_path }}" class="img-thumbnail">
                                 <br>
                                 <i class="fas fa-calendar-week"></i>: {{ $pictures->created_at }}
