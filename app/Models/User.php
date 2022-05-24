@@ -65,6 +65,16 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'blocked_users', 'user_id', 'blocks_user');
     }
 
+    public function favorites()
+    {
+        return $this->hasMany('App\Models\Favorite');
+    }
+
+    public function myFavorites()
+    {
+        return Favorite::where('user_id', Auth::id())->all();
+    }
+
     public function followers()
     {
         return $this->belongsToMany(User::class, 'followers', 'follow_id', 'user_id');

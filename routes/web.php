@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\CommentsLikes;
+use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\FollowersController;
 use App\Http\Controllers\LikesController;
 use App\Http\Controllers\MessagesController;
@@ -70,6 +71,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/followers/delete/rights/{id}', [FollowersController::class, 'deleteRights']);
     Route::post('/profile/block/{id}', [UsersController::class, 'block']);
     Route::post('/profile/unblock/{id}', [UsersController::class, 'unblock']);
+
+    // Favorites
+    Route::post('/add/favorite/{id}', [FavoritesController::class, 'addToFavorites']);
+    Route::post('/remove/favorite/{id}', [FavoritesController::class, 'removeFromFavorites']);
 
     //Messages routes
     Route::get('/messages/', [MessagesController::class, 'index'])->name('messages.list');

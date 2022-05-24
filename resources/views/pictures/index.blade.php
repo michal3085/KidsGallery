@@ -21,7 +21,6 @@
                     <input type="text" class="form-control mr-3" @isset($search) value="{{ $search }}" @endisset name="search" id="search" placeholder="{{ __('Search') }}..." required>
                     <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button></div>
             </form>
-
             @foreach($pictures as $picture)
                         <p class="lead mb-5">
                         <div class="row section-box">
@@ -40,15 +39,20 @@
                                     <b>{{ $picture->user }}</b></a> | <b>{{ $picture->name }}</b>
                                 <br>
                                 <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
+                                    @if ($picture->likes()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                                        <button type="submit" class="btn btn-outline-success px-3 like" style="float: left" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
+                                    @else
+                                        <button type="submit" class="btn btn-success px-3 like" style="float: left" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
+                                    @endif
                                 | <i class="far fa-comment-alt"></i> {{ \App\Models\Comment::where('picture_id', $picture->id)->count() }}
                                 | <i class="far fa-eye"></i> {{ $picture->views }}
+                                    @if ($picture->favorites()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                                        <button type="submit" class="btn btn-outline-warning px-3 addFavorite" style="float: right" data-id="{{ $picture->id }}"><i class="far fa-star" aria-hidden="true"></i></button>
+                                    @else
+                                        <button type="submit" class="btn btn-warning px-3 removeFavorite" style="float: right" data-id="{{ $picture->id }}"><i class="fas fa-star" aria-hidden="true"></i></button>
+                                    @endif
                             </div>
                         </div>
-                        @if ($picture->likes()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
-                            <button type="submit" class="btn btn-outline-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
-                        @else
-                            <button type="submit" class="btn btn-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
-                        @endif
             @endforeach
             <div class="pagination justify-content-center">
                 {{ $pictures->links() }}
@@ -63,6 +67,38 @@
     $.ajax({
     method: "POST",
     url: "/newlike/" + $(this).data("id")
+    // data: { name: "John", location: "Boston" }
+    })
+    .done(function( response ) {
+    window.location.reload();
+    })
+    .fail(function( response ) {
+    alert( "Juz polubione" );
+    });
+    });
+    });
+
+    $(function() {
+    $('.addFavorite').click( function () {
+    $.ajax({
+    method: "POST",
+    url: "/add/favorite/" + $(this).data("id")
+    // data: { name: "John", location: "Boston" }
+    })
+    .done(function( response ) {
+    window.location.reload();
+    })
+    .fail(function( response ) {
+    alert( "Juz polubione" );
+    });
+    });
+    });
+
+    $(function() {
+    $('.removeFavorite').click( function () {
+    $.ajax({
+    method: "POST",
+    url: "/remove/favorite/" + $(this).data("id")
     // data: { name: "John", location: "Boston" }
     })
     .done(function( response ) {
