@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/unblock/{id}', [UsersController::class, 'unblock']);
 
     // Favorites
+    Route::get('/favorites/', [PicturesController::class, 'favorites'])->name('favorites');
     Route::post('/add/favorite/{id}', [FavoritesController::class, 'addToFavorites']);
     Route::post('/remove/favorite/{id}', [FavoritesController::class, 'removeFromFavorites']);
 

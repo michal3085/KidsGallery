@@ -29,7 +29,7 @@
                     <div class="row section-box">
                 @if ($pictures->visible == 0)
                     <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
-                        <i class="fas fa-unlock" style="font-size: 25px;"></i>
+                        <i class="fas fa-unlock" style="font-size: 25px;"></i><br>
                         @else
                             <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
                                 @endif

@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\BlockedUser;
 use App\Models\Comment;
+use App\Models\Favorite;
 use App\Models\Follower;
 use App\Models\like;
 use App\Models\Picture;
 use App\Models\PicturesReport;
 use App\Models\User;
+use Illuminate\Support\Arr;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -108,6 +110,49 @@ class PicturesController extends Controller
         $pictures = Picture::whereIn('id', $pics_set1)->where('accept', 1)->latest()->paginate(8);
 
         return view('pictures.yoursgallery', compact('pictures'));
+    }
+
+    /**
+     * Display favorites pictures
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function favorites()
+    {
+        $collection = [];
+        $collection2 = [];
+        $i = 0;
+        $my_favorites = Favorite::where('user_id', Auth::id())->pluck('picture_id');
+
+        $rigts= Follower::where('follow_id', Auth::id())
+            ->where('rights', 1)
+            ->pluck('user_id')->toArray();
+
+        $pre_pics = Picture::whereIn('id', $my_favorites)->where('accept', 1)->get();
+
+        foreach ($pre_pics as $value) {
+            if ($value->visible == 1) {
+                $collection[$i] = $value->id;
+            } elseif ($value->visible == 0) {
+                if (array_search($value->user_id, $rigts)) {
+                    $collection[$i] = $value->id;
+                }
+            }
+            $i++;
+        }
+        $my_hiddens = Picture::where('user_id', Auth::id())->where('visible', 0)->pluck('id');
+
+        $i = 0;
+        foreach ($my_hiddens as $value) {
+            if ( Favorite::where('picture_id', $my_hiddens[$i])->count() == 1) {
+                $collection2[$i] = $my_hiddens[$i];
+            }
+        }
+
+        $final_collection = Arr::collapse([$collection, $collection2]);
+        $pictures = Picture::whereIn('id', $final_collection)->latest()->paginate(8);
+
+        return view('pictures.index', compact('pictures'));
     }
 
 
