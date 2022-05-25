@@ -39,13 +39,13 @@
                                     <b>{{ $picture->user }}</b></a> | <b>{{ $picture->name }}</b>
                                 <br>
                                 <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
+                                | <i class="far fa-comment-alt"></i> {{ \App\Models\Comment::where('picture_id', $picture->id)->count() }}
+                                | <i class="far fa-eye"></i> {{ $picture->views }}<br>
                                     @if ($picture->likes()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
                                         <button type="submit" class="btn btn-outline-success px-3 like" style="float: left" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
                                     @else
                                         <button type="submit" class="btn btn-success px-3 like" style="float: left" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
                                     @endif
-                                | <i class="far fa-comment-alt"></i> {{ \App\Models\Comment::where('picture_id', $picture->id)->count() }}
-                                | <i class="far fa-eye"></i> {{ $picture->views }}
                                     @if ($picture->favorites()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
                                         <button type="submit" class="btn btn-outline-warning px-3 addFavorite" style="float: right" data-id="{{ $picture->id }}"><i class="far fa-star" aria-hidden="true"></i></button>
                                     @else
