@@ -54,16 +54,22 @@
                                             <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $picture->user])->pluck('avatar')->first() }}" alt="user" style="width: 25px; height: 25px;">
                                         <b>{{ $picture->user }}</b></a> | <b>{{ $picture->name }}</b>
                                     <br>
-                                  <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
-                                | <i class="far fa-comment-alt"></i> {{ \App\Models\Comment::where('picture_id', $picture->id)->count() }}
-                                | <i class="far fa-eye"></i> {{ $picture->views }}
+                                <i class="fas fa-calendar-week" style="color: green"></i>: {{ $picture->created_at }}
+                                | <i class="far fa-comment-alt" style="color: orange"></i> {{ \App\Models\Comment::where('picture_id', $picture->id)->count() }}
+                                | <i class="far fa-eye" style="color: #3737ec"></i> {{ $picture->views }}
+                                <br>
+                                @if ($picture->likes()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                                    <button type="submit" class="btn btn-outline-success px-3 like" style="float: left" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
+                                @else
+                                    <button type="submit" class="btn btn-success px-3 like" style="float: left" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
+                                @endif
+                                @if ($picture->favorites()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                                    <button type="submit" class="btn btn-outline-warning px-3 addFavorite" style="float: right" data-id="{{ $picture->id }}"><i class="far fa-star" aria-hidden="true"></i></button>
+                                @else
+                                    <button type="submit" class="btn btn-warning px-3 removeFavorite" style="float: right" data-id="{{ $picture->id }}"><i class="fas fa-star" aria-hidden="true"></i></button>
+                                @endif
                             </div>
                         </div>
-                        @if ($picture->likes()->where('picture_id', $picture->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
-                            <button type="submit" class="btn btn-outline-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
-                        @else
-                            <button type="submit" class="btn btn-success px-3 like" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
-                        @endif
                     @endif
                 @endif
             @endforeach
@@ -87,5 +93,38 @@
     });
     });
     });
+
+    $(function() {
+    $('.addFavorite').click( function () {
+    $.ajax({
+    method: "POST",
+    url: "/add/favorite/" + $(this).data("id")
+    // data: { name: "John", location: "Boston" }
+    })
+    .done(function( response ) {
+    window.location.reload();
+    })
+    .fail(function( response ) {
+    alert( "Juz polubione" );
+    });
+    });
+    });
+
+    $(function() {
+    $('.removeFavorite').click( function () {
+    $.ajax({
+    method: "POST",
+    url: "/remove/favorite/" + $(this).data("id")
+    // data: { name: "John", location: "Boston" }
+    })
+    .done(function( response ) {
+    window.location.reload();
+    })
+    .fail(function( response ) {
+    alert( "Juz polubione" );
+    });
+    });
+    });
+
 
 @endsection

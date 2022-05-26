@@ -43,12 +43,13 @@
                             <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
                             | <i class="far fa-comment-alt"></i> {{ \App\Models\Comment::where('picture_id', $picture->id)->count() }}
                             | <i class="far fa-eye"></i> {{ $picture->views }}
+                                <br>
+                            <form action="{{ route('like.new', ['id' => $picture->id]) }}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-success px-3" style="float: left"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
+                            </form>
                         </div>
                     </div>
-                    <form action="{{ route('like.new', ['id' => $picture->id]) }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
-                    </form>
                     </p>
                 @endif
             @endforeach

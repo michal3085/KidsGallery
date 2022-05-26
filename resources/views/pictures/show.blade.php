@@ -35,9 +35,17 @@
                                 @endif
                                     <img src="{{ asset('/storage') . '/' . $pictures->file_path }}" class="img-thumbnail">
                                 <br>
-                                <i class="fas fa-calendar-week"></i>: {{ $pictures->created_at }}
-                                | <i class="far fa-comment-alt"></i> {{ \App\Models\Comment::where('picture_id', $pictures->id)->count() }}
-                                | <i class="far fa-eye"></i> {{ $pictures->views }}
+                                <i class="fas fa-calendar-week" style="color: green"></i>: {{ $pictures->created_at }}
+                                | <i class="far fa-comment-alt" style="color: orange"></i> {{ \App\Models\Comment::where('picture_id', $pictures->id)->count() }}
+                                | <i class="far fa-eye" style="color: #3737ec"></i> {{ $pictures->views }}
+                                    <br>
+                                <i class="fas fa-star" style="color: #f3db00"></i> {{ \App\Models\Favorite::where('picture_id', $pictures->id)->count() }}
+                                    <br>
+                                @if ($pictures->favorites()->where('picture_id', $pictures->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                                    <button type="submit" class="btn btn-outline-warning px-3 addFavorite" style="float: right" data-id="{{ $pictures->id }}"><i class="far fa-star" aria-hidden="true"></i></button>
+                                @else
+                                    <button type="submit" class="btn btn-warning px-3 removeFavorite" style="float: right" data-id="{{ $pictures->id }}"><i class="fas fa-star" aria-hidden="true"></i></button>
+                                @endif
                             </div>
                     </div>
                     @if ($pictures->likes()->where('picture_id', $pictures->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
@@ -278,6 +286,38 @@
     $(function () {
     $('[data-toggle="tooltip"]').tooltip()
     })
+
+    $(function() {
+    $('.addFavorite').click( function () {
+    $.ajax({
+    method: "POST",
+    url: "/add/favorite/" + $(this).data("id")
+    // data: { name: "John", location: "Boston" }
+    })
+    .done(function( response ) {
+    window.location.reload();
+    })
+    .fail(function( response ) {
+    alert( "Juz polubione" );
+    });
+    });
+    });
+
+    $(function() {
+    $('.removeFavorite').click( function () {
+    $.ajax({
+    method: "POST",
+    url: "/remove/favorite/" + $(this).data("id")
+    // data: { name: "John", location: "Boston" }
+    })
+    .done(function( response ) {
+    window.location.reload();
+    })
+    .fail(function( response ) {
+    alert( "Juz polubione" );
+    });
+    });
+    });
 
 
 @endsection
