@@ -51,7 +51,11 @@
         </span>
         <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2 shadow p-2 mb-3 rounded" src="{{ asset('/storage') . '/' . $user->avatar }}" alt="" style="width: 160px; height: 160px;" /></span>
      </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+       @if ( auth()->user()->newMessages()->count() != 0 )
+                <i class="fas fa-bell" style="font-size: 17px;"></i>
+            @endif
+            <span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('messages.list') }}"><i class="far fa-comments" style="width: 25px; height: 25px;"></i> <strong>{{ auth()->user()->newMessages()->count() }}</strong></a></li>

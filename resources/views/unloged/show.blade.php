@@ -29,25 +29,27 @@
                                         <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
                                             <img src="{{ asset('/storage') . '/' . $pictures->file_path }}" class="img-thumbnail">
                                     <br>
-                                <i class="fas fa-calendar-week"></i>: {{ $pictures->created_at }}
-                            | <i class="far fa-eye"></i> {{ $pictures->views }}
-                        </div>
-                    </div>
-                    <form action="{{ route('like.new', ['id' => $pictures->id]) }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes()->where('picture_id', $pictures->id)->count() }}</button>
-                    </form>
-                    <br>
-                        <a href="{{ route('pictures.report', ['id' => $pictures->id]) }}">
-                            <button type="submit" class="btn btn-outline-danger float-right">{{ __('Report') }}</button>
-                        </a>
+                                    <i class="fas fa-calendar-week" style="color: green"></i>: {{ $pictures->created_at }}
+                                    | <i class="far fa-comment-alt" style="color: orange"></i> {{ \App\Models\Comment::where('picture_id', $pictures->id)->count() }}
+                                    | <i class="far fa-eye" style="color: #3737ec"></i> {{ $pictures->views }}
+                                            <br>
+                                            <i class="fas fa-star" style="color: #f3db00"></i> {{ \App\Models\Favorite::where('picture_id', $pictures->id)->count() }}
+                                                <form action="{{ route('like.new', ['id' => $pictures->id]) }}" method="post">
+                                                    @csrf
+                                                <button type="submit" class="btn btn-success px-3" style="float: left"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes()->where('picture_id', $pictures->id)->count() }}</button>
+                                            </form>
+                                    <a href="{{ route('pictures.report', ['id' => $pictures->id]) }}">
+                                        <button type="submit" class="btn btn-outline-danger float-right">{{ __('Report') }}</button>
+                                    </a>
+                                </div>
+                         </div>
                     </p>
                 <br>
             <hr>
-            {{ $pictures->comment }}
-            <br>
-            <hr>
-          @if ($pictures->allow_comments == 1)
+                {{ $pictures->comment }}
+                    <br>
+                <hr>
+             @if ($pictures->allow_comments == 1)
             @foreach($comments as $comment)
                 <div class="d-flex flex-row comment-row">
                     <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" style="width: 50px; height: 50px;"></span></div>

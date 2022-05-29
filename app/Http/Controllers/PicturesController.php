@@ -131,10 +131,10 @@ class PicturesController extends Controller
         $pre_pics = Picture::whereIn('id', $my_favorites)->where('accept', 1)->get();
 
         foreach ($pre_pics as $value) {
-            if ($value->visible == 1) {
+            if ( $value->visible == 1 ) {
                 $collection[$i] = $value->id;
             } elseif ($value->visible == 0) {
-                if (array_search($value->user_id, $rigts)) {
+                if ( array_search($value->user_id, $rigts) ) {
                     $collection[$i] = $value->id;
                 }
             }
@@ -144,7 +144,7 @@ class PicturesController extends Controller
 
         $i = 0;
         foreach ($my_hiddens as $value) {
-            if ( Favorite::where('picture_id', $my_hiddens[$i])->count() == 1) {
+            if ( Favorite::where('picture_id', $my_hiddens[$i])->count() == 1 ) {
                 $collection2[$i] = $my_hiddens[$i];
             }
         }

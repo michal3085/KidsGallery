@@ -41,6 +41,11 @@
                                     <br>
                                 <i class="fas fa-star" style="color: #f3db00"></i> {{ \App\Models\Favorite::where('picture_id', $pictures->id)->count() }}
                                     <br>
+                                    @if ($pictures->likes()->where('picture_id', $pictures->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
+                                        <button type="submit" class="btn btn-outline-success px-3 like" data-id="{{ $pictures->id }}" style="float: left"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes()->where('picture_id', $pictures->id)->count() }}</button>
+                                    @else
+                                        <button type="submit" class="btn btn-success px-3 like" data-id="{{ $pictures->id }}" style="float: left"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes()->where('picture_id', $pictures->id)->count() }}</button>
+                                    @endif
                                 @if ($pictures->favorites()->where('picture_id', $pictures->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
                                     <button type="submit" class="btn btn-outline-warning px-3 addFavorite" style="float: right" data-id="{{ $pictures->id }}"><i class="far fa-star" aria-hidden="true"></i></button>
                                 @else
@@ -48,25 +53,15 @@
                                 @endif
                             </div>
                     </div>
-                    @if ($pictures->likes()->where('picture_id', $pictures->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
-                        <button type="submit" class="btn btn-outline-success px-3 like" data-id="{{ $pictures->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes()->where('picture_id', $pictures->id)->count() }}</button>
-                    @else
-                        <button type="submit" class="btn btn-success px-3 like" data-id="{{ $pictures->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes()->where('picture_id', $pictures->id)->count() }}</button>
-                    @endif
                             <br>
-                        <br>
-
                     @if (Auth::check())
                         @if (Auth::user()->name == $pictures->user)
                                 <button type="submit" class="btn btn-outline-danger float-right delete" data-id="{{ $pictures->id }}" aria-hidden="true">
                                     {{ __('Delete') }}</button>
-
-
                             <a href="{{ route('pictures.edit', ['picture' => $pictures->id]) }}">
                                 <button type="submit" class="btn btn-outline-success float-left">{{ __('Edit') }}</button>
                             </a>
                         @else
-
                         <a href="{{ route('pictures.report', ['id' => $pictures->id]) }}">
                             <button type="submit" class="btn btn-outline-danger float-right">{{ __('Report') }}</button>
                         </a>

@@ -23,9 +23,9 @@
                                 <img class="img-fluid img-responsive rounded-circle mr-1" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $picture->user])->pluck('avatar')->first() }}" alt="user" style="width: 30px; height: 30px;">
                                 <b>{{ $picture->user }}</b> | {{ $picture->name }}
                                 <br>
-                                <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
-                                | <i class="far fa-comment-alt"></i> {{ \App\Models\Comment::where('picture_id', $picture->id)->count() }}
-                                | <i class="far fa-eye"></i> {{ $picture->views }}
+                                <i class="fas fa-calendar-week" style="color: green"></i>: {{ $picture->created_at }}
+                                | <i class="far fa-comment-alt" style="color: orange"></i> {{ \App\Models\Comment::where('picture_id', $picture->id)->count() }}
+                                | <i class="far fa-eye" style="color: #3737ec"></i> {{ $picture->views }}
                                     <br>
                                 <form action="{{ route('like.new', ['id' => $picture->id]) }}" method="post">
                                     @csrf
