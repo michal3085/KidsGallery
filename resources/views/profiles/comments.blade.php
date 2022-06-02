@@ -47,6 +47,18 @@
                                              @endif
                                 <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
                             </div>
+                            @if (\App\Models\CommentsLike::where('comment_id', $comment->id)->where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('like', 1)->count() == 1)
+                                <i class="fas fa-thumbs-up get_comment_like" data-id="{{ $comment->id }}" style="color: green"></i>
+                            @else
+                                <i class="far fa-thumbs-up get_comment_like" data-id="{{ $comment->id }}" style="color: green"></i>
+                            @endif
+                            {{ \App\Models\CommentsLike::where('comment_id', $comment->id)->where('like', 1)->count() }} |
+                            @if (\App\Models\CommentsLike::where('comment_id', $comment->id)->where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('dislike', 1)->count() == 1)
+                                <i class="fas fa-thumbs-down get_comment_unlike" data-id="{{ $comment->id }}" style="color: red"></i>
+                            @else
+                                <i class="far fa-thumbs-down get_comment_unlike" data-id="{{ $comment->id }}" style="color: red"></i>
+                            @endif
+                            {{ \App\Models\CommentsLike::where('comment_id', $comment->id)->where('dislike', 1)->count() }}
                         </div>
                         <button type="button" class="btn btn-outline-success">
                             <a href="{{ route('pictures.show', ['picture' => $comment->picture_id]) }}">
