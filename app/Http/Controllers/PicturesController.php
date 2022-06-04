@@ -124,12 +124,15 @@ class PicturesController extends Controller
         $i = 0;
         $my_favorites = Favorite::where('user_id', Auth::id())->pluck('picture_id');
 
+        // I check who's giving me hidden pictures
         $rigts= Follower::where('follow_id', Auth::id())
             ->where('rights', 1)
             ->pluck('user_id')->toArray();
 
         $pre_pics = Picture::whereIn('id', $my_favorites)->where('accept', 1)->get();
 
+        // I check which of my favorite pictures are public,
+        // those that are not I check if I have permissions - if yes I add them to the collection
         foreach ($pre_pics as $value) {
             if ( $value->visible == 1 ) {
                 $collection[$i] = $value->id;
@@ -140,16 +143,21 @@ class PicturesController extends Controller
             }
             $i++;
         }
+        // I collect the id of my hidden pictures
         $my_hiddens = Picture::where('user_id', Auth::id())->where('visible', 0)->pluck('id');
 
-        $i = 0;
-        foreach ($my_hiddens as $value) {
+        $hidden_count = count($my_hiddens);
+
+        // I check which hidden pictures are added to my favorites,
+        // and if the hidden picture is in favorites it adds to the collection2.
+        for ($i=0; $i<=$hidden_count-1; $i++) {
             if ( Favorite::where('picture_id', $my_hiddens[$i])->count() == 1 ) {
                 $collection2[$i] = $my_hiddens[$i];
             }
         }
 
-        $final_collection = Arr::collapse([$collection, $collection2]);
+        // merge both arrays into one and download the correct pictures.
+        $final_collection = array_merge($collection, $collection2);
         $pictures = Picture::whereIn('id', $final_collection)->latest()->paginate(8);
 
         return view('pictures.index', compact('pictures'));
@@ -459,6 +467,7 @@ class PicturesController extends Controller
             Picture::destroy($id);
             like::where('picture_id', $id)->delete();
             Comment::where('picture_id', $id)->delete();
+            Favorite::where('picture_id', $id)->delete();
             return response()->json([
                'status' => 'success'
             ]);
