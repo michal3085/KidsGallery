@@ -240,4 +240,28 @@ class ModeratorsController extends Controller
             ])->setStatusCode(200);
         }
     }
+
+    public function allUsers()
+    {
+        $users = User::latest()->paginate(20);
+        return view('moderator.users', compact('users'));
+    }
+
+    public function blockUser($id)
+    {
+        $user = User::find($id);
+        $user->active = 0;
+        $user->save();
+
+        return redirect()->back();
+    }
+
+    public function unblockUser($id)
+    {
+        $user = User::find($id);
+        $user->active = 1;
+        $user->save();
+
+        return redirect()->back();
+    }
 }

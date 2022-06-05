@@ -102,6 +102,9 @@ Route::middleware(['check.role:moderator'])->group(function () {
     Route::delete('/moderator/delete/comment/report/{id}', [ModeratorsController::class, 'deleteCommentReport']);
     Route::get('/moderator/reported/messages/', [ModeratorsController::class, 'reportedMessages'])->name('reported.messages');
     Route::delete('/moderator/reported/message/accept/{id}', [ModeratorsController::class, 'messageAccept']);
+    Route::get('/moderator/users', [ModeratorsController::class, 'allUsers'])->name('moderator.users');
+    Route::post('/moderator/user/block/{id}', [ModeratorsController::class, 'blockUser']);
+    Route::post('/moderator/user/unblock/{id}', [ModeratorsController::class, 'unblockUser']);
 
     Route::get('/let/the/adventure/begin', function () {
         Artisan::call('storage:link');

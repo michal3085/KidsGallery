@@ -151,7 +151,7 @@ class PicturesController extends Controller
         // I check which hidden pictures are added to my favorites,
         // and if the hidden picture is in favorites it adds to the collection2.
         for ($i=0; $i<=$hidden_count-1; $i++) {
-            if ( Favorite::where('picture_id', $my_hiddens[$i])->count() == 1 ) {
+            if ( Favorite::where('picture_id', $my_hiddens[$i])->where('user_id', Auth::id())->count() == 1 ) {
                 $collection2[$i] = $my_hiddens[$i];
             }
         }
