@@ -1,6 +1,22 @@
 @extends('moderator.app')
 
 @section('content')
+    <div class="container-fluid p-0">
+        <br>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a @if ($mode == 1) class="nav-link active" @else class="nav-link" @endif href="{{ route('moderator.users') }}"><i class="far fa-user"></i> {{ __('All') }}</a>
+            </li>
+            <li class="nav-item">
+                <a  @if ($mode == 2) class="nav-link active" @else class="nav-link" @endif href="{{ route('moderator.activeUsers') }}"><i class="fas fa-user-check"></i> {{ __('Active') }}</a>
+            </li>
+            <li class="nav-item">
+                <a  @if ($mode == 3) class="nav-link active" @else class="nav-link" @endif href="{{ route('moderator.blockedUsers') }}"><i class="fas fa-user-slash"></i> {{ __('Blocked') }}</a>
+            </li>
+            <li class="nav-item">
+                <a  @if ($mode == 4) class="nav-link active" @else class="nav-link" @endif href="{{ route('moderator.list') }}"><i class="fas fa-users-cog"></i> {{ __('Moderators') }}</a>
+            </li>
+        </ul>
         <section class="resume-section" id="about">
             <div class="resume-section-content">
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4"></div>
@@ -14,12 +30,19 @@
                                 <p class="m-b-5 m-t-10"></p>
                             </div>
                         </div>
+                            @if ($user->active == 1)
+                                <a href="" class="block" data-id="{{ $user->id }}"><i class="fas fa-user-check " style="height: 40px; width: 40px; color: #39c823" ></i></a>
+                                    @else
+                                <a href="" class="unblock" data-id="{{ $user->id }}"><i class="fas fa-user-slash " style="height: 40px; width: 40px; color: #c82333" ></i></a>
+                            @endif
                                 @if ($user->active == 1)
-                                    <a href="" class="block" data-id="{{ $user->id }}"><i class="fas fa-user-check " style="height: 40px; width: 40px; color: #39c823" ></i></a>
-                                @else
-                                    <a href="" class="unblock" data-id="{{ $user->id }}"><i class="fas fa-user-slash " style="height: 40px; width: 40px; color: #c82333" ></i></a>
+                                    @if (\App\Models\Role::where('user_id', $user->id)->where('role', 'moderator')->count() == 1)
+                                        <a href="" class="be_normal" data-id="{{ $user->id }}"><i class="fas fa-user-cog" style="height: 40px; width: 40px; color: #1d9308; margin-left: 25px !important;"></i></a>
+                                            @else
+                                        <a href="" class="be_moderator" data-id="{{ $user->id }}"><i class="fas fa-user-cog" style="height: 40px; width: 40px; color: rgba(148,145,145,0.57); margin-left: 25px !important;"></i></a>
+                                    @endif
                                 @endif
-                    </div>
+                        </div>
                     <hr>
                 @endforeach
                 <div class="pagination justify-content-center">
@@ -62,4 +85,71 @@
             });
             });
             });
+
+            $(function() {
+            $('.be_moderator').click( function () {
+            $.ajax({
+            method: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "/moderator/new/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
+            $(function() {
+            $('.be_normal').click( function () {
+            $.ajax({
+            method: "DELETE",
+            contentType: "application/json; charset=utf-8",
+            url: "/moderator/delete/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
+            });
+            });
+
+{{--            $( function()  {--}}
+{{--            $('.be_moderator').click( function () {--}}
+{{--            Swal.fire({--}}
+{{--            title: '{{ __('You definitely want to delete this comment?') }}',--}}
+{{--            icon: 'question',--}}
+{{--            showCancelButton: true,--}}
+{{--            confirmButtonText: '{{ __('Yes, delete that comment') }}',--}}
+{{--            cancelButtonText: '{{ __('No, do not delete') }}'--}}
+{{--            }).then((result) => {--}}
+{{--            if (result.value) {--}}
+{{--            $.ajax({--}}
+{{--            method: "POST",--}}
+{{--            url: "/moderator/new/moderator/" + $(this).data("id")--}}
+{{--            })--}}
+{{--            .done(function( response ) {--}}
+{{--            Swal.fire({--}}
+{{--            title: '{{ __('Comment has been removed') }}',--}}
+{{--            icon: 'success',--}}
+{{--            showCancelButtonText: true,--}}
+{{--            confirmButtonText: 'OK'--}}
+{{--            }).then((result) => {--}}
+{{--            window.location.reload();--}}
+{{--            })--}}
+
+{{--            })--}}
+{{--            .fail(function( response ) {--}}
+{{--            Swal.fire('Ups', '{{ __('Something went wrong') }}', 'error');--}}
+{{--            });--}}
+{{--            }--}}
+{{--            })--}}
+{{--            });--}}
+{{--            });--}}
 @endsection

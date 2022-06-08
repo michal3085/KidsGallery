@@ -10,6 +10,7 @@ use App\Http\Controllers\ModeratorsController;
 use App\Http\Controllers\PicturesController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\UsersController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -103,8 +104,13 @@ Route::middleware(['check.role:moderator'])->group(function () {
     Route::get('/moderator/reported/messages/', [ModeratorsController::class, 'reportedMessages'])->name('reported.messages');
     Route::delete('/moderator/reported/message/accept/{id}', [ModeratorsController::class, 'messageAccept']);
     Route::get('/moderator/users', [ModeratorsController::class, 'allUsers'])->name('moderator.users');
+    Route::get('/moderator/users/blocked', [ModeratorsController::class, 'blockedUsers'])->name('moderator.blockedUsers');
+    Route::get('/moderator/users/active', [ModeratorsController::class, 'activeUsers'])->name('moderator.activeUsers');
+    Route::get('/moderator/moderators', [ModeratorsController::class, 'moderatorList'])->name('moderator.list');
     Route::post('/moderator/user/block/{id}', [ModeratorsController::class, 'blockUser']);
     Route::post('/moderator/user/unblock/{id}', [ModeratorsController::class, 'unblockUser']);
+    Route::post('/moderator/new/{id}', [ModeratorsController::class, 'makeHimAModerator']);
+    Route::delete('/moderator/delete/{id}', [ModeratorsController::class, 'deleteModerator']);
 
     Route::get('/let/the/adventure/begin', function () {
         Artisan::call('storage:link');

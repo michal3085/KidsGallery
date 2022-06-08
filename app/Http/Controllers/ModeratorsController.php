@@ -8,6 +8,7 @@ use App\Models\ModeratorAction;
 use App\Models\Picture;
 use App\Models\PicturesReport;
 use App\Models\ReportedMessage;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use function GuzzleHttp\Promise\all;
@@ -244,7 +245,35 @@ class ModeratorsController extends Controller
     public function allUsers()
     {
         $users = User::latest()->paginate(20);
-        return view('moderator.users', compact('users'));
+        $mode = 1;
+
+        return view('moderator.users', compact('users', 'mode'));
+    }
+
+    public function blockedUsers()
+    {
+        $users = User::where('active', 0)->latest()->paginate(20);
+        $mode = 3;
+
+        return view('moderator.users', compact('users', 'mode'));
+    }
+
+    public function activeUsers()
+    {
+        $users = User::where('active', 1)->latest()->paginate(20);
+        $mode = 2;
+
+        return view('moderator.users', compact('users', 'mode'));
+    }
+
+    public function moderatorList()
+    {
+        $moderators = Role::where('role', 'moderator')->pluck('user_id');
+
+        $users = User::whereIn('id', $moderators)->where('active', 1)->latest()->paginate(20);
+        $mode = 4;
+
+        return view('moderator.users', compact('users', 'mode'));
     }
 
     public function blockUser($id)
@@ -263,5 +292,38 @@ class ModeratorsController extends Controller
         $user->save();
 
         return redirect()->back();
+    }
+
+    public function makeHimAModerator($id)
+    {
+        $moderator = new Role();
+        $user = User::find($id);
+
+        $moderator->user_id = $user->id;
+        $moderator->role = 'moderator';
+        $moderator->till = NULL;
+
+        if ($moderator->save()) {
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ])->setStatusCode(200);
+        }
+    }
+
+    public function deleteModerator($id)
+    {
+        if (Role::where('user_id', $id)->delete()) {
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ])->setStatusCode(200);
+        }
     }
 }
