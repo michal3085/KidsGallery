@@ -35,7 +35,7 @@
                                     @else
                                 <a href="" class="unblock" data-id="{{ $user->id }}"><i class="fas fa-user-slash " style="height: 40px; width: 40px; color: #c82333" ></i></a>
                             @endif
-                                @if ($user->active == 1)
+                                @if ($user->active == 1 && \App\Models\Role::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('role', 'admin')->count() == 1)
                                     @if (\App\Models\Role::where('user_id', $user->id)->where('role', 'moderator')->count() == 1)
                                         <a href="" class="be_normal" data-id="{{ $user->id }}"><i class="fas fa-user-cog" style="height: 40px; width: 40px; color: #1d9308; margin-left: 25px !important;"></i></a>
                                             @else
