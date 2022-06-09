@@ -102,9 +102,9 @@
             .done(function( response ) {
             window.location.reload();
             })
-            .fail(function( response ) {
-            alert( "Error:0001" );
-            });
+            // .fail(function( response ) {
+            // alert( "Error:0001" );
+            // });
             });
             });
 
@@ -119,9 +119,9 @@
             .done(function( response ) {
             window.location.reload();
             })
-            .fail(function( response ) {
-            alert( "Error:0001" );
-            });
+            // .fail(function( response ) {
+            // alert( "Error:0001" );
+            // });
             });
             });
 
@@ -135,9 +135,9 @@
             .done(function( response ) {
             window.location.reload();
             })
-            .fail(function( response ) {
-            alert( "Error:0001" );
-            });
+            // .fail(function( response ) {
+            // alert( "Error:0001" );
+            // });
             });
             });
 
@@ -152,9 +152,9 @@
             .done(function( response ) {
             window.location.reload();
             })
-            .fail(function( response ) {
-            alert( "Error:0001" );
-            });
+            // .fail(function( response ) {
+            // alert( "Error:0001" );
+            // });
             });
             });
 

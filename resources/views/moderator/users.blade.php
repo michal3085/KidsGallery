@@ -41,18 +41,18 @@
                             {{--                        Control Buttons--}}
                             @if ($user->active == 1)
                                 @if (\App\Models\Role::where('user_id', $user->id)->where('role', 'moderator')->count() == 1 && $user->hasRole('moderator') && !$user->hasRole('admin'))
-                                    <i class="fas fa-user-astronaut" style="height: 40px; width: 40px; color: rgba(148,145,145,0.47)"></i>
+                                    <i class="fas fa-user-astronaut" style="height: 35px; width: 35px; color: rgba(148,145,145,0.47)"></i>
                                 @else
-                                        <a href="" class="block" data-id="{{ $user->id }}"><i class="fas fa-user-check " style="height: 40px; width: 40px; color: #39c823" ></i></a>
+                                        <a href="" class="block" data-id="{{ $user->id }}"><i class="fas fa-user-check " style="height: 35px; width: 35px; color: #39c823" ></i></a>
                             @endif
                                     @else
-                                <a href="" class="unblock" data-id="{{ $user->id }}"><i class="fas fa-user-slash " style="height: 40px; width: 40px; color: #c82333" ></i></a>
+                                <a href="" class="unblock" data-id="{{ $user->id }}"><i class="fas fa-user-slash " style="height: 35px; width: 35px; color: #c82333;" ></i></a>
                             @endif
                                 @if ($user->active == 1 && \App\Models\Role::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('role', 'admin')->count() == 1)
                                     @if (\App\Models\Role::where('user_id', $user->id)->where('role', 'moderator')->count() == 1)
-                                        <a href="" class="be_normal" data-id="{{ $user->id }}"><i class="fas fa-user-cog" style="height: 40px; width: 40px; color: #1d9308; margin-left: 25px !important;"></i></a>
+                                        <a href="" class="be_normal" data-id="{{ $user->id }}"><i class="fas fa-user-cog" style="height: 35px; width: 35px; color: #1d9308; margin-left: 25px !important;"></i></a>
                                             @else
-                                        <a href="" class="be_moderator" data-id="{{ $user->id }}"><i class="fas fa-user-cog" style="height: 40px; width: 40px; color: rgba(148,145,145,0.57); margin-left: 25px !important;"></i></a>
+                                        <a href="" class="be_moderator" data-id="{{ $user->id }}"><i class="fas fa-user-cog" style="height: 35px; width: 35px; color: rgba(148,145,145,0.57); margin-left: 25px !important;"></i></a>
                                     @endif
                                 @endif
                         </div>
@@ -76,9 +76,7 @@
             .done(function( response ) {
             window.location.reload();
             })
-            .fail(function( response ) {
-            alert( "Error:0001" );
-            });
+
             });
             });
 
@@ -93,9 +91,7 @@
             .done(function( response ) {
             window.location.reload();
             })
-            .fail(function( response ) {
-            alert( "Error:0001" );
-            });
+
             });
             });
 
@@ -110,9 +106,7 @@
             .done(function( response ) {
             window.location.reload();
             })
-            .fail(function( response ) {
-            alert( "Error:0001" );
-            });
+
             });
             });
 
@@ -127,9 +121,9 @@
             .done(function( response ) {
             window.location.reload();
             })
-            .fail(function( response ) {
-            alert( "Error:0001" );
-            });
+            // .fail(function( response ) {
+            // alert( "Error:0001" );
+            // });
             });
             });
 
