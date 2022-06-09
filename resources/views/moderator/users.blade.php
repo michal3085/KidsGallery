@@ -41,18 +41,18 @@
                             {{--                        Control Buttons--}}
                             @if ($user->active == 1)
                                 @if (\App\Models\Role::where('user_id', $user->id)->where('role', 'moderator')->count() == 1 && $user->hasRole('moderator') && !$user->hasRole('admin'))
-                                    <i class="fas fa-user-astronaut" style="height: 35px; width: 35px; color: rgba(148,145,145,0.47)"></i>
+                                    <button type="button" class="btn btn-link"><i class="fas fa-user-astronaut" style="height: 35px; width: 35px; color: rgba(148,145,145,0.47)"></i></button>
                                 @else
-                                        <a href="" class="block" data-id="{{ $user->id }}"><i class="fas fa-user-check " style="height: 35px; width: 35px; color: #39c823" ></i></a>
+                                    <button type="button" class="btn btn-link block" data-id="{{ $user->id }}"><i class="fas fa-user-check " style="height: 35px; width: 35px; color: #39c823" ></i></button>
                             @endif
                                     @else
-                                <a href="" class="unblock" data-id="{{ $user->id }}"><i class="fas fa-user-slash " style="height: 35px; width: 35px; color: #c82333;" ></i></a>
+                                <button type="button" class="btn btn-link unblock" data-id="{{ $user->id }}"><i class="fas fa-user-slash " style="height: 35px; width: 35px; color: #c82333;" ></i></button>
                             @endif
                                 @if ($user->active == 1 && \App\Models\Role::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('role', 'admin')->count() == 1)
                                     @if (\App\Models\Role::where('user_id', $user->id)->where('role', 'moderator')->count() == 1)
-                                        <a href="" class="be_normal" data-id="{{ $user->id }}"><i class="fas fa-user-cog" style="height: 35px; width: 35px; color: #1d9308; margin-left: 25px !important;"></i></a>
+                                        <button type="button" class="btn btn-link be_normal" data-id="{{ $user->id }}"><i class="fas fa-user-cog" style="height: 35px; width: 35px; color: #1d9308;"></i></button>
                                             @else
-                                        <a href="" class="be_moderator" data-id="{{ $user->id }}"><i class="fas fa-user-cog" style="height: 35px; width: 35px; color: rgba(148,145,145,0.57); margin-left: 25px !important;"></i></a>
+                                        <button type="button" class="btn btn-link be_moderator" data-id="{{ $user->id }}"><i class="fas fa-user-cog" style="height: 35px; width: 35px; color: rgba(148,145,145,0.57);"></i></button>
                                     @endif
                                 @endif
                         </div>
