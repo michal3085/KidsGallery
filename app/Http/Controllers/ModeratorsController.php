@@ -10,6 +10,7 @@ use App\Models\PicturesReport;
 use App\Models\ReportedMessage;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use function GuzzleHttp\Promise\all;
 
@@ -325,5 +326,20 @@ class ModeratorsController extends Controller
                 'status' => 'error',
             ])->setStatusCode(200);
         }
+    }
+
+    public function userSearch(Request $request, $mode)
+    {
+        if ($mode == 1) {
+            $users = User::where('name', 'LIKE', "%$request->search%")->latest()->paginate(20);
+        } elseif ($mode == 2) {
+            $users = User::where('name', 'LIKE', "%$request->search%")->where('active', 1)->latest()->paginate(20);
+        } elseif ($mode == 3) {
+            $users = User::where('name', 'LIKE', "%$request->search%")->where('active', 0)->latest()->paginate(20);
+        } elseif ($mode == 4) {
+            $moderators = Role::all()->pluck('user_id');
+            $users = User::where('name', 'LIKE', "%$request->search%")->whereIn('id', $moderators)->latest()->paginate(20);
+        }
+        return view('moderator.users', compact('users', 'mode'));
     }
 }

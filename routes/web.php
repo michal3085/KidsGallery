@@ -109,12 +109,16 @@ Route::middleware(['check.role:moderator'])->group(function () {
     Route::get('/moderator/moderators', [ModeratorsController::class, 'moderatorList'])->name('moderator.list');
     Route::post('/moderator/user/block/{id}', [ModeratorsController::class, 'blockUser']);
     Route::post('/moderator/user/unblock/{id}', [ModeratorsController::class, 'unblockUser']);
-    Route::post('/moderator/new/{id}', [ModeratorsController::class, 'makeHimAModerator']);
-    Route::delete('/moderator/delete/{id}', [ModeratorsController::class, 'deleteModerator']);
+    Route::get('/moderator/search/user/{mode}', [ModeratorsController::class, 'userSearch'])->name('moderator.search.user');
 
     Route::get('/let/the/adventure/begin', function () {
         Artisan::call('storage:link');
     });
+});
+
+Route::middleware(['check.role:admin'])->group(function () {
+    Route::post('/moderator/new/{id}', [ModeratorsController::class, 'makeHimAModerator']);
+    Route::delete('/moderator/delete/{id}', [ModeratorsController::class, 'deleteModerator']);
 });
 
 // Routes for Users

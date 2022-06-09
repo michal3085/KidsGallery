@@ -13,12 +13,19 @@
             <li class="nav-item">
                 <a  @if ($mode == 3) class="nav-link active" @else class="nav-link" @endif href="{{ route('moderator.blockedUsers') }}"><i class="fas fa-user-slash"></i> {{ __('Blocked') }}</a>
             </li>
+            @if (\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
             <li class="nav-item">
                 <a  @if ($mode == 4) class="nav-link active" @else class="nav-link" @endif href="{{ route('moderator.list') }}"><i class="fas fa-users-cog"></i> {{ __('Moderators') }}</a>
             </li>
+            @endif
         </ul>
         <section class="resume-section" id="about">
             <div class="resume-section-content">
+                <form action="{{ route('moderator.search.user', ['mode' => $mode]) }}" method="GET">
+                    <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                        <input type="text" class="form-control mr-3" name="search" id="search" placeholder="{{ __('Search users') }}..." required>
+                        <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button></div>
+                </form>
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4"></div>
                 @foreach($users as $user)
                     <div class="d-flex flex-row comment-row">
@@ -30,8 +37,13 @@
                                 <p class="m-b-5 m-t-10"></p>
                             </div>
                         </div>
+                            {{--                        Control Buttons--}}
                             @if ($user->active == 1)
-                                <a href="" class="block" data-id="{{ $user->id }}"><i class="fas fa-user-check " style="height: 40px; width: 40px; color: #39c823" ></i></a>
+                                @if (\App\Models\Role::where('user_id', $user->id)->where('role', 'moderator')->count() == 1 && $user->hasRole('moderator') && !$user->hasRole('admin'))
+                                    <i class="fas fa-user-astronaut" style="height: 40px; width: 40px; color: rgba(148,145,145,0.47)"></i>
+                                @else
+                                        <a href="" class="block" data-id="{{ $user->id }}"><i class="fas fa-user-check " style="height: 40px; width: 40px; color: #39c823" ></i></a>
+                            @endif
                                     @else
                                 <a href="" class="unblock" data-id="{{ $user->id }}"><i class="fas fa-user-slash " style="height: 40px; width: 40px; color: #c82333" ></i></a>
                             @endif
