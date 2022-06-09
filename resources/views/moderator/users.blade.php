@@ -25,6 +25,7 @@
                     <div class="d-flex flex-row add-comment-section mt-4 mb-4">
                         <input type="text" class="form-control mr-3" name="search" id="search" placeholder="{{ __('Search users') }}..." required>
                         <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button></div>
+                    <p>Users found: {{ $users->total() }}</p>
                 </form>
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4"></div>
                 @foreach($users as $user)
