@@ -66,6 +66,7 @@
                                 @endif
                             </div>
                         </div>
+                        <b style="text-align: center; font-size: 25px;">{{ __('Only for testers - page under construction!') }}</b>
                     </form>
                 </div>
             </div>

@@ -9,7 +9,6 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">{{ __('Register') }} <a class="float-right">{{ __("they're already") }}: {{ \App\Models\User::count() }} </a> </div>
-
                             <div class="card-body">
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
@@ -19,7 +18,6 @@
 
                                         <div class="col-md-6">
                                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
                                             @error('name')
                                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -92,6 +90,7 @@
                                                 {{ __('Register') }}
                                             </button>
                                         </div>
+                                        <b style="text-align: center; font-size: 25px;">{{ __('Registration only for testers - page under construction!') }}</b>
                                     </div>
                                 </form>
                             </div>

@@ -52,6 +52,7 @@
                                 @if ($other_user->following()->where('follow_id', $user->id)->where('rights', 1)->count() == 1)
                                         <i class="far fa-eye" style="color: #43a20b; font-size: 30px;" data-toggle="tooltip" data-title="Użytkownik zezwala Tobie na oglądanie swoich ukrytych prac."  data-delay='{"show":"500", "hide":"300"}'></i>
                                 @endif
+                                <br>{{ __('With us for:') }} {{ now()->diffInDays($other_user->created_at) }} {{ __('days') }}
                                     <hr>
                                 @if (\App\Models\User::where('name', $other_user->name)->where('active', 0)->count() != 0)
                                     <div class="alert alert-danger" role="alert">

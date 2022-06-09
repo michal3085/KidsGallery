@@ -13,11 +13,9 @@
             <li class="nav-item">
                 <a  @if ($mode == 3) class="nav-link active" @else class="nav-link" @endif href="{{ route('moderator.blockedUsers') }}"><i class="fas fa-user-slash"></i> {{ __('Blocked') }}</a>
             </li>
-            @if (\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
             <li class="nav-item">
                 <a  @if ($mode == 4) class="nav-link active" @else class="nav-link" @endif href="{{ route('moderator.list') }}"><i class="fas fa-users-cog"></i> {{ __('Moderators') }}</a>
             </li>
-            @endif
         </ul>
         <section class="resume-section" id="about">
             <div class="resume-section-content">
@@ -41,7 +39,7 @@
                             {{--                        Control Buttons--}}
                             @if ($user->active == 1)
                                 @if (\App\Models\Role::where('user_id', $user->id)->where('role', 'moderator')->count() == 1 && $user->hasRole('moderator') && !$user->hasRole('admin'))
-                                    <button type="button" class="btn btn-link"><i class="fas fa-user-astronaut" style="height: 35px; width: 35px; color: rgba(148,145,145,0.47)"></i></button>
+                                    <button type="button" class="btn btn-link" data-html="true" data-toggle="tooltip" data-title="This user is a moderator, you must have administrator privileges to perform actions on this account." data-delay='{"show":"500", "hide":"300"}'><i class="fas fa-user-astronaut" style="height: 35px; width: 35px; color: rgba(148,145,145,0.47)"></i></button>
                                 @else
                                     <button type="button" class="btn btn-link block" data-id="{{ $user->id }}"><i class="fas fa-user-check " style="height: 35px; width: 35px; color: #39c823" ></i></button>
                             @endif
@@ -126,6 +124,10 @@
             // });
             });
             });
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
 
 {{--            $( function()  {--}}
 {{--            $('.be_moderator').click( function () {--}}
