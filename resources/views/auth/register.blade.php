@@ -86,9 +86,9 @@
                                                 </div>
                                             </div>
 
-                                            <button type="submit" class="btn btn-primary float-right">
-                                                {{ __('Register') }}
-                                            </button>
+{{--                                            <button type="submit" class="btn btn-primary float-right">--}}
+{{--                                                {{ __('Register') }}--}}
+{{--                                            </button>--}}
                                         </div>
                                         <b style="text-align: center; font-size: 25px;">{{ __('Registration only for testers - page under construction!') }}</b>
                                     </div>
