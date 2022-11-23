@@ -31,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
             $view->with('available_locales', config('app.available_locales'));
         });
 
+        if($this->app->environment('production')) {
+            \URL::forceScheme('https');
+        }
+
         Paginator::useBootstrap();
     }
 }

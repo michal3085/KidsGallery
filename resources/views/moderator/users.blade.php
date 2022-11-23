@@ -46,9 +46,17 @@
                                     @else
                                 <button type="button" class="btn btn-link unblock" data-id="{{ $user->id }}"><i class="fas fa-user-slash " style="height: 35px; width: 35px; color: #c82333;" ></i></button>
                             @endif
+                            {{--          MODERATOR & ADMIN           --}}
                                 @if ($user->active == 1 && \App\Models\Role::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('role', 'admin')->count() == 1)
                                     @if (\App\Models\Role::where('user_id', $user->id)->where('role', 'moderator')->count() == 1)
                                         <button type="button" class="btn btn-link be_normal" data-id="{{ $user->id }}"><i class="fas fa-user-cog" style="height: 35px; width: 35px; color: #1d9308;"></i></button>
+{{--                ADMIN ICONS                        --}}
+                                            @if (\App\Models\Role::where('user_id', $user->id)->where('role', 'admin')->count() == 1)
+                                                <button type="button" class="btn btn-link be_normal"><i class="fas fa-crown" style="height: 35px; width: 35px; color: #f5db06;"></i></button>
+                                                    @else
+                                                        <button type="button" class="btn btn-link be_normal"><i class="fas fa-crown" style="height: 35px; width: 35px; color: rgba(148,145,145,0.57);"></i></button>
+                                                @endif
+{{--                END ADMIN ICONS                        --}}
                                             @else
                                         <button type="button" class="btn btn-link be_moderator" data-id="{{ $user->id }}"><i class="fas fa-user-cog" style="height: 35px; width: 35px; color: rgba(148,145,145,0.57);"></i></button>
                                     @endif
