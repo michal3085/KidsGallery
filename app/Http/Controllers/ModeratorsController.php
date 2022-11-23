@@ -342,4 +342,51 @@ class ModeratorsController extends Controller
         }
         return view('moderator.users', compact('users', 'mode'));
     }
+
+    public function adminNew($id)
+    {
+        if (Auth::user()->hasRole('admin')) {
+           $admin = new Role();
+           $user = User::find($id);
+
+            $admin->user_id = $user->id;
+            $admin->role = 'admin';
+            $admin->till = NULL;
+
+            if ($admin->save()) {
+                return response()->json([
+                    'status' => 'success'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                ])->setStatusCode(200);
+            }
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ])->setStatusCode(200);
+        }
+    }
+
+    public function deleteAdmin($id)
+    {
+        if (Auth::user()->hasRole('admin')) {
+           if ( Role::whereIn('role', ['admin'])->Where('user_id', $id)->delete() ) {
+                return response()->json([
+                    'status' => 'success'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                ])->setStatusCode(200);
+            }
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ])->setStatusCode(300);
+        }
+    }
+
+
 }

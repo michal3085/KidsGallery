@@ -52,9 +52,9 @@
                                         <button type="button" class="btn btn-link be_normal" data-id="{{ $user->id }}"><i class="fas fa-user-cog" style="height: 35px; width: 35px; color: #1d9308;"></i></button>
 {{--                ADMIN ICONS                        --}}
                                             @if (\App\Models\Role::where('user_id', $user->id)->where('role', 'admin')->count() == 1)
-                                                <button type="button" class="btn btn-link be_normal"><i class="fas fa-crown" style="height: 35px; width: 35px; color: #f5db06;"></i></button>
+                                                <button type="button" class="btn btn-link deleteAdmin" data-id="{{ $user->id }}"><i class="fas fa-crown" style="height: 35px; width: 35px; color: #f5db06;"></i></button>
                                                     @else
-                                                        <button type="button" class="btn btn-link be_normal"><i class="fas fa-crown" style="height: 35px; width: 35px; color: rgba(148,145,145,0.57);"></i></button>
+                                                        <button type="button" class="btn btn-link AddAdmin" data-id="{{ $user->id }}"><i class="fas fa-crown" style="height: 35px; width: 35px; color: rgba(148,145,145,0.57);"></i></button>
                                                 @endif
 {{--                END ADMIN ICONS                        --}}
                                             @else
@@ -72,6 +72,74 @@
 
         @endsection
         @section('javascript')
+            $( function()  {
+            $('.AddAdmin').click( function () {
+            Swal.fire({
+            title: '{{ __('You definitely want to give Admin rights to him?') }}',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '{{ __('Yes') }}',
+            cancelButtonText: '{{ __('No') }}'
+            }).then((result) => {
+            if (result.value) {
+            $.ajax({
+            method: "POST",
+            url: "/admin/add/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            Swal.fire({
+            title: '{{ __('We have a new ADMIN') }}',
+            icon: 'success',
+            showCancelButtonText: false,
+            confirmButtonText: 'OK'
+            }).then((result) => {
+            window.location.href = "/moderator/users/";
+            })
+
+            })
+            .fail(function( response ) {
+            Swal.fire('Ups', '{{ __('Something went wrong') }}', 'error');
+            });
+            }
+            })
+            });
+            });
+
+            $( function()  {
+            $('.deleteAdmin').click( function () {
+            Swal.fire({
+            title: '{{ __('You definitely want to delete admin right for this user?') }}',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '{{ __('Yes') }}',
+            cancelButtonText: '{{ __('No') }}'
+            }).then((result) => {
+            if (result.value) {
+            $.ajax({
+            method: "DELETE",
+            url: "/admin/delete/" + $(this).data("id")
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            Swal.fire({
+            title: '{{ __('Admin rights deleted') }}',
+            icon: 'success',
+            showCancelButtonText: false,
+            confirmButtonText: 'OK'
+            }).then((result) => {
+            window.location.href = "/moderator/users/";
+            })
+
+            })
+            .fail(function( response ) {
+            Swal.fire('Ups', '{{ __('Something went wrong') }}', 'error');
+            });
+            }
+            })
+            });
+            });
+
             $(function() {
             $('.block').click( function () {
             $.ajax({
@@ -137,36 +205,5 @@
                 $('[data-toggle="tooltip"]').tooltip()
             })
 
-{{--            $( function()  {--}}
-{{--            $('.be_moderator').click( function () {--}}
-{{--            Swal.fire({--}}
-{{--            title: '{{ __('You definitely want to delete this comment?') }}',--}}
-{{--            icon: 'question',--}}
-{{--            showCancelButton: true,--}}
-{{--            confirmButtonText: '{{ __('Yes, delete that comment') }}',--}}
-{{--            cancelButtonText: '{{ __('No, do not delete') }}'--}}
-{{--            }).then((result) => {--}}
-{{--            if (result.value) {--}}
-{{--            $.ajax({--}}
-{{--            method: "POST",--}}
-{{--            url: "/moderator/new/moderator/" + $(this).data("id")--}}
-{{--            })--}}
-{{--            .done(function( response ) {--}}
-{{--            Swal.fire({--}}
-{{--            title: '{{ __('Comment has been removed') }}',--}}
-{{--            icon: 'success',--}}
-{{--            showCancelButtonText: true,--}}
-{{--            confirmButtonText: 'OK'--}}
-{{--            }).then((result) => {--}}
-{{--            window.location.reload();--}}
-{{--            })--}}
-
-{{--            })--}}
-{{--            .fail(function( response ) {--}}
-{{--            Swal.fire('Ups', '{{ __('Something went wrong') }}', 'error');--}}
-{{--            });--}}
-{{--            }--}}
-{{--            })--}}
-{{--            });--}}
-{{--            });--}}
+    
 @endsection

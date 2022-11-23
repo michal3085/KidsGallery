@@ -119,6 +119,8 @@ Route::middleware(['check.role:moderator'])->group(function () {
 Route::middleware(['check.role:admin'])->group(function () {
     Route::post('/moderator/new/{id}', [ModeratorsController::class, 'makeHimAModerator']);
     Route::delete('/moderator/delete/{id}', [ModeratorsController::class, 'deleteModerator']);
+    Route::post('/admin/add/{id}', [ModeratorsController::class, 'adminNew']);
+    Route::delete('/admin/delete/{id}', [ModeratorsController::class, 'deleteAdmin']);
 });
 
 // Routes for Users
