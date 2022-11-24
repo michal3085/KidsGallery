@@ -205,5 +205,5 @@
                 $('[data-toggle="tooltip"]').tooltip()
             })
 
-    
+
 @endsection

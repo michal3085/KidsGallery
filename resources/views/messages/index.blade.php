@@ -5,7 +5,19 @@
         <br>
         <section class="resume-section" id="about">
             <div class="resume-section-content">
-                <h2>{{ __('Messages') }}</h2>
+                <h2>{{ __('Messages') }}
+                    @if ($unfollowing_msg == 1)
+                <button class="btn btn-outline-primary fromFollowing" style="float: right"><i class="fas fa-users" style="height: 30px; width: 30px;"></i>
+                     Odbieraj od wszystkich
+                    </button>
+                        </h2>
+                    @elseif($unfollowing_msg == 0)
+                    <button class="btn btn-outline-primary fromFollowing" style="float: right"><i class="fas fa-users-slash" style="height: 30px; width: 30px;"></i>
+                        Odbieraj tylko od obserwowanych
+                    </button>
+                    </h2>
+                @endif
+                            <br>
                 <form action="{{ route('search.messages') }}" method="GET">
                     <div class="d-flex flex-row add-comment-section mt-4 mb-4">
                         <input type="text" class="form-control mr-3" name="search" id="search" placeholder="{{ __('Search users') }}/{{ __('conversations') }}..." required>
@@ -90,6 +102,22 @@
             });
             }
             })
+            });
+            });
+
+            $(function() {
+            $('.fromFollowing').click( function () {
+            $.ajax({
+            method: "POST",
+            url: "/messages/recive/switcher"
+            // data: { name: "John", location: "Boston" }
+            })
+            .done(function( response ) {
+            window.location.reload();
+            })
+            .fail(function( response ) {
+            alert( "Error:0001" );
+            });
             });
             });
 @endsection

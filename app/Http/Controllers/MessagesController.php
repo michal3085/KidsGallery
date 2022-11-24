@@ -8,6 +8,7 @@ use App\Models\Message;
 use App\Models\ReportedMessage;
 use App\Models\UnwantedConversation;
 use App\Models\User;
+use App\Models\UsersData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,10 +29,13 @@ class MessagesController extends Controller
             }
         }
 
+        $unfollow_msg = UsersData::where('user_id', Auth::id())->pluck('unfollowing_msg')->first();
+
        return view('messages.index')
            ->with([
                'conversations' => auth()->user()->conversations()->whereNotIn('id', $not_show),
-               'unread' => $unread
+               'unread' => $unread,
+               'unfollowing_msg' => $unfollow_msg
            ]);
     }
 
@@ -82,6 +86,8 @@ class MessagesController extends Controller
                 $not_allow = 2;
             } elseif (BlockedUser::where('user_id', Auth::id())->where('blocks_user', User::where('name', $to)->value('id'))->count() != 0) {
                 $not_allow = 3;
+            } elseif ( Auth::user()->shouldIWriteToHim($to) == 0) {
+                $not_allow = 4;
             } else {
                 $not_allow = 0;
             }
@@ -216,6 +222,27 @@ class MessagesController extends Controller
                 'status' => 'success'
             ]);
         } else {
+            return response()->json([
+                'status' => 'error',
+            ])->setStatusCode(400);
+        }
+    }
+
+    public function reciveSwitcher()
+    {
+        $msgs = UsersData::where('user_id', Auth::id())->first();
+
+        if ($msgs->unfollowing_msg == 1){
+            $msgs->unfollowing_msg = 0;
+        } else {
+            $msgs->unfollowing_msg = 1;
+        }
+
+        if ( $msgs->save() ) {
+            return response()->json([
+                'status' => 'success'
+            ]);
+        }  else {
             return response()->json([
                 'status' => 'error',
             ])->setStatusCode(400);

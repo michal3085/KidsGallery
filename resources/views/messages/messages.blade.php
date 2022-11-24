@@ -44,6 +44,12 @@
                                     <p>{{ __('unblock this user to send messages to him') }}</p>
                                 </div>
                                 <hr>
+                            @elseif($not_allow == 4)
+                                <div class="alert alert-secondary" role="alert">
+                                    <h4 class="alert-heading">{{ __('Użytkownik nie zezwala na wiadomości od nieznajomych') }}</h4>
+                                    <p>{{ __('Musisz być na liście obserwowanych przez użytkownika aby móc do niego pisać.') }}</p>
+                                </div>
+                                <hr>
                             @endif
                             @foreach($messages as $message)
                                 @if ($message->from_id == \Illuminate\Support\Facades\Auth::id())

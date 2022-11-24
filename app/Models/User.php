@@ -140,4 +140,19 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Role');
     }
+
+    public function shouldIWriteToHim($name)
+    {
+        $user = User::where('name', $name)->first();
+
+        if ( UsersData::where('user_id', $user->id)->pluck('unfollowing_msg')->first() == 0 ) {
+           if ( Follower::where('user_id', $user->id)->where('follow_id', Auth::id())->count() == 1 ) {
+               return 1;
+           } else {
+               return 0;
+           }
+        } else {
+            return 1;
+        }
+    }
 }
