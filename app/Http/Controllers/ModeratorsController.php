@@ -164,7 +164,12 @@ class ModeratorsController extends Controller
     public function showReportedPictures($id = NULL)
     {
         if (!isset($id)) {
-            $reports = PicturesReport::with('pictures')->latest()->paginate(20);
+            if ( auth()->user()->hasRole('admin') ) {
+                $reports = PicturesReport::with('pictures')->latest()->paginate(20);
+            } elseif ( auth()->user()->hasRole('moderator') ) {
+                $without_pics = Picture::where('user_id', Auth::id())->pluck('id');
+                $reports = PicturesReport::with('pictures')->whereNotIn('picture_id', $without_pics)->latest()->paginate(20);
+            }
         } else {
             $reports = PicturesReport::where('picture_id', $id)->latest()->paginate(20);
         }
@@ -227,8 +232,12 @@ class ModeratorsController extends Controller
 
     public function reportedMessages()
     {
-        $messages = ReportedMessage::latest()->paginate(20);
-
+        if ( auth()->user()->hasRole('admin') ) {
+            $messages = ReportedMessage::latest()->paginate(20);
+        } elseif ( auth()->user()->hasRole('moderator') ) {
+            $without = ReportedMessage::where('from_id', Auth::id())->pluck('id');
+            $messages = ReportedMessage::latest()->whereNotIn('id', $without)->paginate(20);
+        }
         return view('moderator.reportedMessages', compact('messages'));
     }
 
