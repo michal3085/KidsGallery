@@ -119,10 +119,16 @@ class MessagesController extends Controller
         $new_message->conversation_id = $request->conversation;
 
         if ($conversation->user_a == Auth::user()->name) {
+            if (Auth::user()->shouldIWriteToHim($conversation->user_b) == 0) {
+                return redirect()->back();
+            }
             $new_message->from = $conversation->user_a;
             $new_message->to = $conversation->user_b;
             $new_message->to_id = User::where('name', $conversation->user_b)->value('id');
         } else {
+            if (Auth::user()->shouldIWriteToHim($conversation->user_a) == 0) {
+                return redirect()->back();
+            }
             $new_message->from = $conversation->user_b;
             $new_message->to = $conversation->user_a;
             $new_message->to_id = User::where('name', $conversation->user_a)->value('id');

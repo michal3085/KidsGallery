@@ -46,8 +46,8 @@
                                 <hr>
                             @elseif($not_allow == 4)
                                 <div class="alert alert-secondary" role="alert">
-                                    <h4 class="alert-heading">{{ __('Użytkownik nie zezwala na wiadomości od nieznajomych') }}</h4>
-                                    <p>{{ __('Musisz być na liście obserwowanych przez użytkownika aby móc do niego pisać.') }}</p>
+                                    <h4 class="alert-heading">{{ __('User does not allow messages from strangers') }}</h4>
+                                    <p>{{ __("You must be on a user's following list to be able to write to them.") }}</p>
                                 </div>
                                 <hr>
                             @endif
