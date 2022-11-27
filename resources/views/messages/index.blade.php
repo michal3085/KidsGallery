@@ -7,14 +7,10 @@
             <div class="resume-section-content">
                 <h2>{{ __('Messages') }}
                     @if ($unfollowing_msg == 1)
-                <button class="btn btn-outline-primary fromFollowing" style="float: right"><i class="fas fa-users" style="height: 30px; width: 30px;"></i>
-                     Odbieraj od wszystkich
-                    </button>
+                <button class="btn btn-outline-primary shadow fromFollowing" style="float: right; border-radius: 50px;"><i class="fas fa-users" style="height: 30px; width: 30px;"></i></button>
                         </h2>
                     @elseif($unfollowing_msg == 0)
-                    <button class="btn btn-outline-primary fromFollowing" style="float: right"><i class="fas fa-users-slash" style="height: 30px; width: 30px;"></i>
-                        Odbieraj tylko od obserwowanych
-                    </button>
+                    <button class="btn btn-outline-primary shadow fromFollowing" style="float: right; border-radius: 50px;"><i class="fas fa-user-lock" style="height: 30px; width: 30px;"></i></button>
                     </h2>
                 @endif
                             <br>

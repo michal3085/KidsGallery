@@ -168,7 +168,10 @@ class ModeratorsController extends Controller
                 $reports = PicturesReport::with('pictures')->latest()->paginate(20);
             } elseif ( auth()->user()->hasRole('moderator') ) {
                 $without_pics = Picture::where('user_id', Auth::id())->pluck('id');
-                $reports = PicturesReport::with('pictures')->whereNotIn('picture_id', $without_pics)->latest()->paginate(20);
+                $reports = PicturesReport::with('pictures')
+                    ->whereNotIn('picture_id', $without_pics)
+                    ->latest()
+                    ->paginate(20);
             }
         } else {
             $reports = PicturesReport::where('picture_id', $id)->latest()->paginate(20);
