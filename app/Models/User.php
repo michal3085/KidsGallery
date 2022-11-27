@@ -141,7 +141,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Role');
     }
 
-    public function shouldIWriteToHim($name)
+    public function shouldIWriteToHim($name):int
     {
         $user = User::where('name', $name)->first();
 
