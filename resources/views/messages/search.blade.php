@@ -15,12 +15,12 @@
                     <div class="d-flex flex-row comment-row">
                         <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $user->name])->pluck('avatar')->first() }}" alt="user" style="height: 50px; width: 50px;"></span></div>
                         <div class="comment-text w-100">
-                            <a href="{{ route('messages.show', ['to' => $user->name]) }}"><h5>{{ $user->name }}</h5></a>
+                            <a href="{{ route('messages.show', ['to' => $user->name]) }}"><b>{{ $user->name }}</b></a>
                             <div class="comment-footer"> <span class="date">
                                 <p class="m-b-5 m-t-10"></p>
+                                    </div>
+                                 </div>
                             </div>
-                        </div>
-                        </div>
                         <hr>
                         @endif
                 @endforeach

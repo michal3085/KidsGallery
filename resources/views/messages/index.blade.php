@@ -7,10 +7,10 @@
             <div class="resume-section-content">
                 <h2>{{ __('Messages') }}
                     @if ($unfollowing_msg == 1)
-                <button class="btn btn-outline-primary shadow fromFollowing" style="float: right; border-radius: 50px;"><i class="fas fa-users" style="height: 30px; width: 30px;"></i></button>
+                <button class="btn btn-outline-primary d-flex justify-content-center align-items-center shadow fromFollowing" style="float: right; border-radius: 50px;"><i class="fas fa-inbox" style="height: 30px; width: 30px;"></i>&nbsp;  |  &nbsp;<i class="fas fa-lock" style="height: 25px; width: 25px; color: #e11f1f"></i></button>
                         </h2>
                     @elseif($unfollowing_msg == 0)
-                    <button class="btn btn-outline-primary shadow fromFollowing" style="float: right; border-radius: 50px;"><i class="fas fa-user-lock" style="height: 30px; width: 30px;"></i></button>
+                    <button class="btn btn-outline-primary d-flex justify-content-center align-items-center shadow fromFollowing" style="float: right; border-radius: 50px;"><i class="fas fa-inbox" style="height: 30px; width: 30px;"></i>&nbsp;  |  &nbsp;<i class="fas fa-unlock-alt" style="height: 25px; width: 25px; color: #2fa360"></i></button>
                     </h2>
                 @endif
                             <br>
