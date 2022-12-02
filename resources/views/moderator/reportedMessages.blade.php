@@ -25,8 +25,8 @@
                                         <div class="text">
                                             {{ $message->message }}
                                         </div>
-                                        <div class="name">{{ $message->created_at }} <i class="far fa-trash-alt delete" style="height: 20px; width: 20px; color: red" data-id="{{ $message->message_id }}"></i>
-                                            | <i class="far fa-check-circle accept" style="height: 20px; width: 20px; color:green" data-id="{{ $message->id }}"></i>
+                                        <div class="name">{{ $message->created_at }} <button type="button" class="btn btn-link delete" data-id="{{ $message->id }}"><i class="far fa-trash-alt " style="height: 20px; width: 20px; color: red" data-id="{{ $message->message_id }}"></i></button>
+                                            | <button type="button" class="btn btn-link accept" data-id="{{ $message->id }}"><i class="far fa-check-circle " style="height: 20px; width: 20px; color:green"></i></button>
                                         </div>
                                     </div>
                             @endforeach

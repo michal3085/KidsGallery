@@ -43,10 +43,10 @@
                                     @if ( $comment->user_name == \Illuminate\Support\Facades\Auth::user()->name)
                                         </span><span class="action-icons"><i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}"></i> </span>
                                         @else
-                                             </span><span class="action-icons"><i class="fas fa-exclamation comment_report" data-id="{{ $comment->id }}"></i></span>
-                                             @endif
-                                <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
-                            </div>
+                                             <span class="action-icons"><i class="fas fa-exclamation comment_report" data-id="{{ $comment->id }}"></i></span>
+                                                 @endif
+                                    <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
+                                 </div>
                             @if (\App\Models\CommentsLike::where('comment_id', $comment->id)->where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('like', 1)->count() == 1)
                                 <i class="fas fa-thumbs-up get_comment_like" data-id="{{ $comment->id }}" style="color: green"></i>
                             @else

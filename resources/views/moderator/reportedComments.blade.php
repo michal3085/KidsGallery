@@ -18,8 +18,8 @@
                                     <div class="comment-footer"> <span class="date">{{ $comment->created_at }}
                                         <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
                                     </div>
-                                    <i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}" style="height: 20px; width: 20px; color: red"></i>
-                                    | <i class="fas fa-clipboard-check report_delete" data-id="{{ $comment->id }}" style="height: 20px; width: 20px; color: green"></i>
+                                    <button type="button" class="btn btn-link comment_delete" data-id="{{ $comment->id }}"><i class="far fa-trash-alt " style="height: 20px; width: 20px; color: red"></i></button>
+                                    | <button type="button" class="btn btn-link report_delete" data-id="{{ $comment->id }}"><i class="fas fa-clipboard-check "  style="height: 20px; width: 20px; color: green"></i></button>
                                     | [ {{ __('number of reports') }}:   <b>{{ \App\Models\CommentsReport::where('comment_id', $comment->id)->count() }}</b> ]
                                 </div>
                                 <button type="button" class="btn btn-outline-success">
