@@ -67,7 +67,6 @@
                         </a>
                         @endif
                     @endif
-                    </p>
                 <br>
             <hr>
                 {{ $pictures->comment }}
@@ -92,7 +91,7 @@
                                     @if ( $comment->user_name == \Illuminate\Support\Facades\Auth::user()->name)
                                         </span><span class="action-icons"><i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}"></i> </span>
                                     @else
-                                        </span><span class="action-icons"><i class="fas fa-exclamation comment_report" data-id="{{ $comment->id }}"></i></span>
+                                       <span class="action-icons"><i class="fas fa-exclamation comment_report" data-id="{{ $comment->id }}"></i></span>
                                     @endif
                                 </div>
                                 <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>

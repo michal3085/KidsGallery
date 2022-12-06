@@ -82,7 +82,7 @@ class ModeratorsController extends Controller
             $pics = Picture::where('visible', 1)->pluck('id');
             $result_ids = $pics->merge($allow_pics);
 
-            $mod_comments = CommentsReport::where('user_id', Auth::id())->pluck('user_id');
+            $mod_comments = Comment::where('user_id', Auth::id())->pluck('user_id');
 
             $com = CommentsReport::whereIn('picture_id', $result_ids)->pluck('comment_id');
             $comments = Comment::whereIn('id', $com)->whereNotIn('user_id', $mod_comments)->latest()->paginate(5);
