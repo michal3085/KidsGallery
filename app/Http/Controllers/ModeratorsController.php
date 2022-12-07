@@ -38,7 +38,14 @@ class ModeratorsController extends Controller
     public function moderatorActions($id = NULL)
     {
         if ( !isset($id) ) {
-            $actions = ModeratorAction::where('moderator_id', Auth::id())->latest()->paginate(20);
+            $actions = ModeratorAction::where('moderator_id', Auth::id())
+                ->where('moderator_viewed', 1)
+                ->latest()->paginate(20);
+
+            $new_actions = ModeratorAction::where('moderator_id', Auth::id())
+                ->where('moderator_viewed', 0)
+                ->latest()
+                ->paginate(20);
         } else{
             $actions = ModeratorAction::where('moderator_id', $id)->latest();
         }
@@ -50,6 +57,7 @@ class ModeratorsController extends Controller
 
         return view('moderator.actions')->with([
             'admin' => $admin,
+            'new_actions' => $new_actions,
             'actions' => $actions
         ]);
     }
@@ -57,6 +65,8 @@ class ModeratorsController extends Controller
     public function showDetails($id)
     {
         $action = ModeratorAction::where('id', $id)->first();
+        $action->moderator_viewed = 1;
+        $action->save();
 
         if ( $action->type == 'picture') {
             $picture = Picture::where('id', $action->type_id)->first();
@@ -71,9 +81,15 @@ class ModeratorsController extends Controller
         }
     }
 
-    public function moderatorAnswer($id)
+    public function moderatorAnswer(Request $request, $id)
     {
-        // ...
+        $action = ModeratorAction::where('id', $id)->first();
+        $action->moderator_response = $request->answer;
+        $action->moderator_viewed = 1;
+        $action->user_viewed = 0;
+
+        $action->save();
+        return redirect()->back();
     }
 
     public function updateReason(Request $request, $id)

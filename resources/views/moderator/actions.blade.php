@@ -32,6 +32,25 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @foreach($new_actions as $action)
+                        <tr>
+                            <th scope="row">{{ $action->id }}</th>
+                            <td>{{ $action->action }}</td>
+                            <td>
+                                <span class="d-inline-block text-truncate" style="max-width: 250px;">
+                                    {{ $action->reason }}
+                                </span>
+                            </td>
+                            @if ($action->type == "picture")
+                                <td><a href="{{ route('moderator.details', ['id' => $action->id]) }}">Details</a></td>
+                            @endif
+                            @if ($action->moderator_viewed == 0 )
+                                <td><p style="color: green"><b>YES</b></p></td>
+                            @else
+                                <td>NO</td>
+                            @endif
+                        </tr>
+                    @endforeach
                     @foreach($actions as $action)
                         <tr>
                             <th scope="row">{{ $action->id }}</th>
@@ -44,8 +63,8 @@
                             @if ($action->type == "picture")
                                 <td><a href="{{ route('moderator.details', ['id' => $action->id]) }}">Details</a></td>
                             @endif
-                            @if ($action->moderator_viewed == 0 && $action->user_viewed == 1)
-                                <td><p style="color: green">YES</p></td>
+                            @if ($action->moderator_viewed == 0 )
+                                <td><p style="color: green"><b>YES</b></p></td>
                             @else
                                 <td>NO</td>
                             @endif

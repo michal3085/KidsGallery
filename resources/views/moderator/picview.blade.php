@@ -41,7 +41,7 @@
                 <form action="{{ route('moderator.answer', ['id' => $info->id]) }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <textarea class="form-control" id="user_answer" name="user_answer" rows="5">{{ $info->moderator_response }}</textarea>
+                        <textarea class="form-control" id="answer" name="answer" rows="5">{{ $info->moderator_response }}</textarea>
                     </div>
                     <input type="hidden" id="info" value="{{$info->id}}" name="info">
                     <button type="submit" class="btn btn-primary btn-lg btn-block">{{ __('Send answer') }}</button>
