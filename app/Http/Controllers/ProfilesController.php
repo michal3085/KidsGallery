@@ -88,7 +88,6 @@ class ProfilesController extends Controller
 
         if ($info->user_id == Auth::id()) {
             $info->user_viewed = 1;
-            $info->moderator_viewed = 0;
             $info->save();
             return view('profiles.banned_picture')->with(['picture' => $picture, 'info' => $info, 'other_user' => $user]);
         } else {
