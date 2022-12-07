@@ -16,6 +16,9 @@ use function GuzzleHttp\Promise\all;
 
 class ModeratorsController extends Controller
 {
+    /*
+     *  Shows gallery with moderator functions
+     */
     public function index()
     {
         if ( auth()->user()->hasRole('admin') ) {
@@ -30,6 +33,39 @@ class ModeratorsController extends Controller
             $pictures = Picture::whereIn('id', $ids)->latest()->paginate(20);
         }
         return view('moderator.index', compact('pictures'));
+    }
+
+    public function moderatorActions($id = NULL)
+    {
+        if ( !isset($id) ) {
+            $actions = ModeratorAction::where('moderator_id', Auth::id())->latest()->paginate(20);
+        } else{
+            $actions = ModeratorAction::where('moderator_id', $id)->latest();
+        }
+        if ( Auth::user()->hasRole('admin') ) {
+            $admin = 1;
+        } else {
+            $admin = 0;
+        }
+
+        return view('moderator.actions')->with([
+            'admin' => $admin,
+            'actions' => $actions
+        ]);
+    }
+
+    public function showDetails($id)
+    {
+        $action = ModeratorAction::where('id', $id)->first();
+
+        if ( $action->type == 'picture') {
+            $picture = Picture::where('id', $action->type_id)->first();
+
+            return view('moderator.picview')->with([
+                'picture' => $picture,
+                'info' => $action
+            ]);
+        }
     }
 
     public function blockPicture($id)

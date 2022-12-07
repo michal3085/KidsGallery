@@ -111,6 +111,8 @@ Route::middleware(['check.role:moderator'])->group(function () {
     Route::post('/moderator/user/block/{id}', [ModeratorsController::class, 'blockUser']);
     Route::post('/moderator/user/unblock/{id}', [ModeratorsController::class, 'unblockUser']);
     Route::get('/moderator/search/user/{mode}', [ModeratorsController::class, 'userSearch'])->name('moderator.search.user');
+    Route::get('/moderator/actions/{id?}', [ModeratorsController::class, 'moderatorActions'])->name('moderator.actions');
+    Route::get('/moderator/actions/show/{id}', [ModeratorsController::class, 'showDetails'])->name('moderator.details');
 
     Route::get('/let/the/adventure/begin', function () {
         Artisan::call('storage:link');

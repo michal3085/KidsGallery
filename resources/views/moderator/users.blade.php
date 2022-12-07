@@ -36,7 +36,7 @@
                                 <p class="m-b-5 m-t-10"></p>
                             </div>
                         </div>
-                            {{--                        Control Buttons--}}
+{{--                        Control Buttons--}}
                             @if ($user->active == 1)
                                 @if (\App\Models\Role::where('user_id', $user->id)->where('role', 'moderator')->count() == 1 && $user->hasRole('moderator') && !$user->hasRole('admin'))
                                     <button type="button" class="btn btn-link" data-html="true" data-toggle="tooltip" data-title="This user is a moderator, you must have administrator privileges to perform actions on this account." data-delay='{"show":"500", "hide":"300"}'><i class="fas fa-user-astronaut" style="height: 35px; width: 35px; color: rgba(148,145,145,0.47)"></i></button>
@@ -46,7 +46,7 @@
                                     @else
                                 <button type="button" class="btn btn-link unblock" data-id="{{ $user->id }}"><i class="fas fa-user-slash " style="height: 35px; width: 35px; color: #c82333;" ></i></button>
                             @endif
-                            {{--          MODERATOR & ADMIN           --}}
+{{--          MODERATOR & ADMIN           --}}
                                 @if ($user->active == 1 && \App\Models\Role::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('role', 'admin')->count() == 1)
                                     @if (\App\Models\Role::where('user_id', $user->id)->where('role', 'moderator')->count() == 1)
                                         <button type="button" class="btn btn-link be_normal" data-id="{{ $user->id }}"><i class="fas fa-user-cog" style="height: 35px; width: 35px; color: #1d9308;"></i></button>
