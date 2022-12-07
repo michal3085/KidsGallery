@@ -11,30 +11,37 @@
             <div class="resume-section-content">
 
                 <div class="row section-box">
+
                     <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
                         <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
                         <br>
+                        {{ $user_name }} |
                         <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
                         | <i class="far fa-eye"></i> {{ $picture->views }}
                     </div>
                 </div>
                 <h5><p class="text-center">{{__('Reason')}}:</p></h5>
-                <div class="row">
-                    {{ $info->reason }}
-                </div>
+                <form action="{{ route('update.reason', ['id' => $info->id]) }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <textarea class="form-control" id="reason" name="reason" rows="5">{{ $info->reason }}</textarea>
+                    </div>
+                    <input type="hidden" id="info" value="{{$info->id}}" name="info">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">{{ __('Save') }}</button>
+                </form>
                 <hr>
-                @if ($info->moderator_response != NULL)
-                    <h5><p class="text-center">{{__('Moderator Answer')}}:</p></h5>
+                @if ($info->user_response != NULL)
+                    <h5><p class="text-center">{{__('User Answer')}}:</p></h5>
                     <div class="row">
-                        {{ $info->moderator_response }}
+                        {{ $info->user_response }}
                     </div>
                     <hr>
                 @endif
                 <h5><p class="text-center">{{__('Yours Answer')}}:</p></h5>
-                <form action="{{ route('banned.answer') }}" method="POST">
+                <form action="{{ route('moderator.answer', ['id' => $info->id]) }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <textarea class="form-control" id="user_answer" name="user_answer" rows="5">{{ $info->user_response }}</textarea>
+                        <textarea class="form-control" id="user_answer" name="user_answer" rows="5">{{ $info->moderator_response }}</textarea>
                     </div>
                     <input type="hidden" id="info" value="{{$info->id}}" name="info">
                     <button type="submit" class="btn btn-primary btn-lg btn-block">{{ __('Send answer') }}</button>

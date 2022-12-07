@@ -60,12 +60,28 @@ class ModeratorsController extends Controller
 
         if ( $action->type == 'picture') {
             $picture = Picture::where('id', $action->type_id)->first();
+            $user = User::where('id', $action->user_id)->select('name', 'avatar')->first();
 
             return view('moderator.picview')->with([
                 'picture' => $picture,
-                'info' => $action
+                'info' => $action,
+                'user_name' => $user->name,
+                'avatar' => $user->avatar
             ]);
         }
+    }
+
+    public function moderatorAnswer($id)
+    {
+        // ...
+    }
+
+    public function updateReason(Request $request, $id)
+    {
+        $reason = ModeratorAction::where('id', $id)->first();
+        $reason->reason = $request->reason;
+        $reason->save();
+        return redirect()->back();
     }
 
     public function blockPicture($id)
