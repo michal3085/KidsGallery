@@ -68,7 +68,7 @@ class ModeratorsController extends Controller
         $action->moderator_viewed = 1;
         $action->save();
 
-        if ( $action->type == 'picture') {
+        if ( $action->type == 'picture' ) {
             $picture = Picture::where('id', $action->type_id)->first();
             $user = User::where('id', $action->user_id)->select('name', 'avatar')->first();
 
@@ -76,7 +76,8 @@ class ModeratorsController extends Controller
                 'picture' => $picture,
                 'info' => $action,
                 'user_name' => $user->name,
-                'avatar' => $user->avatar
+                'avatar' => $user->avatar,
+                'action' => $action
             ]);
         }
     }
@@ -256,7 +257,7 @@ class ModeratorsController extends Controller
         $mod_action->user_id = $report->picture_id;
         $mod_action->action = __('Moderator close report for this picture');
         $mod_action->reason = __('Other');
-        $mod_action->type = "picture";
+        $mod_action->type = "close_pic";
         $mod_action->type_id = $id;
         $mod_action->moderator_only = 1;
 
@@ -283,7 +284,7 @@ class ModeratorsController extends Controller
         $mod_action->user_id = $picture->user_id;
         $mod_action->action = __('Moderator close all reports for this picture');
         $mod_action->reason = __('Other');
-        $mod_action->type = "picture";
+        $mod_action->type = "close_pic";
         $mod_action->type_id = $id;
         $mod_action->moderator_only = 1;
 

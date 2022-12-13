@@ -60,8 +60,11 @@
                                     {{ $action->reason }}
                                 </span>
                             </td>
-                            @if ($action->type == "picture")
+                            @if ($action->type == "picture" )
                                 <td><a href="{{ route('moderator.details', ['id' => $action->id]) }}">Details</a></td>
+                            @endif
+                            @if ($action->type == "close_pic" )
+                                <td><a href="{{ route('pictures.show', ['picture' => $action->type_id]) }}">Show Picture</a></td>
                             @endif
                             @if ($action->moderator_viewed == 0 )
                                 <td><p style="color: green"><b>YES</b></p></td>
@@ -70,9 +73,11 @@
                             @endif
                         </tr>
                     @endforeach
-
                     </tbody>
                 </table>
+                <div class="pagination justify-content-center">
+                    {{ $actions->links() }}
+                </div>
             </div>
         </section>
 

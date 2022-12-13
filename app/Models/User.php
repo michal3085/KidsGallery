@@ -155,4 +155,9 @@ class User extends Authenticatable
             return 1;
         }
     }
+
+    public function countModeratorActions()
+    {
+        return ModeratorAction::where('moderator_id', Auth::id())->count();
+    }
 }
