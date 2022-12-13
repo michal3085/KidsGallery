@@ -13,31 +13,33 @@
                 <div class="row section-box">
 
                     <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
-                        ID:{{  $picture->id}}
                         <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
                         <br>
-                        {{ $user_name }} |
                         <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
                         | <i class="far fa-eye"></i> {{ $picture->views }}
                     </div>
-                    <b>Action type: {{ $action->action }}</b>
                 </div>
-                <h5><p class="text-center">{{__('Reason')}}:</p></h5>
-                <form action="{{ route('update.reason', ['id' => $info->id]) }}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <textarea class="form-control" id="reason" name="reason" rows="5">{{ $info->reason }}</textarea>
-                    </div>
-                    <input type="hidden" id="info" value="{{$info->id}}" name="info">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">{{ __('Save') }}</button>
-                </form>
-                <hr>
-                @if ($info->user_response != NULL)
-                    <h5><p class="text-center">{{__('User Answer')}}:</p></h5>
-                    <div class="row">
-                        {{ $info->user_response }}
-                    </div>
-                    <hr>
+                <br>
+                    User name: <a href="{{ route('profiles.about', ['name' => $user_name ]) }}"><b>{{ $user_name }}</a></b><br>
+                    Action type: <b>{{ $action->action }}</b><br>
+                    Picture ID: <b>{{  $picture->id}} </b><br>
+                    Picture add from IP: <b>{{ $picture->ip }}</b>
+                        <h5><p class="text-center">{{__('Reason')}}:</p></h5>
+                            <form action="{{ route('update.reason', ['id' => $info->id]) }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <textarea class="form-control" id="reason" name="reason" rows="5">{{ $info->reason }}</textarea>
+                                </div>
+                                <input type="hidden" id="info" value="{{$info->id}}" name="info">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">{{ __('Save') }}</button>
+                            </form>
+                        <hr>
+                    @if ($info->user_response != NULL)
+                        <h5><p class="text-center">{{__('User Answer')}}:</p></h5>
+                            <div class="row">
+                                {{ $info->user_response }}
+                            </div>
+                        <hr>
                 @endif
                 <h5><p class="text-center">{{__('Yours Answer')}}:</p></h5>
                 <form action="{{ route('moderator.answer', ['id' => $info->id]) }}" method="POST">
