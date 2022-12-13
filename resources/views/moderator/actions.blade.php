@@ -44,6 +44,9 @@
                             @if ($action->type == "picture")
                                 <td><a href="{{ route('moderator.details', ['id' => $action->id]) }}">Details</a></td>
                             @endif
+                            @if ($action->type == "close_pic" )
+                                <td><a href="{{ route('moderator.picture', ['id' => $action->type_id]) }}">Show Picture</a></td>
+                            @endif
                             @if ($action->moderator_viewed == 0 )
                                 <td><p style="color: green"><b>YES</b></p></td>
                             @else
@@ -64,7 +67,7 @@
                                 <td><a href="{{ route('moderator.details', ['id' => $action->id]) }}">Details</a></td>
                             @endif
                             @if ($action->type == "close_pic" )
-                                <td><a href="{{ route('pictures.show', ['picture' => $action->type_id]) }}">Show Picture</a></td>
+                                <td><a href="{{ route('moderator.picture', ['id' => $action->type_id]) }}">Show Picture</a></td>
                             @endif
                             @if ($action->moderator_viewed == 0 )
                                 <td><p style="color: green"><b>YES</b></p></td>

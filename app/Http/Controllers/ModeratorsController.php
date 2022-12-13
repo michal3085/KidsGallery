@@ -44,8 +44,7 @@ class ModeratorsController extends Controller
 
             $new_actions = ModeratorAction::where('moderator_id', Auth::id())
                 ->where('moderator_viewed', 0)
-                ->latest()
-                ->paginate(20);
+                ->latest()->paginate(20);
         } else{
             $actions = ModeratorAction::where('moderator_id', $id)->latest();
         }
@@ -260,6 +259,8 @@ class ModeratorsController extends Controller
         $mod_action->type = "close_pic";
         $mod_action->type_id = $id;
         $mod_action->moderator_only = 1;
+        $mod_action->user_viewed = 0;
+        $mod_action->moderator_viewed = 1;
 
         $mod_action->save();
 
@@ -287,6 +288,8 @@ class ModeratorsController extends Controller
         $mod_action->type = "close_pic";
         $mod_action->type_id = $id;
         $mod_action->moderator_only = 1;
+        $mod_action->user_viewed = 0;
+        $mod_action->moderator_viewed = 1;
 
         $mod_action->save();
 
