@@ -26,7 +26,7 @@ class AddUnfollowingMsgToUsersDataTable extends Migration
     public function down()
     {
         Schema::table('users_data', function (Blueprint $table) {
-            $table->dropColumn('deleted');
+            $table->dropColumn('unfollowing_msg');
         });
     }
 }

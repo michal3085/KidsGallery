@@ -9,16 +9,16 @@
         @endif
         <section class="resume-section" id="about">
             <div class="resume-section-content">
-
-                <div class="row section-box">
-
-                    <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
-                        <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
-                        <br>
-                        <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
-                        | <i class="far fa-eye"></i> {{ $picture->views }}
+                @if ( $type = 'picture')
+                    <div class="row section-box">
+                        <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
+                            <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
+                            <br>
+                            <i class="fas fa-calendar-week"></i>: {{ $picture->created_at }}
+                            | <i class="far fa-eye"></i> {{ $picture->views }}
+                        </div>
                     </div>
-                </div>
+                @endif
                 <br>
                     User name: <a href="{{ route('profiles.about', ['name' => $user_name ]) }}"><b>{{ $user_name }}</a></b><br>
                     Action type: <b>{{ $action->action }}</b><br>

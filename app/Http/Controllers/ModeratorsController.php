@@ -34,7 +34,7 @@ class ModeratorsController extends Controller
         }
         return view('moderator.index', compact('pictures'));
     }
-
+    
     public function moderatorActions($id = NULL)
     {
         if ( !isset($id) ) {
@@ -70,13 +70,15 @@ class ModeratorsController extends Controller
         if ( $action->type == 'picture' ) {
             $picture = Picture::where('id', $action->type_id)->first();
             $user = User::where('id', $action->user_id)->select('name', 'avatar')->first();
+            $type = 'picture';
 
             return view('moderator.picview')->with([
                 'picture' => $picture,
                 'info' => $action,
                 'user_name' => $user->name,
                 'avatar' => $user->avatar,
-                'action' => $action
+                'action' => $action,
+                'type' => $type
             ]);
         }
     }
