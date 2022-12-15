@@ -158,6 +158,11 @@ class User extends Authenticatable
 
     public function countModeratorActions()
     {
-        return ModeratorAction::where('moderator_id', Auth::id())->count();
+        return ModeratorAction::where('moderator_id', Auth::id())->where('open', 1)->count();
+    }
+
+    public function countClosedModeratorActions()
+    {
+        return ModeratorAction::where('moderator_id', Auth::id())->where('open', 0)->count();
     }
 }

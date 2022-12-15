@@ -5,10 +5,10 @@
         <br>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active"><i class="far fa-user"></i> {{ __('Open') }}</a>
+                <a class="nav-link @if( $open == 1 ) active @endif"href="{{ route('moderator.actions', ['open' => 1]) }}"><i class="far fa-user"></i> {{ __('Open') }}({{ auth()->user()->countModeratorActions() }})</a>
             </li>
             <li class="nav-item">
-                <a  class="nav-link "><i class="fas fa-user-check"></i> {{ __('Close') }}</a>
+                <a  class="nav-link @if( $open == 0 ) active @endif" href="{{ route('moderator.actions', ['open' => 0]) }}"><i class="fas fa-user-check"></i> {{ __('Close') }}({{ auth()->user()->countClosedModeratorActions() }})</a>
             </li>
             @if ( $admin == 1)
             <li class="nav-item">

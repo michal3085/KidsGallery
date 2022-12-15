@@ -19,6 +19,7 @@ class AddDataToModeratorActionsTable extends Migration
     {
         Schema::table('moderator_actions', function (Blueprint $table) {
             $table->longText('data')->after('action')->nullable();
+            $table->integer('open')->after('data');
         });
     }
 
@@ -31,6 +32,7 @@ class AddDataToModeratorActionsTable extends Migration
     {
         Schema::table('moderator_actions', function (Blueprint $table) {
             $table->dropColumn('data');
+            $table->dropColumn('open');
         });
     }
 }

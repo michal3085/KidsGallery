@@ -32,10 +32,9 @@
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('reported.messages') }}">{{ __('Reported Messages') }} ({{ \App\Models\ReportedMessage::all()->count() }})</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('show.blocked') }}">{{ __('Blocked Pictures') }} ({{ \App\Models\Picture::where('accept', 0)->count() }})</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('moderator.users') }}">{{ __('Users') }} ({{ \App\Models\User::all()->count() }})</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('moderator.actions') }}">{{ __('Moderator Actions') }} ({{ auth()->user()->countModeratorActions() }})</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('moderator.actions', ['open' => 1]) }}">{{ __('Moderator Actions') }} ({{ auth()->user()->countModeratorActions() }})</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('users.edit', ['user' => $user->id]) }}">{{ __('Settings') }}</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('pictures.index') }}">{{ __('Exit') }}</a></li>
-
         </ul>
     </div>
     <form method="post" action="{{ route('logout') }}">

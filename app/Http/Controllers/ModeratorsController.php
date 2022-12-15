@@ -35,16 +35,20 @@ class ModeratorsController extends Controller
         return view('moderator.index', compact('pictures'));
     }
     
-    public function moderatorActions($id = NULL)
+    public function moderatorActions($open, $id = NULL)
     {
         if ( !isset($id) ) {
             $actions = ModeratorAction::where('moderator_id', Auth::id())
                 ->where('moderator_viewed', 1)
-                ->latest()->paginate(20);
+                ->where('open', $open)
+                ->latest()
+                ->paginate(20);
 
             $new_actions = ModeratorAction::where('moderator_id', Auth::id())
                 ->where('moderator_viewed', 0)
-                ->latest()->paginate(20);
+                ->where('open', $open)
+                ->latest()
+                ->paginate(20);
         } else{
             $actions = ModeratorAction::where('moderator_id', $id)->latest();
         }
@@ -57,7 +61,8 @@ class ModeratorsController extends Controller
         return view('moderator.actions')->with([
             'admin' => $admin,
             'new_actions' => $new_actions,
-            'actions' => $actions
+            'actions' => $actions,
+            'open' => $open
         ]);
     }
 
@@ -111,6 +116,8 @@ class ModeratorsController extends Controller
         $mod_action->moderator_id = Auth::id();
         $mod_action->user_id = $picture->user_id;
         $mod_action->action = 'The picture has been blocked';
+        $mod_action->data = '';
+        $mod_action->open = 1;
         $mod_action->reason = 'Breaking the regulations';
         $mod_action->type = "picture";
         $mod_action->type_id = $id;
@@ -257,6 +264,8 @@ class ModeratorsController extends Controller
         $mod_action->moderator_id = Auth::id();
         $mod_action->user_id = $report->picture_id;
         $mod_action->action = __('Moderator close report for this picture');
+        $mod_action->data = '';
+        $mod_action->open = 1;
         $mod_action->reason = __('Other');
         $mod_action->type = "close_pic";
         $mod_action->type_id = $id;
@@ -286,6 +295,8 @@ class ModeratorsController extends Controller
         $mod_action->moderator_id = Auth::id();
         $mod_action->user_id = $picture->user_id;
         $mod_action->action = __('Moderator close all reports for this picture');
+        $mod_action->data = '';
+        $mod_action->open = 1;
         $mod_action->reason = __('Other');
         $mod_action->type = "close_pic";
         $mod_action->type_id = $id;
