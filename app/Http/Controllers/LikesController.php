@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\like;
 use App\Models\Picture;
+use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LikesController extends Controller
 {
+    /*
+     *  Pictures Like Add
+     */
     public function getLike($id)
     {
         $pictures = Picture::find($id);
@@ -33,6 +37,17 @@ class LikesController extends Controller
             return response('Juz polubione');
         }
 
+    }
+
+    public function getPictureUnlike($id)
+    {
+        $picture = Picture::find($id);
+        $like = like::where('user_id', Auth::id())->where('picture_id', $id)->delete();
+        $count = Picture::pictureLikesCount($id);
+        $picture->likes = $count - 1;
+        $picture->save();
+
+        return redirect()->back();
     }
 
 //    public function likesCount($id)

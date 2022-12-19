@@ -84,4 +84,9 @@ class Picture extends Model
         }
         return $result;
     }
+
+    public function pictureLikesCount($id)
+    {
+        return like::where('picture_id', $id)->count();
+    }
 }

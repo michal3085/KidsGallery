@@ -44,7 +44,7 @@
                                     @if ($pictures->likes()->where('picture_id', $pictures->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
                                         <button type="submit" class="btn btn-outline-success px-3 like" data-id="{{ $pictures->id }}" style="float: left"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes()->where('picture_id', $pictures->id)->count() }}</button>
                                     @else
-                                        <button type="submit" class="btn btn-success px-3 like" data-id="{{ $pictures->id }}" style="float: left"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes()->where('picture_id', $pictures->id)->count() }}</button>
+                                        <button type="submit" class="btn btn-success px-3 unlike" data-id="{{ $pictures->id }}" style="float: left"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $pictures->likes()->where('picture_id', $pictures->id)->count() }}</button>
                                     @endif
                                 @if ($pictures->favorites()->where('picture_id', $pictures->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == 0)
                                     <button type="submit" class="btn btn-outline-warning px-3 addFavorite" style="float: right" data-id="{{ $pictures->id }}"><i class="far fa-star" aria-hidden="true"></i></button>
@@ -141,6 +141,22 @@
             alert( "Error:0001" );
         });
      });
+    });
+
+    $(function() {
+    $('.unlike').click( function () {
+    $.ajax({
+    method: "POST",
+    url: "/unlike/" + $(this).data("id")
+    // data: { name: "John", location: "Boston" }
+    })
+    .done(function( response ) {
+    window.location.reload();
+    })
+    .fail(function( response ) {
+    alert( "Error:0001" );
+    });
+    });
     });
 
     $( function()  {

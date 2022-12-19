@@ -49,8 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/comments/like/{id}', [CommentsLikes::class, 'like']);
     Route::get('/comments/dislike/{id}', [CommentsLikes::class, 'dislike']);
 
-    // Likes
+    // Picture Likes
     Route::post('/newlike/{id}', [LikesController::class, 'getLike'])->name('like.new');
+    Route::post('/unlike/{id}', [LikesController::class, 'getPictureUnlike'])->name('picture.unlike');
 
     // pictures routes
     Route::get('/pictures/{id}/report', [PicturesController::class, 'report'])->name('pictures.report');
