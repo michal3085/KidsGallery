@@ -34,7 +34,7 @@ class ModeratorsController extends Controller
         }
         return view('moderator.index', compact('pictures'));
     }
-    
+
     public function moderatorActions($open, $id = NULL)
     {
         if ( !isset($id) ) {
@@ -260,15 +260,16 @@ class ModeratorsController extends Controller
     {
         $report = PicturesReport::where('id', $id)->first();
         $mod_action = new ModeratorAction();
+        $picture = Picture::where('id', $report->picture_id)->first();
 
         $mod_action->moderator_id = Auth::id();
-        $mod_action->user_id = $report->picture_id;
+        $mod_action->user_id = $picture->id;
         $mod_action->action = __('Moderator close report for this picture');
         $mod_action->data = '';
         $mod_action->open = 1;
         $mod_action->reason = __('Other');
         $mod_action->type = "close_pic";
-        $mod_action->type_id = $id;
+        $mod_action->type_id = $report->picture_id;
         $mod_action->moderator_only = 1;
         $mod_action->user_viewed = 0;
         $mod_action->moderator_viewed = 1;

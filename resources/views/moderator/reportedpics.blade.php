@@ -15,17 +15,17 @@
                                 <div class="comment-footer"> <span class="date">{{ $reported->created_at }}
                                     <p class="m-b-5 m-t-10">{{ $reported->reason }}</p>
                                 </div>
-                                <button type="button" class="btn btn-link"><i class="far fa-thumbs-down report_down" style="height: 20px; width: 20px; color: #f50101" data-id="{{ $reported->id }}"></i></button>
+                                <button type="button" class="btn btn-link report_down" data-id="{{$reported->id}}"><i class="far fa-thumbs-down " style="height: 20px; width: 20px; color: #f50101" data-id="{{ $reported->id }}"></i></button>
                                 @if (\App\Models\PicturesReport::where('picture_id', $reported->picture_id)->count() > 1)
-                                    <button type="button" class="btn btn-link"><i class="fas fa-check-double report_del_all" style="height: 20px; width: 20px; color: #2e8d19" data-id="{{$reported->picture_id}}"></i></button>
+                                    <button type="button" class="btn btn-link report_del_all" data-id="{{$reported->picture_id}}"><i class="fas fa-check-double " style="height: 20px; width: 20px; color: #2e8d19"></i></button>
                                     <a href="{{ route('reported.pictures', ['id' => $reported->picture_id]) }}">
-                                        <button type="button" class="btn btn-link"><i class="fas fa-list-ol report_show_all" style="height: 20px; width: 20px; color: #2e8d19" data-id="{{$reported->picture_id}}"></i></button>
+                                        <button type="button" class="btn btn-link report_show_all" data-id="{{$reported->picture_id}}"><i class="fas fa-list-ol " style="height: 20px; width: 20px; color: #2e8d19" data-id="{{$reported->picture_id}}"></i></button>
                                     </a>
                                 @endif
                                 @if (\App\Models\Picture::where('id', $reported->picture_id)->where('accept', 1)->count() == 1)
-                                    <button type="button" class="btn btn-link"><i class="fas fa-check-circle ban_picture" style="height: 20px; width: 20px; color: #2e8d19" data-id="{{ $reported->picture_id }}"></i></button>
+                                    <button type="button" class="btn btn-link ban_picture" data-id="{{$reported->picture_id}}"><i class="fas fa-check-circle " style="height: 20px; width: 20px; color: #2e8d19" data-id="{{ $reported->picture_id }}"></i></button>
                                 @else
-                                    <button type="button" class="btn btn-link"><i class="fas fa-times-circle unban_picture" style="height: 20px; width: 20px; color: #fd081c" data-id="{{ $reported->picture_id }}"></i></button>
+                                    <button type="button" class="btn btn-link unban_picture" data-id="{{$reported->picture_id}}"><i class="fas fa-times-circle " style="height: 20px; width: 20px; color: #fd081c" data-id="{{ $reported->picture_id }}"></i></button>
                                 @endif
                             </div>
                             <button type="button" class="btn btn-outline-success">
@@ -164,7 +164,7 @@
             }).then((result) => {
             if (result.value) {
             $.ajax({
-            method: "DELETE",
+            method: "POST",
             url: "/report/down/" + $(this).data("id")
             })
             .done(function( response ) {

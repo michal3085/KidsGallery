@@ -99,7 +99,7 @@ Route::middleware(['check.role:moderator'])->group(function () {
     Route::post('/moderator/picture/block/{id}', [ModeratorsController::class, 'blockPicture'])->name('block.picture');
     Route::post('/moderator/picture/unblock/{id}', [ModeratorsController::class, 'unblockPicture'])->name('unblock.picture');
     Route::get('/moderator/reported/pictures/{id?}', [ModeratorsController::class, 'showReportedPictures'])->name('reported.pictures');
-    Route::delete('/report/down/{id}', [ModeratorsController::class, 'reportDown']);
+    Route::post('/report/down/{id}', [ModeratorsController::class, 'reportDown']);
     Route::delete('/report/down/all/{id}', [ModeratorsController::class, 'reportDownAll']);
     Route::get('moderator/reported/comments/{id?}', [ModeratorsController::class, 'reportedComments'])->name('reported.comments');
     Route::delete('/moderator/delete/comment/report/{id}', [ModeratorsController::class, 'deleteCommentReport']);
