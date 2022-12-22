@@ -59,6 +59,11 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'blocked_users', 'blocks_user', 'user_id');
     }
 
+    public function moderatorActions()
+    {
+        $this->hasMany('App\Models\ModeratorAction');
+    }
+
     // who blocks that user
     public function blocks()
     {

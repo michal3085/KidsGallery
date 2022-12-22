@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ModeratorAction extends Model
 {
     use HasFactory;
+
+    public function user()
+    {
+        $this->belongsTo('App\Models\User');
+    }
 }

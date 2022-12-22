@@ -169,7 +169,21 @@ class ModeratorsController extends Controller
 
     public function deleteCommentReport($id)
     {
-        if ( CommentsReport::where('comment_id', $id)->delete() ){
+        $comment = Comment::where('id', $id)->first();
+        $action = new ModeratorAction();
+        $action->moderator_id = Auth::id();
+        $action->user_id = $comment->user_id;
+        $action->action = 'Moderator close report for that comment';
+        $action->data = $comment->comment;
+        $action->open = 1;
+        $action->type = 'delete_comment_report';
+        $action->type_id = $id;
+        $action->user_viewed = 0;
+        $action->moderator_viewed = 1;
+        $action->moderator_only = 0;
+        $action->save();
+
+        if ( CommentsReport::where('comment_id', $id)->delete() ) {
             return response()->json([
                 'status' => 'success'
             ]);
