@@ -41,6 +41,11 @@
                                 @endif
                                 {{ \App\Models\CommentsLike::where('comment_id', $comment->id)->where('dislike', 1)->count() }}
                             </div>
+                            <button type="button" class="btn btn-outline-success">
+                                <a href="{{ route('pictures.show', ['picture' => $comment->picture_id]) }}">
+                                    <img class="img-fluid img-responsive  mr-2" src="{{ asset('/storage') . '/' . \App\Models\Picture::where(['id' => $comment->picture_id])->pluck('file_path')->first() }}" alt="user" style="height: 50px; width: 50px;">
+                                </a>
+                            </button>
                         </div>
                         <hr>
                     @endif
@@ -54,7 +59,6 @@
                             @if ( $type == 'comment')
                                 Comment ID: <b>{{ $comment->id }} </b><br>
                                 Comment add from IP: <b>?</b><br>
-                                Comment from picture: <a href="{{ route('pictures.show', ['picture' => $comment->picture_id]) }}">{{\App\Models\Picture::where('id', $comment->picture_id)->pluck('name')}}</a>
                             @endif
                         <h5><p class="text-center">{{__('Reason')}}:</p></h5>
                             <form action="{{ route('update.reason', ['id' => $info->id]) }}" method="POST">
