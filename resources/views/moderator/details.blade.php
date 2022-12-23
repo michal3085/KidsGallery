@@ -26,11 +26,6 @@
                             <div class="comment-text w-100">
                                 <a href="{{ route('profiles.about', ['name' => $comment->user_name ]) }}"><b></b>{{ $comment->user_name }}</b></a>
                                 <div class="comment-footer"> <span class="date" style="font-size: 12px;">{{ $comment->created_at }}
-                                        @if ( $comment->user_name == \Illuminate\Support\Facades\Auth::user()->name)
-                                        </span><span class="action-icons"><i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}"></i> </span>
-                                    @else
-                                        <span class="action-icons"><i class="fas fa-exclamation comment_report" data-id="{{ $comment->id }}"></i></span>
-                                    @endif
                                 </div>
                                 <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
                                 @if (\App\Models\CommentsLike::where('comment_id', $comment->id)->where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('like', 1)->count() == 1)
@@ -57,8 +52,9 @@
                             Picture add from IP: <b>{{ $picture->ip }}</b>
                         @endif
                             @if ( $type == 'comment')
-                                Comment ID: <b>?, </b><br>
-                                Comment add from IP: <b>?</b>
+                                Comment ID: <b>{{ $comment->id }} </b><br>
+                                Comment add from IP: <b>?</b><br>
+                                Comment from picture: <a href="{{ route('pictures.show', ['picture' => $comment->picture_id]) }}">{{\App\Models\Picture::where('id', $comment->picture_id)->pluck('name')}}</a>
                             @endif
                         <h5><p class="text-center">{{__('Reason')}}:</p></h5>
                             <form action="{{ route('update.reason', ['id' => $info->id]) }}" method="POST">

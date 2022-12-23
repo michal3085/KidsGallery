@@ -77,7 +77,7 @@ class ModeratorsController extends Controller
             $user = User::where('id', $action->user_id)->select('name', 'avatar')->first();
             $type = 'picture';
 
-            return view('moderator.picview')->with([
+            return view('moderator.details')->with([
                 'picture' => $picture,
                 'info' => $action,
                 'user_name' => $user->name,
@@ -91,7 +91,7 @@ class ModeratorsController extends Controller
             $user = User::where('id', $action->user_id)->select('name', 'avatar')->first();
             $type = 'comment';
 
-            return view('moderator.picview')->with([
+            return view('moderator.details')->with([
                 'comment' => $comment,
                 'info' => $action,
                 'user_name' => $user->name,

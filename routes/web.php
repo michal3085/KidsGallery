@@ -113,7 +113,7 @@ Route::middleware(['check.role:moderator'])->group(function () {
     Route::post('/moderator/user/unblock/{id}', [ModeratorsController::class, 'unblockUser']);
     Route::get('/moderator/search/user/{mode}', [ModeratorsController::class, 'userSearch'])->name('moderator.search.user');
     Route::get('/moderator/actions/{open}/{id?}', [ModeratorsController::class, 'moderatorActions'])->name('moderator.actions');
-    Route::get('/moderator/picture/show/{id}', [ModeratorsController::class, 'showDetails'])->name('moderator.details');
+    Route::get('/moderator/details/show/{id}', [ModeratorsController::class, 'showDetails'])->name('moderator.details');
     Route::post('/moderator/actions/answer/{id}', [ModeratorsController::class, 'moderatorAnswer'])->name('moderator.answer');
     Route::post('/moderator/update/reason/{id}', [ModeratorsController::class, 'updateReason'])->name('update.reason');
 
