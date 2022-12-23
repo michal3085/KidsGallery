@@ -64,13 +64,13 @@
                                 </span>
                             </td>
                             @if ($action->type == "picture" )
-                                <td><a href="{{ route('moderator.details', ['id' => $action->id]) }}">Details</a></td>
+                                <td><a href="{{ route('moderator.details', ['id' => $action->id]) }}">Picture Details</a></td>
                             @endif
                             @if ($action->type == "close_pic" )
                                 <td><a href="{{ route('moderator.picture', ['id' => $action->type_id]) }}">Show Picture</a></td>
                             @endif
                             @if ($action->type == "comment" )
-                                <td><a href="{{ route('moderator.details', ['id' => $action->id]) }}">Details</a></td>
+                                <td><a href="{{ route('moderator.details', ['id' => $action->id]) }}">Comment Details</a></td>
                             @endif
                             @if ($action->moderator_viewed == 0 )
                                 <td><p style="color: green"><b>YES</b></p></td>
