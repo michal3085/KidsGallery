@@ -86,6 +86,20 @@ class ModeratorsController extends Controller
                 'type' => $type
             ]);
         }
+        if ($action->type == 'comment') {
+            $comment = Comment::where('id', $action->type_id)->first();
+            $user = User::where('id', $action->user_id)->select('name', 'avatar')->first();
+            $type = 'comment';
+
+            return view('moderator.picview')->with([
+                'comment' => $comment,
+                'info' => $action,
+                'user_name' => $user->name,
+                'avatar' => $user->avatar,
+                'action' => $action,
+                'type' => $type
+            ]);
+        }
     }
 
     public function moderatorAnswer(Request $request, $id)
@@ -176,11 +190,12 @@ class ModeratorsController extends Controller
         $action->action = 'Moderator close report for that comment';
         $action->data = $comment->comment;
         $action->open = 1;
-        $action->type = 'delete_comment_report';
+        $action->reason = 'No issues';
+        $action->type = 'comment';
         $action->type_id = $id;
         $action->user_viewed = 0;
         $action->moderator_viewed = 1;
-        $action->moderator_only = 0;
+        $action->moderator_only = 1;
         $action->save();
 
         if ( CommentsReport::where('comment_id', $id)->delete() ) {

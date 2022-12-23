@@ -9,7 +9,7 @@
         @endif
         <section class="resume-section" id="about">
             <div class="resume-section-content">
-                @if ( $type = 'picture')
+                @if ( $type == 'picture')
                     <div class="row section-box">
                         <div class="col-sm-xl text-center description-text shadow p-3 mb-5 rounded">
                             <img src="{{ asset('/storage') . '/' . $picture->file_path }}" class="img-thumbnail">
@@ -19,11 +19,47 @@
                         </div>
                     </div>
                 @endif
+                    @if ( $type == 'comment')
+                        <h3>Comment:</h3>
+                        <div class="d-flex flex-row comment-row">
+                            <div class="p-2"><span class="round"><img class="img-fluid img-responsive rounded-circle mr-2 shadow rounded" src="{{ asset('/storage') . '/' . \App\Models\User::where(['name' => $comment->user_name])->pluck('avatar')->first() }}" alt="user" style="width: 50px; height: 50px;"></span></div>
+                            <div class="comment-text w-100">
+                                <a href="{{ route('profiles.about', ['name' => $comment->user_name ]) }}"><b></b>{{ $comment->user_name }}</b></a>
+                                <div class="comment-footer"> <span class="date" style="font-size: 12px;">{{ $comment->created_at }}
+                                        @if ( $comment->user_name == \Illuminate\Support\Facades\Auth::user()->name)
+                                        </span><span class="action-icons"><i class="far fa-trash-alt comment_delete" data-id="{{ $comment->id }}"></i> </span>
+                                    @else
+                                        <span class="action-icons"><i class="fas fa-exclamation comment_report" data-id="{{ $comment->id }}"></i></span>
+                                    @endif
+                                </div>
+                                <p class="m-b-5 m-t-10">{{ $comment->comment }}</p>
+                                @if (\App\Models\CommentsLike::where('comment_id', $comment->id)->where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('like', 1)->count() == 1)
+                                    <i class="fas fa-thumbs-up get_comment_like" data-id="{{ $comment->id }}" style="color: green"></i>
+                                @else
+                                    <i class="far fa-thumbs-up get_comment_like" data-id="{{ $comment->id }}" style="color: green"></i>
+                                @endif
+                                {{ \App\Models\CommentsLike::where('comment_id', $comment->id)->where('like', 1)->count() }} |
+                                @if (\App\Models\CommentsLike::where('comment_id', $comment->id)->where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('dislike', 1)->count() == 1)
+                                    <i class="fas fa-thumbs-down get_comment_unlike" data-id="{{ $comment->id }}" style="color: red"></i>
+                                @else
+                                    <i class="far fa-thumbs-down get_comment_unlike" data-id="{{ $comment->id }}" style="color: red"></i>
+                                @endif
+                                {{ \App\Models\CommentsLike::where('comment_id', $comment->id)->where('dislike', 1)->count() }}
+                            </div>
+                        </div>
+                        <hr>
+                    @endif
                 <br>
                     User name: <a href="{{ route('profiles.about', ['name' => $user_name ]) }}"><b>{{ $user_name }}</a></b><br>
                     Action type: <b>{{ $action->action }}</b><br>
-                    Picture ID: <b>{{  $picture->id}} </b><br>
-                    Picture add from IP: <b>{{ $picture->ip }}</b>
+                        @if ( $type == 'picture')
+                            Picture ID: <b>{{  $picture->id}} </b><br>
+                            Picture add from IP: <b>{{ $picture->ip }}</b>
+                        @endif
+                            @if ( $type == 'comment')
+                                Comment ID: <b>?, </b><br>
+                                Comment add from IP: <b>?</b>
+                            @endif
                         <h5><p class="text-center">{{__('Reason')}}:</p></h5>
                             <form action="{{ route('update.reason', ['id' => $info->id]) }}" method="POST">
                                 @csrf
@@ -55,70 +91,4 @@
 
         @endsection
         @section('javascript')
-
-            $(function() {
-            $('.follow').click( function () {
-            $.ajax({
-            method: "POST",
-            url: "/followers/add/" + $(this).data("id")
-            // data: { name: "John", location: "Boston" }
-            })
-            .done(function( response ) {
-            window.location.reload();
-            })
-            .fail(function( response ) {
-            alert( "Error:0001" );
-            });
-            });
-            });
-
-            $(function() {
-            $('.delete').click( function () {
-            $.ajax({
-            method: "DELETE",
-            contentType: "application/json; charset=utf-8",
-            url: "/followers/delete/" + $(this).data("id")
-            // data: { name: "John", location: "Boston" }
-            })
-            .done(function( response ) {
-            window.location.reload();
-            })
-            .fail(function( response ) {
-            alert( "Error:0001" );
-            });
-            });
-            });
-
-            $(function() {
-            $('.rightson').click( function () {
-            $.ajax({
-            method: "POST",
-            url: "/followers/add/rights/" + $(this).data("id")
-            // data: { name: "John", location: "Boston" }
-            })
-            .done(function( response ) {
-            window.location.reload();
-            })
-            .fail(function( response ) {
-            alert( "Error:0001" );
-            });
-            });
-            });
-
-            $(function() {
-            $('.rightsdel').click( function () {
-            $.ajax({
-            method: "DELETE",
-            contentType: "application/json; charset=utf-8",
-            url: "/followers/delete/rights/" + $(this).data("id")
-            // data: { name: "John", location: "Boston" }
-            })
-            .done(function( response ) {
-            window.location.reload();
-            })
-            .fail(function( response ) {
-            alert( "Error:0001" );
-            });
-            });
-            });
 @endsection
