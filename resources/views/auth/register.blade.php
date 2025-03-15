@@ -79,7 +79,7 @@
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" name="terms" id="terms" {{ old('terms') ? 'checked' : '' }} >
                                                         <label class="form-check-label" for="remember">
-                                                            <a href="">
+                                                            <a href="{{ route('terms') }}">
                                                                 {{ __('Terms accept') }}
                                                             </a>
                                                         </label>

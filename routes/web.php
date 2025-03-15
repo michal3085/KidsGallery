@@ -42,7 +42,7 @@ Route::resource('pictures', PicturesController::class);
 
 Route::get('/terms', function () {
     return view('auth.terms');
-});
+})->name('terms');
 
 
 Route::middleware('auth')->group(function () {
