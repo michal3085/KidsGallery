@@ -1,62 +1,62 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-12">
-            <h1 class="text-center mb-4">Regulamin korzystania ze strony Juniors Gallery</h1>
+            <h1 class="text-center mb-4">Terms of Use for Juniors Gallery</h1>
 
-            <h3>1. Postanowienia ogólne</h3>
+            <h3>1. General Provisions</h3>
             <ol>
-                <li>Regulamin określa zasady korzystania ze strony internetowej Juniors Gallery, umożliwiającej dzieciom udostępnianie swoich rysunków.</li>
-                <li>Korzystanie ze strony oznacza akceptację niniejszego regulaminu.</li>
-                <li>Strona przeznaczona jest dla dzieci, jednak ich rodzice lub opiekunowie prawni ponoszą odpowiedzialność za przestrzeganie regulaminu przez dzieci.</li>
+                <li>These terms define the rules for using the Juniors Gallery website, which allows children to share their drawings.</li>
+                <li>Using the website implies acceptance of these terms.</li>
+                <li>The website is intended for children; however, parents or legal guardians are responsible for ensuring that children comply with these terms.</li>
             </ol>
 
-            <h3>2. Zasady dodawania rysunków</h3>
+            <h3>2. Rules for Uploading Drawings</h3>
             <ol>
-                <li>Użytkownicy mogą dodawać jedynie własnoręcznie wykonane rysunki.</li>
-                <li>Zabronione jest zamieszczanie treści wulgarnych, obraźliwych, niezgodnych z prawem, naruszających prawa autorskie lub dobre obyczaje.</li>
-                <li>Nie wolno dodawać rysunków przedstawiających przemoc, nagość lub jakiekolwiek nieodpowiednie treści.</li>
-                <li>Administrator ma prawo usunąć każdy rysunek naruszający regulamin oraz zablokować użytkownika w przypadku wielokrotnego naruszania zasad.</li>
+                <li>Users may only upload their own hand-drawn artwork.</li>
+                <li>It is prohibited to post vulgar, offensive, illegal content, content violating copyright, or inappropriate material.</li>
+                <li>Drawings depicting violence, nudity, or any inappropriate content are not allowed.</li>
+                <li>The administrator has the right to remove any drawing that violates these terms and to block users who repeatedly break the rules.</li>
             </ol>
 
-            <h3>3. Ochrona danych osobowych</h3>
+            <h3>3. Personal Data Protection</h3>
             <ol>
-                <li>Strona nie zbiera żadnych danych osobowych od dzieci bez zgody ich rodziców lub opiekunów.</li>
-                <li>Użytkownicy nie mogą zamieszczać swoich danych osobowych, takich jak imiona, nazwiska, adresy, numery telefonów, konta w mediach społecznościowych itp.</li>
-                <li>Administrator nie ponosi odpowiedzialności za przypadkowe ujawnienie danych osobowych przez użytkowników.</li>
-                <li>Wszystkie dane są przetwarzane zgodnie z polityką prywatności dostępną na stronie.</li>
+                <li>The website does not collect any personal data from children without parental or guardian consent.</li>
+                <li>Users must not share personal data such as names, addresses, phone numbers, or social media accounts.</li>
+                <li>The administrator is not responsible for any accidental disclosure of personal data by users.</li>
+                <li>All data is processed in accordance with the privacy policy available on the website.</li>
             </ol>
 
-            <h3>4. Prawa autorskie</h3>
+            <h3>4. Copyright</h3>
             <ol>
-                <li>Użytkownicy pozostają właścicielami praw autorskich do swoich rysunków.</li>
-                <li>Przesyłając rysunek, użytkownik udziela stronie Juniors Gallery niewyłącznej licencji na jego publikację, promowanie i prezentację w ramach działalności strony.</li>
-                <li>Administrator nie ponosi odpowiedzialności za ewentualne naruszenia praw autorskich przez użytkowników.</li>
-                <li>Użytkownicy nie mogą dodawać rysunków, do których nie posiadają praw autorskich.</li>
+                <li>Users retain copyright ownership of their drawings.</li>
+                <li>By submitting a drawing, users grant Juniors Gallery a non-exclusive license to publish, promote, and display it as part of the website's activities.</li>
+                <li>The administrator is not responsible for any copyright infringements committed by users.</li>
+                <li>Users must not upload drawings for which they do not own the copyright.</li>
             </ol>
 
-            <h3>5. Obowiązki administratora</h3>
+            <h3>5. Administrator Responsibilities</h3>
             <ol>
-                <li>Administrator dba o bezpieczeństwo i odpowiednią treść zamieszczanych rysunków.</li>
-                <li>W przypadku naruszenia regulaminu administrator może usunąć treści lub zablokować dostęp do strony.</li>
-                <li>Administrator ma prawo weryfikować treści przed ich publikacją i odrzucać rysunki niespełniające zasad.</li>
-                <li>Wszelkie zgłoszenia naruszeń można przesyłać na adres e-mail administratora podany na stronie.</li>
+                <li>The administrator ensures the safety and appropriateness of uploaded drawings.</li>
+                <li>In case of violations, the administrator may remove content or restrict access to the website.</li>
+                <li>The administrator has the right to review content before publication and reject drawings that do not meet the guidelines.</li>
+                <li>Any reports of violations can be sent to the administrator’s email address provided on the website.</li>
             </ol>
 
-            <h3>6. Zasady bezpieczeństwa dla użytkowników</h3>
+            <h3>6. User Safety Guidelines</h3>
             <ol>
-                <li>Użytkownicy nie powinni udostępniać żadnych swoich danych osobowych w treści rysunków ani w opisach.</li>
-                <li>Rodzice i opiekunowie powinni nadzorować aktywność dzieci na stronie.</li>
-                <li>W przypadku wykrycia nieodpowiednich treści użytkownicy mogą zgłaszać je administratorowi.</li>
+                <li>Users should not include any personal data in their drawings or descriptions.</li>
+                <li>Parents and guardians should supervise children's activities on the website.</li>
+                <li>Inappropriate content can be reported to the administrator.</li>
             </ol>
 
-            <h3>7. Postanowienia końcowe</h3>
+            <h3>7. Final Provisions</h3>
             <ol>
-                <li>Administrator ma prawo do zmiany regulaminu w dowolnym momencie.</li>
-                <li>Korzystanie ze strony po wprowadzeniu zmian oznacza akceptację nowego regulaminu.</li>
-                <li>Wszelkie spory wynikające z korzystania ze strony będą rozwiązywane zgodnie z obowiązującym prawem.</li>
+                <li>The administrator reserves the right to change the terms at any time.</li>
+                <li>Continued use of the website after changes are made implies acceptance of the new terms.</li>
+                <li>Any disputes arising from the use of the website will be resolved in accordance with applicable law.</li>
             </ol>
 
-            <p class="mt-4"><strong>Data ostatniej aktualizacji:</strong> [data]</p>
+            <p class="mt-4"><strong>Last updated:</strong> [date]</p>
         </div>
     </div>
 </div>
