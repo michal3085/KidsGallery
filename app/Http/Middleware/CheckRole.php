@@ -18,8 +18,8 @@ class CheckRole
     {
         if (auth()->check() && auth()->user()->hasRole($role)) {
             return $next($request);
-        } else {
-            return redirect()->route('login');
         }
+
+        return redirect()->route('login');
     }
 }

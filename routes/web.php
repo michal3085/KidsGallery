@@ -40,6 +40,10 @@ Route::put('/pictures/{id}/send/report', [PicturesController::class, 'SendReport
 Route::get('/pictures/search/', [PicturesController::class, 'search'])->name('picture.search');
 Route::resource('pictures', PicturesController::class);
 
+Route::get('/terms', function () {
+    return view('auth.terms');
+});
+
 
 Route::middleware('auth')->group(function () {
     // Routes for comments
