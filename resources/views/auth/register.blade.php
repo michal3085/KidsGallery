@@ -80,7 +80,11 @@
                                                         <input class="form-check-input" type="checkbox" name="terms" id="terms" {{ old('terms') ? 'checked' : '' }} >
                                                         <label class="form-check-label" for="remember">
                                                             <a href="{{ route('terms') }}">
-                                                                {{ __('Terms accept') }}
+                                                                {{ __('Terms accept') }},
+                                                            </a>
+                                                            {{ __('and') }}
+                                                            <a href="{{ route('politics') }}">
+                                                                {{ __('Privacy Policy') }}
                                                             </a>
                                                         </label>
                                                     </div>
