@@ -517,5 +517,26 @@ class ModeratorsController extends Controller
         }
     }
 
+    public function picturesForAccept()
+    {
+        $pictures = Picture::where('accept', 0110)->latest()->paginate(20);
 
+        return view('moderator.picturesForAccept', compact('pictures'));
+    }
+
+    public function accept(Picture $picture)
+    {
+        $picture->accept = 1;
+        $picture->save();
+
+        if ( $picture->save() ) {
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ])->setStatusCode(400);
+        }
+    }
 }

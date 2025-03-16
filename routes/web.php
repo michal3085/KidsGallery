@@ -124,6 +124,8 @@ Route::middleware(['check.role:moderator'])->group(function () {
     Route::get('/moderator/details/show/{id}', [ModeratorsController::class, 'showDetails'])->name('moderator.details');
     Route::post('/moderator/actions/answer/{id}', [ModeratorsController::class, 'moderatorAnswer'])->name('moderator.answer');
     Route::post('/moderator/update/reason/{id}', [ModeratorsController::class, 'updateReason'])->name('update.reason');
+    Route::get('/moderator/pictures', [ModeratorsController::class, 'picturesForAccept'])->name('moderator.picturesForAccept');
+    Route::post('/moderator/accept/{picture}', [ModeratorsController::class, 'accept']);
 
     Route::get('/let/the/adventure/begin', function () {
         Artisan::call('storage:link');
