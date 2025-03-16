@@ -44,6 +44,10 @@ Route::get('/terms', function () {
     return view('auth.terms');
 })->name('terms');
 
+Route::get('/pp', function () {
+    return view('auth.politics');
+})->name('politics');
+
 
 Route::middleware('auth')->group(function () {
     // Routes for comments
