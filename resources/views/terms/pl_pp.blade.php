@@ -59,7 +59,7 @@
                 <strong>2.5.</strong> Kierowanie do Użytkowników komunikacji o charakterze marketingowym, dotyczącym własnych produktów i usług Administratora na podstawie odrębnie wyrażonej zgody.
             </p>
             <p class="card-text">
-                <strong>2.6.</strong> Administrator zapewnia możliwość skontaktowania się z nim przy wykorzystaniu adresu e-mail ………………………... Skorzystanie z kontaktu wymaga podania Danych osobowych niezbędnych do nawiązania kontaktu z Użytkownikiem i udzielenia odpowiedzi na zapytanie. Użytkownik może podać także inne dane w celu ułatwienia kontaktu lub obsługi zapytania.
+                <strong>2.6.</strong> Administrator zapewnia możliwość skontaktowania się z nim przy wykorzystaniu adresu e-mail michal3085@gmail.com Skorzystanie z kontaktu wymaga podania Danych osobowych niezbędnych do nawiązania kontaktu z Użytkownikiem i udzielenia odpowiedzi na zapytanie. Użytkownik może podać także inne dane w celu ułatwienia kontaktu lub obsługi zapytania.
             </p>
             <p class="card-text">
                 <strong>2.7.</strong> Dane osobowe są przetwarzane w celu identyfikacji nadawcy oraz obsługi jego zapytania – podstawą prawną przetwarzania jest niezbędność przetwarzania do wykonania umowy o świadczenie usługi (art. 6 ust. 1 lit. b RODO); w zakresie danych podanych fakultatywnie podstawą prawną przetwarzania jest zgoda (art. 6 ust. 1 lit. a RODO).

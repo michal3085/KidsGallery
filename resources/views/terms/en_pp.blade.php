@@ -59,7 +59,7 @@
                 <strong>2.5.</strong> Sending marketing communications to Users regarding the Administrator's own products and services, based on separately expressed consent.
             </p>
             <p class="card-text">
-                <strong>2.6.</strong> The Administrator provides the possibility to contact them via email ………………………... Contact requires providing Personal Data necessary to establish contact with the User and respond to the inquiry. The User may also provide additional data to facilitate contact or handle the inquiry.
+                <strong>2.6.</strong> The Administrator provides the possibility to contact them via email michal3085@gmail.com Contact requires providing Personal Data necessary to establish contact with the User and respond to the inquiry. The User may also provide additional data to facilitate contact or handle the inquiry.
             </p>
             <p class="card-text">
                 <strong>2.7.</strong> Personal Data are processed to identify the sender and handle their inquiry – the legal basis for processing is the necessity of processing to perform the service contract (Article 6(1)(b) GDPR); for data provided voluntarily, the legal basis for processing is consent (Article 6(1)(a) GDPR).
