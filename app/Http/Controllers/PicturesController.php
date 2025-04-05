@@ -31,7 +31,7 @@ class PicturesController extends Controller
          */
 
         if (!Auth::check()) {
-            $pictures = Picture::where('accept', 1)->latest()->paginate(8);
+            $pictures = Picture::where('accept', 'accept')->latest()->paginate(8);
             return view('unloged.gallery', compact('pictures'));
         } else {
             // collecting id's of users that are blocked.
@@ -61,7 +61,7 @@ class PicturesController extends Controller
                 $x++;
             }
 
-            $pictures = Picture::where('accept', 1)->whereIn('id', $pass_ids)
+            $pictures = Picture::where('accept', 'accept')->whereIn('id', $pass_ids)
                 ->whereNotIn('user_id', $blocks_ids)
                 ->latest()
                 ->paginate(8);
@@ -107,7 +107,7 @@ class PicturesController extends Controller
             $set1_count++;
         }
         // Getting images from id's acquired earlier
-        $pictures = Picture::whereIn('id', $pics_set1)->where('accept', 1)->latest()->paginate(8);
+        $pictures = Picture::whereIn('id', $pics_set1)->where('accept', 'accept')->latest()->paginate(8);
 
         return view('pictures.yoursgallery', compact('pictures'));
     }
@@ -129,7 +129,7 @@ class PicturesController extends Controller
             ->where('rights', 1)
             ->pluck('user_id')->toArray();
 
-        $pre_pics = Picture::whereIn('id', $my_favorites)->where('accept', 1)->get();
+        $pre_pics = Picture::whereIn('id', $my_favorites)->where('accept', 'accept')->get();
 
         // I check which of my favorite pictures are public,
         // those that are not I check if I have permissions - if yes I add them to the collection
@@ -270,7 +270,7 @@ class PicturesController extends Controller
         }
 
         if (Auth::check()){
-            if ($pictures->visible == 1 && $pictures->accept == 1){
+            if ($pictures->visible == 1 && $pictures->accept == 'accept'){
                 return view('pictures.show')
                     ->with(['pictures' => $pictures,
                         'comments' => $comments,
@@ -288,7 +288,7 @@ class PicturesController extends Controller
                         'place_views' => $place_view,
                         'place_likes' => $place_likes
                     ]);
-            } elseif ($pictures->visible == 0 && $follow->rights == 1 && $pictures->accept == 1) {
+            } elseif ($pictures->visible == 0 && $follow->rights == 1 && $pictures->accept == 'accept') {
                 return view('pictures.show')
                     ->with(['pictures' => $pictures,
                         'comments' => $comments,
@@ -301,7 +301,7 @@ class PicturesController extends Controller
                 return redirect()->back();
             }
         } else {
-            if ($pictures->visible == 1 && $pictures->accept == 1){
+            if ($pictures->visible == 1 && $pictures->accept == 'accept'){
                 return view('unloged.show')
                     ->with(['pictures' => $pictures,
                         'comments' => $comments,
@@ -326,7 +326,7 @@ class PicturesController extends Controller
     {
         $pictures = Picture::find($id);
 
-        if (Auth::user()->name == $pictures->user && $pictures->accept == 1){
+        if (Auth::user()->name == $pictures->user && $pictures->accept == 'accept'){
             if (Auth::check()){
                 return view('pictures.edit', compact('pictures'));
             } else {
@@ -370,7 +370,7 @@ class PicturesController extends Controller
 
     public function top()
     {
-        $pictures = Picture::where('accept', 1)->where('visible', 1)->orderByDesc('likes')->take(10)->get();
+        $pictures = Picture::where('accept', 'accept')->where('visible', 1)->orderByDesc('likes')->take(10)->get();
 
         if (Auth::check()) {
             return view('pictures.top10', compact('pictures'));
@@ -381,7 +381,7 @@ class PicturesController extends Controller
 
     public function topviews()
     {
-        $pictures = Picture::where('accept', 1)->where('visible', 1)->orderByDesc('views')->take(10)->get();
+        $pictures = Picture::where('accept', 'accept')->where('visible', 1)->orderByDesc('views')->take(10)->get();
 
         if (Auth::check()) {
             return view('pictures.topviews', compact('pictures'));
@@ -397,7 +397,7 @@ class PicturesController extends Controller
         if (!Auth::check()) {
             $pictures = Picture::where('name', 'LIKE', "%$request->search%")
                 ->where('visible', 1)
-                ->where('accept', 1)->latest()->paginate(8);
+                ->where('accept', 'accept')->latest()->paginate(8);
 
             return view('unloged.gallery')->with(['pictures' => $pictures, 'search' => $request->search]);
         } else {
@@ -407,7 +407,7 @@ class PicturesController extends Controller
             $user_pics = Picture::where('user_id', Auth::id())->where('visible', 0)->pluck('id');
             $allow = Auth::user()->followers()->where('rights', 1)->pluck('user_id');
             $allow_hidden = Picture::where('visible', 0)->whereIn('user_id', $allow)->pluck('id');
-            $stack = Picture::where('visible', 1)->where('accept', 1)->pluck('id');
+            $stack = Picture::where('visible', 1)->where('accept', 'accept')->pluck('id');
             $merge1 = $stack->merge($allow_hidden);
             $result = $merge1->merge($user_pics);
 
