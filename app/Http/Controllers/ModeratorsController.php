@@ -519,14 +519,14 @@ class ModeratorsController extends Controller
 
     public function picturesForAccept()
     {
-        $pictures = Picture::where('accept', 0110)->latest()->paginate(20);
+        $pictures = Picture::where('accept', 'waiting')->latest()->paginate(20);
 
         return view('moderator.picturesForAccept', compact('pictures'));
     }
 
     public function accept(Picture $picture)
     {
-        $picture->accept = 1;
+        $picture->accept = 'accept';
         $picture->save();
 
         if ( $picture->save() ) {

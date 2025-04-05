@@ -47,7 +47,7 @@
                                     @else
                                         <button type="submit" class="btn btn-success px-3 unlike" style="float: left" data-id="{{ $picture->id }}"><i class="far fa-thumbs-up" aria-hidden="true"></i>  {{ $picture->likes()->where('picture_id', $picture->id)->count() }}</button>
                                     @endif
-                                    <button type="submit" class="btn btn-outline-warning px-3 accept" style="float: right" data-id="{{ $picture->id }}"><i class="far fa-star" aria-hidden="true"></i> AA</button>
+                                    <button type="submit" class="btn btn-outline-success px-3 accept" style="float: right" data-id="{{ $picture->id }}"><i class="fas fa-check" aria-hidden="true"></i> {{ __('accept') }} </button>
                                 </div>
                         </div>
                         @endforeach

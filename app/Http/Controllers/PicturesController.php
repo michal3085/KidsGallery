@@ -217,7 +217,7 @@ class PicturesController extends Controller
             $picture->user = Auth::user()->name;
             $picture->name = $request->name;
             $picture->file_path = $path;
-            $picture->accept = 0110;
+            $picture->accept = 'waiting';
             $picture->visible = $request->visible;
             $picture->comment = $request->comment;
             $picture->likes = 0;
