@@ -65,7 +65,7 @@
 
                                     <div class="form-group row">
                                         <div class="col-md-6 offset-md-4">
-                                            <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITEKEY') }}"></div>
+                                            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
                                             @if(\Illuminate\Support\Facades\Session::has('g-recaptcha-response'))
                                                 <p class="text-danger">
                                                     {{Session::get('g-recaptcha-response')}}
@@ -107,4 +107,13 @@
             </div>
         </section>
     </div>
+
+    <script src="https://www.google.com/recaptcha/api.js?render={{ env('RECAPTCHA_SITEKEY') }}"></script>
+    <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ env('RECAPTCHA_SITEKEY') }}', {action: 'kontakt'}).then(function(token) {
+                document.getElementById('g-recaptcha-response').value = token;
+            });
+        });
+    </script>
 @endsection

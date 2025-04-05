@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mysql://localhost:3306/juniors_gallery</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="Production" uuid="1700341d-9580-4b88-b84b-1159cec6ab26">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://michal3085.mysql.dhosting.pl:3306/aim7fo_juniorsgallery</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
