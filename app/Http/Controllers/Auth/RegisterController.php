@@ -58,18 +58,23 @@ class RegisterController extends Controller
             'terms' => 'required',
             'g-recaptcha-response' => function ($attribute, $value, $fail) {
                 $secret = env('RECAPTCHA_SECRET');
-                $response = $value;
                 $userIP = $_SERVER['REMOTE_ADDR'];
-                $url = "https://www.google.com/recaptcha/api/siteverify?secret=" . $secret . "&response=" . $response . "&remoteip=" . $userIP ;
-                $response = \file_get_contents($url);
-                $response = json_decode($response);
+                $url = "https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$value}&remoteip={$userIP}";
 
-                if (! $response->success) {
-                    Session::flash('g-recaptcha-response', 'Please resolve reCaptcha');
-                    Session::flash('alert-class', 'alert-danger');
-                    $fail($attribute.'Google ReCaptcha Error');
+                $verify = file_get_contents($url);
+                $response = json_decode($verify);
+
+                if (!$response || !isset($response->success) || !$response->success) {
+                    Session::flash('g-recaptcha-response', '🛑 Proszę rozwiązać reCaptcha!');
+                    $fail($attribute . ' → Błąd weryfikacji Google reCaptcha');
                 }
-            }
+
+                // reCaptcha v3 – sprawdź "score"
+                if (isset($response->score) && $response->score < 0.5) {
+                    Session::flash('g-recaptcha-response', '⚠️ Wykryto podejrzaną aktywność. Spróbuj ponownie.');
+                    $fail($attribute . ' → reCaptcha score zbyt niski');
+                }
+            },
         ]);
     }
 

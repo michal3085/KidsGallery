@@ -40,6 +40,14 @@ Route::put('/pictures/{id}/send/report', [PicturesController::class, 'SendReport
 Route::get('/pictures/search/', [PicturesController::class, 'search'])->name('picture.search');
 Route::resource('pictures', PicturesController::class);
 
+Route::get('/terms', function () {
+    return view('auth.terms');
+})->name('terms');
+
+Route::get('/pp', function () {
+    return view('auth.politics');
+})->name('politics');
+
 
 Route::middleware('auth')->group(function () {
     // Routes for comments
@@ -116,6 +124,8 @@ Route::middleware(['check.role:moderator'])->group(function () {
     Route::get('/moderator/details/show/{id}', [ModeratorsController::class, 'showDetails'])->name('moderator.details');
     Route::post('/moderator/actions/answer/{id}', [ModeratorsController::class, 'moderatorAnswer'])->name('moderator.answer');
     Route::post('/moderator/update/reason/{id}', [ModeratorsController::class, 'updateReason'])->name('update.reason');
+    Route::get('/moderator/pictures', [ModeratorsController::class, 'picturesForAccept'])->name('moderator.picturesForAccept');
+    Route::post('/moderator/accept/{picture}', [ModeratorsController::class, 'accept']);
 
     Route::get('/let/the/adventure/begin', function () {
         Artisan::call('storage:link');
