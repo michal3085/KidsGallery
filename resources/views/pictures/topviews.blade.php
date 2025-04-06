@@ -29,7 +29,6 @@
                 TOP 10
             </h1>
             @foreach($pictures as $picture)
-                @if (  $picture->visible == 1 && $picture->accept == 1 )
                     @if (\App\Models\BlockedUser::where('user_id', $user->id)->where('blocks_user', $picture->user_id)->count() != 0)
                         <p class="lead mb-5">
                         <div class="row section-box">
@@ -71,7 +70,6 @@
                             </div>
                         </div>
                     @endif
-                @endif
             @endforeach
         </div>
     </section>

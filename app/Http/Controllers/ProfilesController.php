@@ -35,7 +35,7 @@ class ProfilesController extends Controller
 
             $ids = $pictures->merge($hidden_pictures);
         }
-        $pictures = Picture::where('accept', 1)->whereIn('id', $ids)->latest()->paginate(8);
+        $pictures = Picture::accepted()->whereIn('id', $ids)->latest()->paginate(8);
 
         return view('profiles.index')->with(['pictures' => $pictures, 'other_user' => $user]);
     }
@@ -55,6 +55,10 @@ class ProfilesController extends Controller
         if ( UsersData::where('user_id', $user->id)->count() == 0 ) {
             $userdata_create = new UsersData();
             $userdata_create->user_id = $user->id;
+            $userdata_create->about = NULL;
+            $userdata_create->city = NULL;
+            $userdata_create->birthdate = NULL;
+            $userdata_create->unfollowing_msg = 1;
             $userdata_create->save();
         }
         $user_data = UsersData::where('user_id', $user->id)->first();

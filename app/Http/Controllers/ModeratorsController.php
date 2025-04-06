@@ -22,16 +22,17 @@ class ModeratorsController extends Controller
     public function index()
     {
         if ( auth()->user()->hasRole('admin') ) {
-            $pictures = Picture::where('accept', 1)->latest()->paginate(10);
+            $pictures = Picture::where('accept', 'accept')->latest()->paginate(10);
         } else {
             $allow = Auth::user()->followers()->where('rights', 1)->pluck('user_id');
 
-            $all_pics = Picture::where('accept', 1)->where('visible', 1)->pluck('id');
-            $allowed_pics = Picture::where('accept', 1)->where('visible', 0)->whereIn('user_id', $allow)->pluck('id');
+            $all_pics = Picture::where('accept', 'accept')->where('visible', 1)->pluck('id');
+            $allowed_pics = Picture::where('accept', 'accept')->where('visible', 0)->whereIn('user_id', $allow)->pluck('id');
 
             $ids = $all_pics->merge($allowed_pics);
             $pictures = Picture::whereIn('id', $ids)->latest()->paginate(20);
         }
+
         return view('moderator.index', compact('pictures'));
     }
 
@@ -212,7 +213,7 @@ class ModeratorsController extends Controller
     public function unblockPicture($id)
     {
         $picture = Picture::where('id', $id)->first();
-        $picture->accept = 1;
+        $picture->accept = 'accept';
 
             if ($picture->save()) {
                 ModeratorAction::where('moderator_id', Auth::id())
@@ -238,9 +239,9 @@ class ModeratorsController extends Controller
     public function showBlocked()
     {
         if (auth()->user()->hasRole('admin')) {
-            $pictures = Picture::where('accept', 0)->latest()->paginate(10);
+            $pictures = Picture::where('accept', 'blocked')->latest()->paginate(10);
         } else {
-            $pictures = Picture::where('accept', 0)->where('visible', 1)->latest()->paginate(10);
+            $pictures = Picture::where('accept', 'blocked')->where('visible', 1)->latest()->paginate(10);
         }
         return view('moderator.blockedpics', compact('pictures'));
     }

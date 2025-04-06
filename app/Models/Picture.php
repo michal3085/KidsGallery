@@ -90,4 +90,9 @@ class Picture extends Model
     {
         return like::where('picture_id', $id)->count();
     }
+
+    public function scopeAccepted($query)
+    {
+        return $query->where('accept', 'accept');
+    }
 }
