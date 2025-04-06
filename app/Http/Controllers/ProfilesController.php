@@ -115,7 +115,7 @@ class ProfilesController extends Controller
     public function comments($name)
     {
         $user = User::where('name', $name)->first();
-        $unwanted_pics = Picture::where('accept', 0)->pluck('id');
+        $unwanted_pics = Picture::where('accept', 'blocked')->pluck('id');
         $comments = Comment::where('user_name', $name)->whereNotIn('picture_id', $unwanted_pics)->latest()->paginate(20);
 
         return view('profiles.comments')->with(['comments' => $comments, 'other_user' => $user]);
@@ -124,7 +124,7 @@ class ProfilesController extends Controller
     public function favorites($name)
     {
         $user = User::where('name', $name)->first();
-        $pictures = Picture::where('accept', 1)->whereHas('likes', function ($liked) use ($user) {
+        $pictures = Picture::where('accept', 'accept')->whereHas('likes', function ($liked) use ($user) {
             $liked->where('user_id', $user->id);
         })->latest()->paginate(20);
 

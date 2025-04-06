@@ -44,7 +44,7 @@ class Picture extends Model
 
     public function isTopLikes($id)
     {
-        $check = Picture::where('accept', 1)->where('visible', 1)->orderByDesc('likes')->take(10)->pluck('id')->toArray();
+        $check = Picture::where('accept', 'accept')->where('visible', 1)->orderByDesc('likes')->take(10)->pluck('id')->toArray();
         if ( in_array($id, $check)) {
             return 1;
         } else {
@@ -54,7 +54,7 @@ class Picture extends Model
 
     public function isTopViews($id)
     {
-        $check = Picture::where('accept', 1)->where('visible', 1)->orderByDesc('views')->take(10)->pluck('id')->toArray();
+        $check = Picture::where('accept', 'accept')->where('visible', 1)->orderByDesc('views')->take(10)->pluck('id')->toArray();
         if ( in_array($id, $check)) {
             return 1;
         } else {
@@ -65,7 +65,7 @@ class Picture extends Model
     public function witchPlaceInViews($id)
     {
         $result = 0;
-        $check = Picture::where('accept', 1)->where('visible', 1)->orderByDesc('views')->take(10)->pluck('id')->toArray();
+        $check = Picture::where('accept', 'accept')->where('visible', 1)->orderByDesc('views')->take(10)->pluck('id')->toArray();
         foreach ($check as $key => $value) {
             if ($value == $id){
                 $result = $key + 1;
@@ -77,7 +77,7 @@ class Picture extends Model
     public function witchPlaceInLikess($id)
     {
         $result = 0;
-        $check = Picture::where('accept', 1)->where('visible', 1)->orderByDesc('likes')->take(10)->pluck('id')->toArray();
+        $check = Picture::where('accept', 'accept')->where('visible', 1)->orderByDesc('likes')->take(10)->pluck('id')->toArray();
         foreach ($check as $key => $value) {
             if ($value == $id){
                 $result = $key + 1;
